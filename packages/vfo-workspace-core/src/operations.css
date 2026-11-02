@@ -247,11 +247,11 @@
 .ops-payload-view .ops-pagination{padding:10px 0 0}
 .ops-workspace{height:100%;min-height:600px;display:flex;flex-direction:column;overflow:hidden}
 .ops-workspace *{box-sizing:border-box}
-.ops-surface-panel .vol-lab{height:740px;min-height:640px;max-height:none}
+.ops-surface-panel .vol-lab{height:100%;min-height:460px;max-height:none;border:0;border-radius:0;background:transparent}
 .ops-workspace .ops-segments button[aria-pressed=true]{background:var(--sampo-accent,#244f66)!important;color:var(--sampo-panel,#fff)!important;border-color:var(--sampo-accent,#244f66)!important}
 .ops-workspace .ops-segments button:not([aria-pressed=true]){background:transparent!important;color:#78909f!important;border-color:transparent!important}
-@media(max-width:1000px){.ops-surface-panel .vol-lab{height:900px;min-height:870px}}
-@media(max-width:560px){.ops-surface-panel .vol-lab{height:1020px;min-height:970px}}
+@media(max-width:1000px){.ops-surface-panel .vol-lab{min-height:500px}}
+@media(max-width:560px){.ops-surface-panel .vol-lab{min-height:540px}}
 
 .ops-filters{grid-template-columns:repeat(auto-fit,minmax(125px,1fr));align-items:start}
 .ops-filters label{min-width:0}
@@ -280,3 +280,23 @@
 [data-reduced-motion=true] .ops-ticker,[data-reduced-motion=true] .ops-ticker-view{animation:none}
 @media(prefers-reduced-motion:reduce){.ops-ticker,.ops-ticker-view{animation:none}.ops-ticker-scroll{scroll-behavior:auto}}
 @media(max-width:700px){.ops-ticker{border-radius:20px 0 0 20px}.ops-ticker-anchors [role=tab]{padding:8px;font-size:10px}.ops-ticker .ops-ticker-anchors{padding-inline:10px}}
+
+/* The chart is the sheet surface, with its controls placed over the scene. */
+.ops-ticker .ops-ticker-scroll[data-view=surface]{padding:0;background:transparent}
+.ops-ticker-scroll[data-view=surface][data-snapshot=live]{display:flex;flex-direction:column}
+.ops-ticker-scroll[data-view=surface][data-snapshot=live] #ticker-surface{flex:1;min-height:460px}
+.ops-ticker-scroll[data-snapshot=live] .ops-surface-panel{height:100%}
+.ops-ticker .ops-surface-panel .vol-lab{background:transparent;border:0;border-radius:0}
+.ops-ticker .ops-surface-panel .vol-lab-scene{inset:0}
+.ops-ticker .ops-surface-panel .vol-lab-header{top:14px;left:18px;right:18px;flex-direction:row;justify-content:flex-end}
+.ops-ticker .ops-surface-panel .vol-lab-identity{display:none}
+.ops-ticker .ops-surface-panel .vol-lab-tools{max-width:100%;gap:5px}
+.ops-ticker .ops-surface-panel .vol-lab-switch{border:0;box-shadow:none;background:color-mix(in srgb,var(--sampo-panel) 50%,transparent)}
+.ops-ticker .ops-surface-panel .vol-lab-icon{border:0;background:color-mix(in srgb,var(--sampo-panel) 50%,transparent)}
+.ops-ticker .ops-ticker-anchors,.ops-ticker .ops-snapshot-bar{border-bottom:0}
+.ops-ticker .ops-ticker-anchors [role=tab][aria-selected=true]{box-shadow:none;background:color-mix(in srgb,var(--sampo-accent-soft) 65%,transparent)}
+.ops-ticker .ops-surface-panel .vol-lab-scene-note{bottom:15px}
+.ops-ticker .ops-history-picker{margin:12px 16px}
+[data-material=glass]:not([data-effects=efficient]):not([data-reduced-transparency=true]) .ops-ticker .vol-lab-switch,
+[data-material=glass]:not([data-effects=efficient]):not([data-reduced-transparency=true]) .ops-ticker .vol-lab-icon{backdrop-filter:blur(12px) saturate(1.2);-webkit-backdrop-filter:blur(12px) saturate(1.2)}
+@media(prefers-reduced-transparency:reduce){.ops-ticker .vol-lab-switch,.ops-ticker .vol-lab-icon{background:var(--sampo-panel)!important;backdrop-filter:none!important}}

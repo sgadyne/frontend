@@ -37,3 +37,21 @@
 @media(prefers-reduced-motion:reduce){.demo-search-bubble[open]{animation:none}}
 @media(prefers-reduced-transparency:reduce),(forced-colors:active){.demo-environment .demo-search-bubble{backdrop-filter:none!important;background:var(--sampo-panel)!important}}
 @media(max-width:700px){.demo-recents{display:none}.demo-search-trigger kbd{display:none}.demo-search-bubble{inset:20px 0 auto}.demo-search-input{padding:17px}.demo-search-input input{font-size:15px}}
+
+.demo-optical-root{min-height:100vh}
+.demo-settings,.demo-search-bubble{isolation:isolate}
+.demo-optical-plate{z-index:-1;overflow:hidden;background:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.demo-optics-status{display:block;margin-bottom:8px}
+.demo-environment[data-material=glass]:not([data-effects=efficient]):not([data-reduced-transparency=true]) .demo-settings{background:linear-gradient(135deg,#ffffff24,transparent 45%,#b1d3ff18),color-mix(in srgb,var(--sampo-panel) 65%,transparent);backdrop-filter:blur(18px) saturate(1.5);-webkit-backdrop-filter:blur(18px) saturate(1.5);border-radius:22px;box-shadow:inset 0 1px #ffffff80,inset 1px 0 #ffffff35,0 28px 90px #08152c40}
+.demo-environment[data-material=glass]:not([data-reduced-transparency=true]) :is(.demo-settings,.demo-search-bubble):has([data-optical-ready=true]){background:linear-gradient(125deg,#ffffff1f,transparent 45%,#9bc7ff12),color-mix(in srgb,var(--sampo-panel) 40%,transparent);backdrop-filter:none;-webkit-backdrop-filter:none}
+.demo-environment[data-material=glass] .demo-settings select{background:color-mix(in srgb,var(--sampo-panel) 62%,transparent)}
+.demo-environment[data-effects=efficient] .demo-optical-plate,.demo-environment[data-reduced-transparency=true] .demo-optical-plate{display:none}
+.demo-settings::backdrop{background:#07132220}
+@media(prefers-reduced-transparency:reduce),(forced-colors:active){.demo-environment .demo-optical-plate{display:none!important}.demo-environment .demo-settings{background:var(--sampo-panel)!important;backdrop-filter:none!important}}
+
+.demo-environment[data-material=glass]:not([data-reduced-transparency=true]) :is(.demo-settings,.demo-search-bubble):has([data-optical-ready=true]){border-color:color-mix(in srgb,var(--sampo-ink) 12%,transparent);box-shadow:0 28px 90px #08152c35}
+.demo-optical-plate[data-optical-ready=true]{background:linear-gradient(125deg,#ffffff14,transparent 50%,#adcbf00a)}
+
+/* Fade the comparison renderer's dark boundary pixels; keep one crisp host rim. */
+.demo-optical-plate .glass__warp{mask-image:linear-gradient(to right,transparent 3px,#000 15px,#000 calc(100% - 15px),transparent calc(100% - 3px)),linear-gradient(to bottom,transparent 3px,#000 15px,#000 calc(100% - 15px),transparent calc(100% - 3px));mask-composite:intersect}
+.demo-environment[data-material=glass]:not([data-reduced-transparency=true]) :is(.demo-settings,.demo-search-bubble):has([data-optical-ready=true]){box-shadow:inset 0 1px 0 #ffffff80,inset 1px 0 #ffffff30,0 28px 80px #08152c30}

@@ -16,7 +16,7 @@ The root frontend package ships all sibling source directories used by its expor
 ## Rendering and navigation
 
 - Six optional host presets compose the existing matte, satin and glass materials: Industrial Slate/Graphite, Studio Porcelain/Dusk, Glass Mist/Aurora. They do not change deployment or widget contracts.
-- Numerical content stays on stable reading surfaces. Glass decorates floating chrome with tint, blur, highlights and shadow. This is a CSS glass treatment, not a physical optical simulator.
+- Numerical content stays on stable reading surfaces. Glass decorates floating chrome with tint, blur, highlights and shadow. Full detail reconnects Sampo’s existing liquid-glass-react backdrop lens in Chromium; other browsers and reduced-detail/transparency modes retain the CSS fallback. Text and controls stay outside the decorative refraction layer.
 - The synthetic shell restores Library (with collapsed Recents), Workspaces, Activity and Settings. Ctrl/Command K opens a floating search bubble. The search has opaque matte/satin surfaces and glass surfaces only in glass mode.
 - Search and app links resolve declared, exact Sampo addresses. Demo activity is session navigation history, not an audit log or authorization mechanism.
 - VFO selection opens a right-side rounded sheet, approximately half the desktop viewport. Surface, Analytics and Custom VFO are full tab views, with arrow/Home/End keyboard navigation. Surface is default; Live/Historical and Prepare backfill retain their existing meaning.
@@ -39,7 +39,7 @@ The authenticated GitHub cache step is necessary for the private Sampo release U
 
 The preview uses actual components with synthetic providers and an SDK host. It is separate from the production Sampo deployment. All four apps remain disconnected from live data.
 
-For the optional six-preset preview, use a Sampo source checkout containing feature/analytical-theme-presets-public, then in PowerShell:
+For the optional six-preset preview, use a Sampo source checkout containing feature/analytical-theme-presets-public with its locked npm dependencies installed (including the existing optical renderer packages), then in PowerShell:
 
     $env:SAMPO_SOURCE_ROOT = 'C:/src/sampo'
     npm run demo:analysis
@@ -53,3 +53,5 @@ npm run check runs boundary audit, types and 62 component/domain tests. npm run 
 This checkpoint was exercised in Chromium on Linux with synthetic data. Real corporate provider wiring, Windows execution and browser-specific glass fidelity still need checking in the consuming environment. Plotly remains a large lazy-loaded chunk. Risk Lens's existing module-level presentation configuration remains a follow-up for independent concurrent consumer compositions. Preset adoption and the search shell in the production Sampo hub remain a separate integration step.
 
 AG Grid Enterprise is not required by these screens; current table components use their existing renderers.
+
+VFO surface view is edge-to-edge inside the ticker sheet; scene controls float above the chart instead of a bordered chart card. Re-select a Glass preset to enable Full detail, or set Settings → Effects & accessibility → Detail to Full. Efficient/reduced-transparency preferences retain an opaque fallback. npm run test:optics checks actual lens attachment/cleanup and the edge-to-edge scene.

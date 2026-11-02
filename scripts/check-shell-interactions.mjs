@@ -14,7 +14,8 @@ for(const [preset,glass] of [['studio-porcelain',false],['industrial-slate',fals
  await page.getByLabel('Theme preset',{exact:true}).selectOption(preset);
  await page.getByRole('button',{name:'Search environment',exact:true}).focus();
  await page.keyboard.press('Control+k');const dialog=page.getByRole('dialog',{name:'Search your environment'});await dialog.waitFor();
- const filter=await dialog.evaluate(el=>getComputedStyle(el).backdropFilter);assert.equal(filter!=='none',glass);
+ if(glass)await dialog.locator('[data-optical-ready=true]').waitFor();
+ const decorated=await dialog.evaluate(el=>getComputedStyle(el).backdropFilter!=='none'||!!el.querySelector('[data-optical-ready=true]'));assert.equal(decorated,glass);
  assert.equal(await page.getByRole('combobox',{name:'Search apps and workspace'}).evaluate(el=>document.activeElement===el),true);
  await dialog.evaluate(el=>Promise.all(el.getAnimations().map(animation=>animation.finished)));
  await page.screenshot({path:out+'/'+preset+'-search.png'});

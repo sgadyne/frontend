@@ -24,7 +24,8 @@
     "build:analysis-demo": "node node_modules/vite/bin/vite.js build --config apps/analysis-demo/vite.config.mjs",
     "typecheck:analysis-demo": "node node_modules/typescript/bin/tsc -p apps/analysis-demo/tsconfig.json",
     "test:appearance": "node scripts/check-appearance-demo.mjs",
-    "test:shell-browser": "node scripts/check-shell-interactions.mjs"
+    "test:shell-browser": "node scripts/check-shell-interactions.mjs",
+    "test:optics": "node scripts/check-optical-preview.mjs"
   },
   "dependencies": {
     "@sampo/contracts": "https://github.com/sgadyne/sampo/releases/download/v1.0.0-beta.2/sampo-contracts-0.2.0-alpha.20261102.1.tgz",
