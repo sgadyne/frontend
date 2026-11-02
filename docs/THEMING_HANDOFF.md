@@ -7,9 +7,9 @@ service, private data catalogue, credentials or production deployment is require
 
 | Location | Responsibility |
 | --- | --- |
-| This repository, frontend | Reusable market-universe, coverage, surface, risk and report components; interaction state; normalized provider contracts; synthetic demos. |
+| This repository, frontend | Reusable market-universe, coverage, surface, risk and report components; interaction state; normalized provider contracts; static public/default market metadata, sourced holdings/classifications, materialized groups and issuer artwork; synthetic demos. |
 | Sampo | Host theme selection, appearance service, material resolver and shared surface/SDK contracts. |
-| Consuming application/deployment | Actual asset catalogue, data readers, endpoint bindings, branding palette and source credentials. |
+| Consuming application/deployment | Environment-selected universe membership, data readers, endpoint bindings, branding palette and source credentials. |
 
 The Market Universe page **is in this repository**, principally
 [MarketHome.tsx](../packages/vfo-workspace-core/src/market/MarketHome.tsx) and
@@ -21,14 +21,13 @@ The asset UI is here too:
 [UniverseFilterBar.tsx](../packages/vfo-workspace-core/src/market/UniverseFilterBar.tsx),
 [group presentation](../packages/vfo-workspace-core/src/market/group-presentation.ts)
 and [filtering](../packages/vfo-workspace-core/src/market/filters.ts).
-[assets/](../assets/README.md) contains the contract notes and a fictitious catalogue
-example, not a complete downloadable asset collection.
-
-Downloaded logos, actual fund-holdings snapshots and deployment-specific merged
-universes are **not included**. Monograms and synthetic fixtures work without them.
-Keep provenance with supplied asset data; do not copy a private site's directory
-or company theme into this repository. Future redistributable asset collections
-can use the existing directory contract without changing these components.
+[assets/](../assets/README.md) documents the static public/default market-universe
+bundle and the synthetic catalogue example. The bundle keeps its source and as-of
+provenance; it does not select a deployment universe or contain live observations.
+The issuer SVG source URLs are provenance only. The source bundle supplied no
+licence or redistribution notice, so applicable terms must be checked before
+redistributing artwork. Environment-selected membership, private site directories
+and company themes remain in consumer deployment configuration.
 
 ## Current state
 

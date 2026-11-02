@@ -62,9 +62,13 @@
     "./vfo/http-provider": "./packages/vfo-workspace-core/src/data/http-provider.mjs",
     "./analysis": "./packages/analysis-workspaces/src/index.tsx",
     "./analysis/reports": "./packages/analysis-workspaces/src/replication/reports.ts",
-    "./build/scope-widget-css": "./scripts/scope-widget-css.mjs"
+    "./build/scope-widget-css": "./scripts/scope-widget-css.mjs",
+    "./market-universe/catalog.json": "./assets/market-universe/catalog.json",
+    "./market-universe/groups.json": "./assets/market-universe/groups.json",
+    "./market-universe/logos/*": "./assets/market-universe/logos/*"
   },
   "files": [
+    "assets/market-universe",
     "apps/pod-risk-lens/src",
     "packages/risk-lens-data",
     "packages/vfo-workspace-core/src",

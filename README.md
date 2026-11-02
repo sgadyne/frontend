@@ -2,7 +2,7 @@
 
 Reusable React components and workspaces for risk, portfolio analysis and volatility investigation. This repository contains rendering, interaction state, normalized data shapes, caller-supplied provider interfaces, optional Sampo widget/session factories and explicitly synthetic demonstrations.
 
-Application namespaces, installed contribution IDs, source bindings, environment selection, actual data locations, credentials, private catalogues, company presentation settings and release/deployment composition are supplied by the consumer outside this repository.
+Application namespaces, installed contribution IDs, source bindings, environment selection, actual data locations, credentials, environment-selected market-universe membership, company presentation settings and release/deployment composition are supplied by the consumer outside this repository.
 
 ## Source layout
 
@@ -11,6 +11,7 @@ Application namespaces, installed contribution IDs, source bindings, environment
 | `apps/pod-risk-lens/src` | Risk Lens app view, reusable panels, UI controls and generic session factory. |
 | `packages/risk-lens-data` | Provider interface and clearly labelled synthetic demo fixtures. |
 | `packages/vfo-workspace-core` | Volatility explorer, universe/coverage views and an injected-provider session. |
+| `assets/market-universe` | Static public/default market metadata, sourced holdings/classifications, materialized groups and issuer SVGs. |
 | `apps/vfo-operations/src` | Parameterized exports for a consumer-owned Sampo composition. |
 | `packages/analysis-workspaces` | Cluster and report-workbench components with supplied bindings/report definitions. |
 | `apps/workspace-demo`, `apps/risk-lens-demo` | Standalone synthetic demos. |
