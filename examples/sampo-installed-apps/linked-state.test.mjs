@@ -19,6 +19,12 @@ test('each independent descriptor validates, VFO routes share one app and entry;
  assert.deepEqual(createAppDescriptor('cluster').references,[]);
  assert.equal(createAppDescriptor('vfo').routes.length,5);
  assert.equal(createAppDescriptor('vfo').routes[0].portableState.version,2);
+ for(const view of ['universe','live','history']){
+  const route=createAppDescriptor('vfo').routes.find(r=>r.id==='vfo.'+view);
+  validatePortableSelection({view},route.selectionSchema);
+  assert.throws(()=>validatePortableSelection({},route.selectionSchema));
+  assert.throws(()=>validatePortableSelection({view:'unsupported'},route.selectionSchema));
+ }
  assert.deepEqual(JSON.parse(await readFile(new URL('./linked.json',import.meta.url),'utf8')),createAppDescriptor('vfo'));
 });
 
@@ -28,6 +34,8 @@ test('legacy empty and v1 VFO state restore without jobs or data; canonical sele
  assert.equal(restored.view,'history');assert.deepEqual(restored.watchlist,['catalogue.A']);assert.equal(restored.focused,'catalogue.A');
  validatePortableSelection(portableVfoState(restored),createAppDescriptor('vfo').routes[0].portableState.schema);
  assert.throws(()=>restoreVfoState({}, {instrumentId:'AAPL'},ids),/unavailable/);
+ assert.throws(()=>restoreVfoState({}, {instrumentId:''},ids),/unavailable/);
+ assert.equal(restoreVfoState({version:1,focused:''},{instrumentId:'catalogue.A'},ids).focused,'','an explicitly closed inspector stays closed');
  const d=createAppDescriptor('vfo'),route=d.routes.find(r=>r.id==='vfo.instrument');
  const address=appRouteAddress({publisherId:d.publisherId,applicationId:d.applicationId,entryId:'vfo'},route.id,{view:'live',instrumentId:'catalogue.A'},{kind:'exact',release:'sha256:'+'a'.repeat(64),contributionId:route.contributionId});
  assert.deepEqual(decodeLinkedAddress(encodeLinkedAddress(address,route)),address);
