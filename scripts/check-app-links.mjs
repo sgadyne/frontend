@@ -77,7 +77,9 @@ try{
   checks.push('Peek mounts the declared VFO route; Add creates only a personal draft placement');
   await peek.getByRole('button',{name:'Close peek',exact:true}).click();assert.equal(await search.inputValue(),'ASML');
   await peekButton.click();await peek.waitFor();await peek.getByRole('button',{name:'Open',exact:true}).click();await peek.waitFor({state:'hidden'});
-  checks.push('closing sibling Peek preserves main state; Peek Open promotes the exact route');
+  assert.equal(await page.locator('nav[aria-label="Main navigation"]').getByRole('button',{name:'Workspace',exact:true}).getAttribute('aria-current'),'page');
+  assert.ok(await page.getByRole('tab',{name:'VFO',exact:true}).count());
+  checks.push('closing sibling Peek preserves main state; Peek Open focuses the exact destination in Dockview');
  }else limitations.push('No host Peek action for a non-entry route was available; real Peek/Add/Open are not qualified by this run.');
  if(process.env.SAMPO_RESTRICTED_STORAGE_STATE){
   const restricted=await browser.newContext({storageState:process.env.SAMPO_RESTRICTED_STORAGE_STATE});
