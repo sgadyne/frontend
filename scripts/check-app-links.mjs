@@ -29,6 +29,7 @@ async function request(path,body,ctx=context){
  assert.equal(response.status(),200,'Linked API request must succeed');return response.json();
 }
 const assertResolved=value=>{validateLinkedResolution(value);assert.equal(value.status,'resolved');assert.equal(value.exactAddress.version.release,release);return value;};
+async function useSavedWorkspace(){const button=page.getByRole('button',{name:'Use saved workspace',exact:true});try{await button.waitFor({state:'visible',timeout:3000});await button.click();}catch(error){if(error.name!=='TimeoutError')throw error;}}
 const screenshot=async name=>page.screenshot({animations:'disabled',path:output+'/'+name+'.png'});
 try{
  const authResponse=await context.request.get(base+'/api/auth/session');assert.equal(authResponse.status(),200,'Review session must be authenticated');
@@ -46,7 +47,7 @@ try{
  const linkless=await request('/api/linked-workspace/related',{address:cluster,limit:100});assert.deepEqual(linkless.items,[]);
  checks.push('authorized declared cross-app references are present; Cluster has no outgoing links');
  await page.goto(hostUrl(address));
- if(await page.getByRole('button',{name:'Use saved workspace',exact:true}).count())await page.getByRole('button',{name:'Use saved workspace',exact:true}).click();
+ await useSavedWorkspace();
  const current=page.locator('[data-linked-current]'),app=current.getByTestId('market-universe-workbench');await app.waitFor();
  await app.locator('.mu-inspector').waitFor();
  const search=app.getByRole('searchbox',{name:'Search market catalogue'});
@@ -58,7 +59,7 @@ try{
  await app.getByRole('button',{name:'Related analysis overview',exact:true}).click();
  await current.locator('.linked-entry-detail').waitFor();
  assert.match(await current.innerText(),/Risk Lens/);
- assert.equal(requests.slice(start).filter(request=>/\/assets\/.*\.(m?js)$/.test(request.path)).length,0,'Metadata navigation imports no app code');
+ assert.equal(requests.slice(start).filter(request=>/(?:\/assets\/.*\.(m?js)|\/entry\.mjs)$/.test(request.path)).length,0,'Metadata navigation imports no app code');
  await screenshot('02-related-overview');
  await page.getByRole('button',{name:'← Back',exact:true}).first().click();
  await app.waitFor();assert.equal(await search.inputValue(),'ASML');await app.locator('.mu-inspector').waitFor();
@@ -67,7 +68,7 @@ try{
  await page.waitForFunction(()=>document.activeElement?.getAttribute('aria-label')==='Search market catalogue');
  checks.push('real VFO instrument -> declared Risk overview -> Back retains exact address, query, inspector and scroll');
  // Reload checks the browser history envelope retained by the actual host.
- await page.reload();await app.waitFor();assert.equal(await search.inputValue(),'ASML');await app.locator('.mu-inspector').waitFor();
+ await page.reload();await app.waitFor();await useSavedWorkspace();assert.equal(await search.inputValue(),'ASML');await app.locator('.mu-inspector').waitFor();
  checks.push('reload restores the bounded widget state at the same exact instrument route');
  const peekButton=current.getByRole('button',{name:/^Peek (?:Live|.*vfo[. ]live)$/i}).first();
  if(await peekButton.count()){
