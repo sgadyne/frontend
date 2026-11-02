@@ -10,10 +10,10 @@ function checked<T>(value:unknown,schema:PortableSelectionSchema):T {
 export function restoreVfoState(value:unknown,selection:unknown,ids:ReadonlySet<string>):MarketUniverseState {
   const state=checked<Partial<MarketUniverseState>&{focused?:string}>(value,vfoStateSchema);
   const route=checked<{view?:MarketUniverseState['view'];instrumentId?:string}>(selection,vfoSelectionSchema);
-  if(route.instrumentId&&!ids.has(route.instrumentId))throw Error('Destination unavailable');
+  if(Object.hasOwn(route,'instrumentId')&&!ids.has(route.instrumentId!))throw Error('Destination unavailable');
   return {...state,version:1,view:state.view??route.view??'universe',filters:{...emptyMarketFilters,...state.filters},
     watchlist:[...new Set(state.watchlist??[])].filter(id=>ids.has(id)),selected:[...new Set(state.selected??[])].filter(id=>ids.has(id)),
-    ...((state.focused||route.instrumentId)?{focused:state.focused&&ids.has(state.focused)?state.focused:route.instrumentId??''}:{})};
+    ...((state.focused!==undefined||route.instrumentId)?{focused:state.focused!==undefined?(ids.has(state.focused)?state.focused:''):route.instrumentId??''}:{})};
 }
 export function portableVfoState(value:MarketUniverseState):JsonValue {return validatePortableSelection(value,vfoStateSchema);}
 
