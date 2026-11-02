@@ -2,6 +2,8 @@
 
 Risk Lens, VFO, Cluster and Replication are independent Sampo releases. This directory composes the existing app components with local synthetic providers; it does not implement a Sampo shell.
 
+For declarations, bounded state, exact destinations and the installed navigation harness, see [the SDK authoring recipe](AUTHORING.md).
+
 Sampo owns OIDC identity, authorized environments, Library navigation, Dockview tabs, settings, appearance, portals and workspace persistence. Market metadata is the bundled static reference catalogue; coverage and data/job adapters are synthetic. The notice inside every app states that no live data or backend jobs are connected. Cluster's Run analysis is an in-memory fixture response; VFO prepares local backfill drafts without executing jobs.
 
 ## Build
