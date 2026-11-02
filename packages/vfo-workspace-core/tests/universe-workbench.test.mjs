@@ -7,6 +7,9 @@ import {
   intervalAt,
   weeklyWindows,
   makeBackfillDraft,
+  normalizeCoverageSnapshot,
+  coverageScopes,
+  historyIntervals,
 } from "../src/market/universe-model.ts";
 const read = (p) => JSON.parse(readFileSync(new URL(p, import.meta.url)));
 const catalog = read("../../../assets/market-universe/catalog.json"),
@@ -180,4 +183,46 @@ test("conflicting evidence excludes a claimed gap from automatic range selection
   const coverage = structuredClone(snapshot);
   coverage.rows[0].intervals.push(gap("2026-08-04", "2026-08-10", "available"));
   assert.equal(makeBackfillDraft({ ...base, coverage }).ranges.length, 0);
+});
+
+test("historical buckets never combine products or sources; continuous adjacent evidence fills a bucket", () => {
+  const row = { ...snapshot.rows[0], intervals: [gap("2026-08-01", "2026-08-08", "available"),
+    gap("2026-08-08", "2026-08-15", "available"), gap("2026-08-01", "2026-08-15", "gap", "quotes"),
+    gap("2026-08-01", "2026-08-15", "failed", "volatility-surfaces", "other-source")] };
+  assert.equal(intervalAt(row, "2026-08-01", "2026-08-15").status, "unknown");
+  assert.equal(intervalAt(row, "2026-08-01", "2026-08-15", { source: "demo-archive", dataset: "volatility-surfaces" }).status, "available");
+  assert.equal(intervalAt(row, "2026-08-01", "2026-08-15", { source: "demo-archive", dataset: "quotes" }).status, "gap");
+  assert.equal(intervalAt(row, "2026-08-01", "2026-08-15", { source: "other-source", dataset: "quotes" }), undefined);
+  assert.equal(coverageScopes({ ...snapshot, rows: [row] }).length, 3);
+});
+
+test("malformed intervals, duplicate rows and invalid live timestamps stay unavailable to automatic gap selection", () => {
+  for (const change of [null, { start: "2026-02-30" }, { end: "2026-08-01" }, { status: "unsupported" }, { source: "" }, { dataset: "" }]) {
+    const coverage = structuredClone(snapshot);
+    coverage.rows[0].intervals.push(change === null ? null : { ...coverage.rows[0].intervals[0], ...change });
+    const checked = normalizeCoverageSnapshot(coverage);
+    assert.ok(checked.issues.length);
+    assert.deepEqual(historyIntervals(checked.snapshot.rows[0]), []);
+    assert.equal(makeBackfillDraft({ ...base, coverage }).ranges.length, 0);
+  }
+  assert.equal(makeBackfillDraft({ ...base, coverage: { ...snapshot, asOf: "invalid" } }).ranges.length, 0);
+  assert.equal(intervalAt({ ...snapshot.rows[0], intervals: {} }, base.start, base.end), undefined);
+  const duplicate = { ...snapshot, rows: [snapshot.rows[0], snapshot.rows[0]] };
+  assert.equal(makeBackfillDraft({ ...base, coverage: duplicate }).ranges.length, 0);
+  const checked = normalizeCoverageSnapshot({ ...snapshot, rows: [{ ...snapshot.rows[0], asOf: "not-a-date", surfaces: "unrecognized" }] });
+  assert.equal(checked.snapshot.rows[0].quotes, "unknown"); assert.equal(checked.snapshot.rows[0].surfaces, "unknown");
+  assert.ok(checked.issues.length >= 2);
+  for (const value of [null, {}, { kind: "live", rows: [] }, { kind: "observed", rows: null }]) {
+    assert.equal(normalizeCoverageSnapshot(value).snapshot, undefined);
+    assert.equal(makeBackfillDraft({ ...base, coverage: value }).ranges.length, 0);
+  }
+});
+
+test("draft exports explicit provenance, rejects unsupported policy, and bucket generation handles year boundaries", () => {
+  const draft = makeBackfillDraft({ ...base, source: " demo-archive ", dataset: " volatility-surfaces " });
+  assert.equal(draft.source, "demo-archive"); assert.equal(draft.dataset, "volatility-surfaces");
+  assert.equal(draft.evidenceAsOf, snapshot.asOf); assert.equal(draft.evidenceLabel, snapshot.label);
+  assert.throws(() => makeBackfillDraft({ ...base, policy: "infer-gaps" }));
+  const windows = weeklyWindows("9998-01-01", "9999-12-31");
+  assert.equal(windows.at(-1).end, "9999-12-31"); assert.ok(windows.length <= 26);
 });
