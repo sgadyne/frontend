@@ -1,0 +1,21 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import ts from 'typescript';
+const uri=s=>'data:text/javascript;base64,'+Buffer.from(s).toString('base64');
+const compile=async name=>ts.transpileModule(await readFile(new URL('../src/'+name,import.meta.url),'utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
+const commands=uri(await compile('command-client.ts'));
+const {filterMarketAssets,filterOptions,emptyFilters}=await import(uri((await compile('market/filters.ts')).replace("'../command-client'",JSON.stringify(commands))));
+test('group union intersects directory and imported filters without needing historical mappings',()=>{
+ const assets=['A','B','C','D'].map(id=>({asset_id:id,ticker:id,accepted_output:{state:'observed'}}));
+ const directory=new Map([{assetId:'A',region:'West',country:'One',industry:'Tools'},{assetId:'B',region:'West',country:'Two',industry:'Other'},{assetId:'C',region:'East',country:'Two',industry:'Tools'},{assetId:'D',region:'West',country:'One',industry:'Tools'}].map(x=>[x.assetId,x]));
+ const groups=[{id:'holdings',assetIds:['A','B','A']},{id:'classification',assetIds:['B','C']}];
+ const ids=filters=>filterMarketAssets(assets,directory,{},groups,{...emptyFilters,...filters}).map(a=>a.asset_id);
+ assert.deepEqual(ids({groups:['holdings','classification']}),['A','B','C']);
+ assert.deepEqual(ids({groups:['holdings','classification'],region:'West'}),['A','B']);
+ assert.deepEqual(ids({groups:['holdings'],country:'One'}),['A']);
+ assert.deepEqual(ids({groups:['missing']}),[]);
+ assert.deepEqual(ids({}),['A','B','C','D']);
+ assert.deepEqual(filterOptions([...directory.values()],{D:{country:'Three',industry:'Custom'}},'country'),['One','Three','Two']);
+ assert.deepEqual(filterOptions([...directory.values()],{D:{country:'Three',industry:'Custom'}},'industry'),['Custom','Other','Tools']);
+});

@@ -6,4 +6,6 @@ export type Board={id:string;title:string;description:string;region?:string;inst
 export type FundHolding={name:string;ticker:string;weight?:number;assetId?:string};
 export type IndustryFund={name:string;ticker:string;assetId?:string;asof:string;sourceUrl:string;holdings:FundHolding[]};
 export type IndustryView={id:string;title:string;description?:string;funds:IndustryFund[];classificationMembers?:{assetId:string;sourceUrl:string;asof:string}[]};
-export type WorkspaceSite={presentation:{title:string;eyebrow:string;subtitle?:string};assets:AssetDirectoryEntry[];boards:Board[];industries?:IndustryView[];refreshSeconds?:number};
+export type MarketGroup={id:string;title:string;category:string;assetIds:string[];revision:string;provenance?:string;asof?:string;pinnedFundIds?:string[]};
+export type MarketGroupCatalogue={revision:string;groups:MarketGroup[]};
+export type WorkspaceSite={presentation:{title:string;eyebrow:string;subtitle?:string};assets:AssetDirectoryEntry[];boards:Board[];marketGroups?:MarketGroupCatalogue;industries?:IndustryView[];refreshSeconds?:number};

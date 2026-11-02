@@ -22,18 +22,18 @@
     "test:risk-browser": "node scripts/check-risk-demo.mjs"
   },
   "dependencies": {
-    "@sampo/contracts": "file:vendor/sampo-sdk-v2-bed3234/sampo-contracts-0.2.0-alpha.20261031.1.tgz",
-    "@sampo/runtime": "file:vendor/sampo-sdk-v2-bed3234/sampo-runtime-0.2.0-alpha.20261031.1.tgz",
-    "@sampo/sdk-react": "file:vendor/sampo-sdk-v2-bed3234/sampo-sdk-react-0.2.0-alpha.20261031.1.tgz",
-    "@sampo/tooling": "file:vendor/sampo-sdk-v2-bed3234/sampo-tooling-0.2.0-alpha.20261031.1.tgz",
+    "@sampo/contracts": "https://github.com/sgadyne/sampo/releases/download/v1.0.0-beta.2/sampo-contracts-0.2.0-alpha.20261102.1.tgz",
+    "@sampo/runtime": "https://github.com/sgadyne/sampo/releases/download/v1.0.0-beta.2/sampo-runtime-0.2.0-alpha.20261102.1.tgz",
+    "@sampo/sdk-react": "https://github.com/sgadyne/sampo/releases/download/v1.0.0-beta.2/sampo-sdk-react-0.2.0-alpha.20261102.1.tgz",
+    "@sampo/tooling": "https://github.com/sgadyne/sampo/releases/download/v1.0.0-beta.2/sampo-tooling-0.2.0-alpha.20261102.1.tgz",
     "ag-grid-community": "34.1.2",
     "ag-grid-react": "34.1.2",
     "motion": "14.9.0",
     "plotly.js-gl3d-dist-min": "4.2.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "@sampo/client": "file:vendor/sampo-sdk-v2-bed3234/sampo-client-0.2.0-alpha.20261031.1.tgz",
-    "@sampo/design-tokens": "file:vendor/sampo-sdk-v2-bed3234/sampo-design-tokens-0.1.0.tgz"
+    "@sampo/client": "https://github.com/sgadyne/sampo/releases/download/v1.0.0-beta.2/sampo-client-0.2.0-alpha.20261102.1.tgz",
+    "@sampo/design-tokens": "https://github.com/sgadyne/sampo/releases/download/v1.0.0-beta.2/sampo-design-tokens-0.1.0.tgz"
   },
   "devDependencies": {
     "@types/node": "22.19.21",
@@ -46,5 +46,30 @@
   "overrides": {
     "esbuild": "0.28.1"
   },
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "exports": {
+    "./package.json": "./package.json",
+    "./risk/session": "./apps/pod-risk-lens/src/features/risk-lens/session.ts",
+    "./risk/presentation": "./apps/pod-risk-lens/src/features/risk-lens/presentation.ts",
+    "./risk/session-widgets": "./apps/pod-risk-lens/src/features/risk-lens/sessionWidgets.tsx",
+    "./risk/application-widget": "./apps/pod-risk-lens/src/App.tsx",
+    "./risk/types": "./apps/pod-risk-lens/src/domain/types.ts",
+    "./risk/format": "./apps/pod-risk-lens/src/domain/format.ts",
+    "./risk/exposure-table": "./apps/pod-risk-lens/src/components/ExposureTable.tsx",
+    "./risk/styles.css": "./apps/pod-risk-lens/src/styles.css",
+    "./risk/provider-contracts": "./packages/risk-lens-data/contracts.ts",
+    "./vfo/extension": "./packages/vfo-workspace-core/src/extension.tsx",
+    "./vfo/http-provider": "./packages/vfo-workspace-core/src/data/http-provider.mjs",
+    "./analysis": "./packages/analysis-workspaces/src/index.tsx",
+    "./analysis/reports": "./packages/analysis-workspaces/src/replication/reports.ts",
+    "./build/scope-widget-css": "./scripts/scope-widget-css.mjs"
+  },
+  "files": [
+    "apps/pod-risk-lens/src",
+    "packages/risk-lens-data",
+    "packages/vfo-workspace-core/src",
+    "packages/analysis-workspaces/src",
+    "scripts/scope-widget-css.mjs",
+    "LICENSE"
+  ]
 }

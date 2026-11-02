@@ -11,7 +11,7 @@ try {
     }
     git rev-parse --verify --quiet HEAD *> $null
     if ($LASTEXITCODE -eq 0) { throw 'This helper is only for an initial commit; this repository already has history.' }
-    $items = @('.gitignore','AGENTS.md','LICENSE','README.md','package.json','package-lock.json','apps','assets','packages','scripts','vendor')
+    $items = @('.gitignore','AGENTS.md','LICENSE','README.md','package.json','package-lock.json','apps','assets','packages','scripts')
     if ($WhatIfPreference) {
         Write-Host 'Would run npm run check, stage only the public source roots, validate staged paths, and create the first commit on main.'
         Write-Host 'No remote would be added and nothing would be pushed.'
@@ -32,7 +32,7 @@ try {
     foreach ($file in $staged) {
         if ($file -match '(^|/)(node_modules|dist|\.runtime|\.review|\.venv|__pycache__|secrets?|credentials?)(/|$)' -or
             $file -match '(^|/)\.env($|\.)|\.(key|pem|keytab|p12|pfx|lic|sqlite.*|parquet|log)$' -or
-            ($file -match '\.(tgz|zip)$' -and $file -notmatch '^vendor/')) {
+            $file -match '\.(tgz|zip)$') {
             throw "Refusing generated/private staged path: $file"
         }
         $top = ($file -split '/')[0]

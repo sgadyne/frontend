@@ -16,7 +16,7 @@ __pycache__/
 
 # Generated output, credentials and raw data stay outside the source commit.
 **/dist/
-coverage/
+/coverage/
 test-results/
 playwright-report/
 *.log
