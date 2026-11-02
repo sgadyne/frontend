@@ -15,10 +15,11 @@
     "lib": [
       "ES2022",
       "DOM"
-    ]
+    ],
+    "allowImportingTsExtensions": true
   },
   "include": [
-    "VfoMarket.tsx",
-    "market-universe-data.ts"
+    "*.tsx",
+    "*.ts"
   ]
 }
