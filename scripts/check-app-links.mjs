@@ -64,11 +64,12 @@ try{
  await app.waitFor();assert.equal(await search.inputValue(),'ASML');await app.locator('.mu-inspector').waitFor();
  assert.equal(await app.locator('.mu-main').evaluate(element=>element.scrollTop),scroll);
  assert.equal(new URL(page.url()).hash,encodeLinkedAddress(address,instrumentRoute));
+ await page.waitForFunction(()=>document.activeElement?.getAttribute('aria-label')==='Search market catalogue');
  checks.push('real VFO instrument -> declared Risk overview -> Back retains exact address, query, inspector and scroll');
  // Reload checks the browser history envelope retained by the actual host.
  await page.reload();await app.waitFor();assert.equal(await search.inputValue(),'ASML');await app.locator('.mu-inspector').waitFor();
  checks.push('reload restores the bounded widget state at the same exact instrument route');
- const peekButton=current.getByRole('button',{name:/^Peek .*vfo[. ]live$/i}).first();
+ const peekButton=current.getByRole('button',{name:/^Peek (?:Live|.*vfo[. ]live)$/i}).first();
  if(await peekButton.count()){
   await peekButton.click();const peek=page.getByRole('dialog').filter({has:page.locator('[data-linked-close]')});await peek.waitFor();
   await peek.getByTestId('market-universe-workbench').waitFor();assert.equal(await search.inputValue(),'ASML');
