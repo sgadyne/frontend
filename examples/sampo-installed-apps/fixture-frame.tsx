@@ -1,6 +1,6 @@
-import {useMemo,useSyncExternalStore,type ReactNode} from 'react';
+import {useCallback,useMemo,useRef,useState,useSyncExternalStore,type ReactNode} from 'react';
 import {PlatformProvider,useHost,DestinationLink,type HostServices} from '@sampo/sdk-react';
-import {publishedEntryAddress,type HostEnvironmentSnapshot} from '@sampo/contracts';
+import {publishedEntryAddress,type HostEnvironmentSnapshot,type JsonValue} from '@sampo/contracts';
 import {SampoAppearanceProvider} from '../../packages/presentation/src';
 import './style.css';
 const absent:HostEnvironmentSnapshot={scope:null,generation:0};
@@ -18,6 +18,12 @@ export function FixtureData({services,children}:{services:{data:unknown;jobs?:un
   return <PlatformProvider services={dataHost}>{children}</PlatformProvider>;
 }
 export function Unavailable(){return <p role="status">Destination unavailable</p>;}
+export function usePortableWriter<T>(serialize:(value:T)=>JsonValue,onChange?: (value:JsonValue)=>void){
+  const callback=useRef({serialize,onChange});callback.current={serialize,onChange};
+  const [problem,setProblem]=useState('');
+  const write=useCallback((value:T)=>{try{const state=callback.current.serialize(value);callback.current.onChange?.(state);setProblem('');}catch{setProblem('This view exceeds portable state limits. Reduce the selection or filter text to retain it.');}},[]);
+  return [write,problem] as const;
+}
 export function RelatedOverview({target}:{target:'risk'|'vfo'|'replication'}){
   const applicationId=target==='risk'?'example.risk-lens':'example.'+target;
   return <DestinationLink address={publishedEntryAddress({publisherId:'sampo.synthetic',applicationId,entryId:target})}>Related {target==='risk'?'analysis':target==='vfo'?'market':'report'} overview</DestinationLink>;
