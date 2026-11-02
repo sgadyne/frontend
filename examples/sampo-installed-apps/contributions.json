@@ -1,0 +1,34 @@
+[
+  {
+    "id": "example.risk-lens.main",
+    "kind": "app",
+    "title": "Risk Lens",
+    "description": "Synthetic Risk Lens demonstration; no live data or backend execution.",
+    "export": "Risk",
+    "applicationId": "example.risk-lens"
+  },
+  {
+    "id": "example.vfo.main",
+    "kind": "app",
+    "title": "VFO",
+    "description": "Synthetic VFO demonstration; no live data or backend execution.",
+    "export": "Vfo",
+    "applicationId": "example.vfo"
+  },
+  {
+    "id": "example.cluster.main",
+    "kind": "app",
+    "title": "Cluster",
+    "description": "Synthetic Cluster demonstration; no live data or backend execution.",
+    "export": "Cluster",
+    "applicationId": "example.cluster"
+  },
+  {
+    "id": "example.replication.main",
+    "kind": "app",
+    "title": "Replication",
+    "description": "Synthetic Replication demonstration; no live data or backend execution.",
+    "export": "Replication",
+    "applicationId": "example.replication"
+  }
+]

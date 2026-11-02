@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "publisherId": "sampo.synthetic",
+  "applicationId": "example.installed-apps",
+  "entries": [
+    {
+      "id": "risk",
+      "title": "Risk Lens",
+      "routeId": "risk",
+      "selection": {}
+    },
+    {
+      "id": "vfo",
+      "title": "VFO",
+      "routeId": "vfo",
+      "selection": {}
+    },
+    {
+      "id": "cluster",
+      "title": "Cluster",
+      "routeId": "cluster",
+      "selection": {}
+    },
+    {
+      "id": "replication",
+      "title": "Replication",
+      "routeId": "replication",
+      "selection": {}
+    }
+  ],
+  "routes": [
+    {
+      "id": "risk",
+      "contributionId": "example.risk-lens.main",
+      "selectionSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "presentations": [
+        "open",
+        "peek",
+        "addToDraft"
+      ],
+      "shareable": true,
+      "portableState": {
+        "id": "example.risk-lens.main.state",
+        "version": 1,
+        "schema": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "id": "vfo",
+      "contributionId": "example.vfo.main",
+      "selectionSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "presentations": [
+        "open",
+        "peek",
+        "addToDraft"
+      ],
+      "shareable": true,
+      "portableState": {
+        "id": "example.vfo.main.state",
+        "version": 1,
+        "schema": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "id": "cluster",
+      "contributionId": "example.cluster.main",
+      "selectionSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "presentations": [
+        "open",
+        "peek",
+        "addToDraft"
+      ],
+      "shareable": true,
+      "portableState": {
+        "id": "example.cluster.main.state",
+        "version": 1,
+        "schema": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "id": "replication",
+      "contributionId": "example.replication.main",
+      "selectionSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "presentations": [
+        "open",
+        "peek",
+        "addToDraft"
+      ],
+      "shareable": true,
+      "portableState": {
+        "id": "example.replication.main.state",
+        "version": 1,
+        "schema": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        }
+      }
+    }
+  ],
+  "references": [],
+  "reuse": []
+}
