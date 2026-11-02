@@ -3,6 +3,7 @@ import {
   useEffect,
   useMemo,
   useRef,
+  type SetStateAction,
   useState,
   type ReactNode,
 } from "react";
@@ -26,14 +27,9 @@ import {
 } from "./universe-model";
 import "./universe-workbench.css";
 
-type View = "universe" | "live" | "history";
-export type MarketUniverseState = {
-  version: 1;
-  view: View;
-  filters: MarketFilters;
-  watchlist: string[];
-  selected: string[];
-};
+import { normalizeMarketState, type MarketUniverseState } from "./universe-state";
+export type { MarketUniverseState } from "./universe-state";
+type View = MarketUniverseState["view"];
 export type MarketUniverseProps = {
   assets: Instrument[];
   groups: MarketGroup[];
@@ -43,6 +39,8 @@ export type MarketUniverseProps = {
   coverage?: CoverageSnapshot;
   historyWindow: { start: string; end: string };
   initialState?: Partial<MarketUniverseState>;
+  state?: MarketUniverseState;
+  renderRelated?: (instrument: Instrument) => ReactNode;
   onStateChange?: (state: MarketUniverseState) => void;
   onDraft?: (draft: BackfillDraft) => void;
   renderSurface?: (instrument: Instrument) => ReactNode;
@@ -147,38 +145,39 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
     catalogueAsOf,
     historyWindow,
   } = props;
-  const [view, setView] = useState<View>(
-    ["universe", "live", "history"].includes(props.initialState?.view ?? "")
-      ? props.initialState!.view!
-      : "universe",
-  );
-  const [filters, setFilters] = useState<MarketFilters>({
-    ...emptyMarketFilters,
-    ...props.initialState?.filters,
-  });
-  const [watchlist, setWatchlist] = useState<string[]>(
-    props.initialState?.watchlist?.slice(0, 100) ?? [],
-  );
-  const [selected, setSelected] = useState<string[]>(
-    props.initialState?.selected?.slice(0, 100) ?? [],
-  );
-  const [showDemo, setShowDemo] = useState(true),
-    [page, setPage] = useState(0),
-    [sort, setSort] = useState<"featured" | "az">("featured");
-  const [source, setSource] = useState(""),
-    [focused, setFocused] = useState<string | null>(null),
-    [inspectTab, setInspectTab] = useState<"identity" | "coverage" | "surface">(
-      "identity",
-    ),
-    [interval, setInterval] = useState<CoverageInterval | null>(null);
-  const [planning, setPlanning] = useState(false),
-    [notice, setNotice] = useState(""),
-    [historyStart, setHistoryStart] = useState(historyWindow.start),
-    [historyEnd, setHistoryEnd] = useState(historyWindow.end);
-  const closeInspector = useRef<HTMLButtonElement>(null),
-    opener = useRef<HTMLElement | null>(null),
-    stateCallback = useRef(props.onStateChange);
+  const catalogue = useMemo(() => ({ assets, groups, navigation, historyWindow }),
+    [assets, groups, navigation, historyWindow]);
+  const [localState, setLocalState] = useState(() => normalizeMarketState(props.initialState, catalogue));
+  const state = useMemo(() => normalizeMarketState(props.state ?? localState, catalogue),
+    [props.state, localState, catalogue]);
+  const stateRef = useRef(state);
+  stateRef.current = state;
+  const stateCallback = useRef(props.onStateChange);
   stateCallback.current = props.onStateChange;
+  function update(patch: Partial<MarketUniverseState>) {
+    const next = normalizeMarketState({ ...stateRef.current, ...patch }, catalogue);
+    stateRef.current = next;
+    if (props.state === undefined) setLocalState(next);
+    else stateCallback.current?.(next);
+  }
+  function setter<K extends keyof MarketUniverseState>(key: K, resetPage = false) {
+    return (action: SetStateAction<Required<MarketUniverseState>[K]>) => {
+      const value = typeof action === "function"
+        ? (action as (old: Required<MarketUniverseState>[K]) => Required<MarketUniverseState>[K])(stateRef.current[key]) : action;
+      update({ [key]: value, ...(resetPage ? { page: 0 } : {}) });
+    };
+  }
+  const { view, filters, watchlist, selected, showDemo, sort, source,
+    focused, inspectTab, historyStart, historyEnd } = state;
+  const setView = setter("view", true), setFilters = setter("filters", true),
+    setWatchlist = setter("watchlist"), setSelected = setter("selected"),
+    setShowDemo = setter("showDemo", true), setPage = setter("page"),
+    setSort = setter("sort", true), setSource = setter("source", true),
+    setFocused = setter("focused"), setInspectTab = setter("inspectTab"),
+    setHistoryStart = setter("historyStart"), setHistoryEnd = setter("historyEnd");
+  const [interval, setInterval] = useState<CoverageInterval | null>(null);
+  const [planning, setPlanning] = useState(false), [notice, setNotice] = useState("");
+  const closeInspector = useRef<HTMLButtonElement>(null), opener = useRef<HTMLElement | null>(null);
   const activeCoverage =
     coverage?.kind === "demo" && !showDemo ? undefined : coverage;
   const rows = useMemo(
@@ -228,6 +227,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
       ),
     [filtered, sort, featured],
   );
+  const page = Math.min(state.page, Math.max(0, Math.ceil(ordered.length / pageSize) - 1));
   const visible = ordered.slice(page * pageSize, (page + 1) * pageSize),
     selectedSet = new Set(selected);
   const windows = weeklyWindows(historyStart, historyEnd),
@@ -248,20 +248,10 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
       counts[rows.get(a.assetId)?.surfaces ?? "not-connected"]++;
     return counts;
   }, [filtered, rows]);
-  const saved = JSON.stringify({
-    version: 1,
-    view,
-    filters,
-    watchlist,
-    selected,
-  });
+  const saved = JSON.stringify(state);
   useEffect(() => {
-    stateCallback.current?.(JSON.parse(saved));
-  }, [saved]);
-  useEffect(
-    () => setPage(0),
-    [filters, query, view, source, sort, activeCoverage],
-  );
+    if (props.state === undefined) stateCallback.current?.(JSON.parse(saved));
+  }, [saved, props.state === undefined]);
   useEffect(() => {
     if (focused) closeInspector.current?.focus({ preventScroll: true });
   }, [focused]);
@@ -274,7 +264,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
   function chooseRegion(id: string) {
     setFilters({ ...emptyMarketFilters, region: id });
     setSource("");
-    setFocused(null);
+    setFocused("");
   }
   function chooseGroup(id: string) {
     setFilters((old) => ({
@@ -297,7 +287,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
     setInterval(cell);
   }
   function close() {
-    setFocused(null);
+    setFocused("");
     opener.current?.focus({ preventScroll: true });
   }
   function toggle(id: string) {
@@ -372,7 +362,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
               aria-current={view === id ? "page" : undefined}
               onClick={() => {
                 setView(id);
-                setFocused(null);
+                setFocused("");
               }}
             >
               <Mark kind={icon} />
@@ -1333,6 +1323,9 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
               )
             ) : null}
           </div>
+          {props.renderRelated ? <section className="mu-related" aria-label="Related destinations">
+            <h3>Related destinations</h3>{props.renderRelated(active)}
+          </section> : null}
           <footer>
             <span>
               {activeCoverage?.kind === "demo"
