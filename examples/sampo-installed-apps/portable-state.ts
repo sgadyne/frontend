@@ -28,7 +28,11 @@ export function portableRiskState(value:unknown):JsonValue {
   const scopes=record(value.scopeByMode)?Object.values(value.scopeByMode).filter(record).map(s=>({mode:s.mode,...(s.presetId==null?{}:{presetId:s.presetId}),...(s.books==null?{}:{books:s.books}),...(s.tags==null?{}:{tags:s.tags}),excludedTags:s.excludedTags})):[];
   return validatePortableSelection({version:1,controls,scopes},riskStateSchema);
 }
-export function restoreClusterView(value:unknown,selection:unknown):string {
+export function restoreClusterView(value:unknown,selection:unknown,scopeKey?:string):string {
+  if(record(value)&&Object.hasOwn(value,'scopeKey')){
+    if(!scopeKey||value.scopeKey!==scopeKey||Object.keys(value).some(k=>!['scopeKey','spec','view','saved'].includes(k)))throw Error('Destination unavailable');
+    value={version:1,view:value.view};
+  }
   const state=checked<{view?:string}>(value,clusterStateSchema),route=checked<{view?:string}>(selection,clusterSelectionSchema);
   return state.view??route.view??'performance';
 }
@@ -38,7 +42,11 @@ export function portableClusterView(value:unknown):JsonValue {
 }
 
 type Definition={id:string;views:{id:string}[]};
-export function restoreReplicationState(value:unknown,selection:unknown,definitions:readonly Definition[]):Record<string,unknown> {
+export function restoreReplicationState(value:unknown,selection:unknown,definitions:readonly Definition[],scopeKey?:string):Record<string,unknown> {
+  if(record(value)&&Object.hasOwn(value,'scopeKey')){
+    if(!scopeKey||value.scopeKey!==scopeKey||Object.keys(value).some(k=>!['scopeKey','state'].includes(k)))throw Error('Destination unavailable');
+    value=portableReplicationState(value);
+  }
   const state=checked<Record<string,unknown>>(value,replicationStateSchema),route=checked<{reportId?:string;viewId?:string}>(selection,replicationSelectionSchema);
   const reportId=typeof state.reportId==='string'?state.reportId:route.reportId??definitions[0].id;
   const report=definitions.find(r=>r.id===reportId);if(!report)throw Error('Destination unavailable');

@@ -59,6 +59,8 @@ test('Cluster carries a bounded display view, and never calculation/job proposal
  assert.equal(restoreClusterView({}, {view:'risk'}),'risk');
  assert.deepEqual(portableClusterView({view:'pca',spec:{execute:true},result:{rows:[]}}),{version:1,view:'pca'});
  assert.throws(()=>restoreClusterView({view:'pca',spec:{}},{}));
+ assert.equal(restoreClusterView({scopeKey:'current',view:'pca',spec:{job:'ignored'},saved:[]},{},'current'),'pca');
+ assert.throws(()=>restoreClusterView({scopeKey:'retired',view:'pca'},{},'current'),/unavailable/);
 });
 
 test('Replication preserves recognized report/view, filters and snapshot, rejecting unknown destinations',()=>{
@@ -68,6 +70,8 @@ test('Replication preserves recognized report/view, filters and snapshot, reject
  assert.equal(state.reportId,'report');assert.equal(state.viewId,'detail');
  assert.equal(state.selections.report.snapshotId,'retained-1');assert.deepEqual(state.selections.report.filters,{book:['rates']});
  assert.deepEqual(state.columns,{table:['book']});
+ assert.equal(restoreReplicationState({scopeKey:'current',...raw},{},definitions,'current').viewId,'detail');
+ assert.throws(()=>restoreReplicationState({scopeKey:'retired',...raw},{},definitions,'current'),/unavailable/);
  assert.throws(()=>restoreReplicationState({}, {reportId:'not-authorized'},definitions),/unavailable/);
  assert.throws(()=>restoreReplicationState({}, {reportId:'report',viewId:'nonexistent'},definitions),/unavailable/);
 });
