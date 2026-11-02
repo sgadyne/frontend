@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": true,
   "type": "module",
   "scripts": {
@@ -19,7 +19,12 @@
     "demo:risk": "node node_modules/vite/bin/vite.js --config apps/risk-lens-demo/vite.config.mjs",
     "preview:risk": "node node_modules/vite/bin/vite.js preview --config apps/risk-lens-demo/vite.config.mjs",
     "check": "npm run audit:boundary && npm run typecheck && npm run typecheck:analysis && npm test && npm run test:analysis",
-    "test:risk-browser": "node scripts/check-risk-demo.mjs"
+    "test:risk-browser": "node scripts/check-risk-demo.mjs",
+    "demo:analysis": "node node_modules/vite/bin/vite.js --config apps/analysis-demo/vite.config.mjs",
+    "build:analysis-demo": "node node_modules/vite/bin/vite.js build --config apps/analysis-demo/vite.config.mjs",
+    "typecheck:analysis-demo": "node node_modules/typescript/bin/tsc -p apps/analysis-demo/tsconfig.json",
+    "test:appearance": "node scripts/check-appearance-demo.mjs",
+    "test:shell-browser": "node scripts/check-shell-interactions.mjs"
   },
   "dependencies": {
     "@sampo/contracts": "https://github.com/sgadyne/sampo/releases/download/v1.0.0-beta.2/sampo-contracts-0.2.0-alpha.20261102.1.tgz",
@@ -65,7 +70,9 @@
     "./build/scope-widget-css": "./scripts/scope-widget-css.mjs",
     "./market-universe/catalog.json": "./assets/market-universe/catalog.json",
     "./market-universe/groups.json": "./assets/market-universe/groups.json",
-    "./market-universe/logos/*": "./assets/market-universe/logos/*"
+    "./market-universe/logos/*": "./assets/market-universe/logos/*",
+    "./presentation": "./packages/presentation/src/index.tsx",
+    "./presentation/core": "./packages/presentation/src/core.tsx"
   },
   "files": [
     "assets/market-universe",
@@ -74,6 +81,7 @@
     "packages/vfo-workspace-core/src",
     "packages/analysis-workspaces/src",
     "scripts/scope-widget-css.mjs",
-    "LICENSE"
+    "LICENSE",
+    "packages/presentation/src"
   ]
 }

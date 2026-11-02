@@ -1,3 +1,4 @@
+import {SampoAppearanceProvider} from '../../../presentation/src/index';
 import {useEffect, useId, useMemo, useRef, useState, useSyncExternalStore, type ReactNode} from 'react';
 import {useHost, type HostServices, type WidgetProps} from '@sampo/sdk-react';
 import {formatDataValue, type HostEnvironmentSnapshot, type JsonValue, type PublicationReference} from '@sampo/contracts';
@@ -14,7 +15,7 @@ const absent: HostEnvironmentSnapshot = {scope: null, generation: 0};
 const emptySubscribe = () => () => {}, emptySnapshot = () => absent;
 const message = (error: unknown) => error instanceof Error ? error.message : 'The selected report could not be read.';
 
-export function ReplicationWorkspace(props: WidgetProps & {reports:readonly ReportDefinition[]}) {
+function ReplicationWorkspaceContent(props: WidgetProps & {reports:readonly ReportDefinition[]}) {
   const host = useHost(), environment = useSyncExternalStore(host.environment?.subscribe ?? emptySubscribe, host.environment?.getSnapshot ?? emptySnapshot, emptySnapshot);
   const config = object(props.config) ? props.config : {};
   if(!props.reports?.length)return <Empty title="No report definitions configured" detail="Supply the report catalogue from the application composition." />;
@@ -25,6 +26,7 @@ export function ReplicationWorkspace(props: WidgetProps & {reports:readonly Repo
 }
 
 function Workbench({host, bindingId, scopeKey, viewState, onViewStateChange,reports}: WidgetProps & {host: HostServices; bindingId: string; scopeKey: string;reports:readonly ReportDefinition[]}) {
+  const [explorerOpen,setExplorerOpen]=useState(true),[tableFocus,setTableFocus]=useState(false);
   const reportById=useMemo(()=>reportRegistry(reports),[reports]);
   const sections=useMemo(()=>[...new Set(reports.map(r=>r.section))],[reports]);
   const savedViewId = useId(), persisted = useRef('');
@@ -115,14 +117,14 @@ function Workbench({host, bindingId, scopeKey, viewState, onViewStateChange,repo
   const gridColumns = (id: string) => state.columns[`${report.id}:${view.id}:${id}`];
   const notes = [...(result?.partial ? ['This report has partial coverage.'] : []), ...current?.warnings ?? []];
 
-  return <div className="analysis-workspace replication-workbench">
-    <aside className="rep-sidebar"><div className="rep-brand"><span><Icon name="layers" size={24} /></span><div><strong>Replication</strong><small>Trading workbench</small></div></div>
+  return <div className={"analysis-workspace replication-workbench"+(explorerOpen?"":" catalogue-collapsed")}>
+    <aside className="rep-sidebar"><button className="rep-catalogue-toggle" aria-label={explorerOpen?"Collapse report catalogue":"Expand report catalogue"} aria-expanded={explorerOpen} onClick={()=>setExplorerOpen(v=>!v)}><Icon name="layers" size={16}/>{explorerOpen?"Report catalogue":""}</button><div className="rep-catalogue-body" hidden={!explorerOpen}><div className="rep-brand"><span><Icon name="layers" size={24} /></span><div><strong>Replication</strong><small>Published views</small></div></div>
       <button className="rep-report-search" onClick={() => setPaletteOpen(true)}><Icon name="search" size={15} /><span>Find a report</span><kbd>⌘K</kbd></button>
       <nav aria-label="Replication reports">
         {!!state.pinned.length && <section><h2>Pinned</h2>{state.pinned.map(id => {const r = reportById.get(id)!; return <button key={id} aria-current={report.id === id ? 'page' : undefined} onClick={() => navigate(id)}><Icon name={r.icon} size={15} /><span>{r.title}</span></button>;})}</section>}
         {sections.map(section => <details key={section} open={section === report.section || undefined}><summary>{section}<Icon name="chevron" size={12} /></summary>{reports.filter(r => r.section === section).map(r => <button key={r.id} aria-current={report.id === r.id ? 'page' : undefined} onClick={() => navigate(r.id)}><Icon name={r.icon} size={15} /><span>{r.title}</span></button>)}</details>)}
       </nav><div className="rep-sidebar-foot"><span />Read-only data · Sampo identity</div>
-    </aside>
+    </div></aside>
     <div className="rep-content">
       <header className="rep-header"><div><p>{report.section}<Icon name="chevron" size={11} /><span>{report.title}</span></p><div className="rep-title"><h1>{report.title}</h1><button className="rep-pin" aria-pressed={state.pinned.includes(report.id)} aria-label={`${state.pinned.includes(report.id) ? 'Unpin' : 'Pin'} ${report.title}`} onClick={() => commit(old => ({...old, pinned: old.pinned.includes(report.id) ? old.pinned.filter(id => id !== report.id) : [...old.pinned, report.id]}))}><Icon name="pin" size={16} /></button></div><p className="rep-description">{report.description}</p></div>
         <div className="rep-header-actions"><label className="analysis-sr-only" htmlFor={savedViewId}>Saved view</label><select id={savedViewId} value="" onChange={e => {const saved = state.savedViews.find(s => s.id === e.target.value); if (saved) {commit(old => ({...old, reportId: saved.reportId, viewId: saved.viewId, selections: {...old.selections, [saved.reportId]: structuredClone(saved.selection)}})); setNotice(`Opened saved view “${saved.name}”.`);}}}><option value="">Saved views</option>{state.savedViews.map(s => <option key={s.id} value={s.id}>{s.name} · {reportById.get(s.reportId)?.title}</option>)}</select>
@@ -132,7 +134,7 @@ function Workbench({host, bindingId, scopeKey, viewState, onViewStateChange,repo
       <section className="rep-context" aria-label="Report context"><label>As-of snapshot<select value={draft.snapshotId} disabled={!catalogue || pending} onChange={e => {select({...emptySelection(e.target.value), start: draft.start, end: draft.end}); setNotice('Snapshot changed; scope filters reset.');}}><option value="">Select snapshot</option>{snapshots.map(s => <option key={s.id} value={s.id}>{s.label}</option>)}</select></label>
         <label>History from<input aria-label="History from" type="date" value={draft.start} max={draft.end || current?.historicalRange?.end} min={current?.historicalRange?.start} onChange={e => setDraft(old => ({...old, start: e.target.value}))} disabled={!selection || pending || !current?.historicalRange} /></label>
         <label>History to<input aria-label="History to" type="date" value={draft.end} min={draft.start || current?.historicalRange?.start} max={current?.historicalRange?.end} onChange={e => setDraft(old => ({...old, end: e.target.value}))} disabled={!selection || pending || !current?.historicalRange} /></label>
-        <div className="rep-context-actions"><button aria-expanded={filtersOpen} onClick={() => setFiltersOpen(x => !x)}><Icon name="sliders" size={15} />Filters{Object.values(draft.filters).some(v => v.length) && <b>{Object.values(draft.filters).reduce((n, v) => n + v.length, 0)}</b>}</button><button className="analysis-primary" disabled={!draft.snapshotId || pending || !dirty || !parseSelection(draft)} onClick={() => select(draft)}><Icon name="check" size={15} />Apply</button></div>
+        <div className="rep-context-actions"><button aria-pressed={tableFocus} onClick={()=>setTableFocus(v=>!v)}><Icon name="table" size={15}/>{tableFocus?"Show charts":"Focus table"}</button><button aria-expanded={filtersOpen} onClick={() => setFiltersOpen(x => !x)}><Icon name="sliders" size={15} />Filters{Object.values(draft.filters).some(v => v.length) && <b>{Object.values(draft.filters).reduce((n, v) => n + v.length, 0)}</b>}</button><button className="analysis-primary" disabled={!draft.snapshotId || pending || !dirty || !parseSelection(draft)} onClick={() => select(draft)}><Icon name="check" size={15} />Apply</button></div>
       </section>
       {!!Object.entries(draft.filters).some(([, values]) => values.length) && <div className="rep-filter-chips">{Object.entries(draft.filters).flatMap(([key, values]) => values.map(value => <button key={`${key}:${value}`} onClick={() => setDraft(old => ({...old, filters: {...old.filters, [key]: old.filters[key].filter(v => v !== value)}}))}>{current?.filters.find(f => f.key === key)?.label ?? key}: {current?.filters.find(f => f.key === key)?.options.find(o => o.id === value)?.label ?? value}<Icon name="close" size={11} /></button>))}</div>}
       {notice && <div className="rep-notice" role="status">{notice}<button aria-label="Dismiss notice" onClick={() => setNotice('')}><Icon name="close" size={13} /></button></div>}
@@ -147,7 +149,7 @@ function Workbench({host, bindingId, scopeKey, viewState, onViewStateChange,repo
           {!!notes.length && <details className="analysis-notes"><summary>{notes.length} data {notes.length === 1 ? 'note' : 'notes'}{result?.partial && ' · partial coverage'}</summary>{notes.map((n, i) => <p key={i}>{n}</p>)}</details>}
           {current && <><div className="rep-basis"><span>{current.basis}</span><span>As of {current.asOf}</span></div>{!!current.metrics.length && <MetricStrip items={current.metrics} />}
             {chartGroups.length > 1 && <div className="rep-chart-group"><label>Chart group<select value={chosenGroup} onChange={e => {const value = e.target.value; commit(old => ({...old, chartGroups: {...old.chartGroups, [groupKey]: value}}));}}>{chartGroups.map(group => <option key={group} value={group}>{group}</option>)}</select></label><span>1 of {chartGroups.length} groups · presentation only; tables retain all selected rows</span></div>}
-            <div className="rep-chart-stack">{displayedCharts.map(chart => <ChartWidget key={`${report.id}:${view.id}:${chart.id}`} chart={chart} onFilter={filter} onInspect={(title, row) => setInspector({title, row})} />)}</div>
+            <div className="rep-chart-stack" hidden={tableFocus}>{displayedCharts.map(chart => <ChartWidget key={`${report.id}:${view.id}:${chart.id}`} chart={chart} onFilter={filter} onInspect={(title, row) => setInspector({title, row})} />)}</div>
             {current.tables.map(table => <ResultGrid key={`${report.id}:${view.id}:${selection?.snapshotId}:${table.id}`} table={table} columns={gridColumns(table.id)} onColumns={columns => commit(old => ({...old, columns: {...old.columns, [`${report.id}:${view.id}:${table.id}`]: columns}}))} onInspect={(title, row) => setInspector({title, row})} />)}
             {!current.tables.length && !current.charts.length && <Empty title="No observations match this selection" detail="The report completed without matching rows. Clear filters or choose another retained snapshot." />}
           </>}
@@ -166,3 +168,5 @@ function Modal({title, onClose, children, drawer = false}: {title: string; onClo
   useEffect(() => {const dialog = ref.current!; dialog.showModal(); return () => {dialog.close();};}, []);
   return <dialog ref={ref} className={`rep-dialog${drawer ? ' rep-drawer' : ''}`} aria-label={title} onCancel={onClose}><header><h2>{title}</h2><button aria-label={`Close ${title}`} onClick={onClose}><Icon name="close" size={18} /></button></header>{children}</dialog>;
 }
+
+export function ReplicationWorkspace(props:Parameters<typeof ReplicationWorkspaceContent>[0]) {return <SampoAppearanceProvider><ReplicationWorkspaceContent {...props}/></SampoAppearanceProvider>;}

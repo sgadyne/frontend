@@ -1,3 +1,4 @@
+import {SampoAppearanceProvider} from '../../../packages/presentation/src/index';
 import {riskLensPresentation} from './features/risk-lens/presentation';
 import {useEffect, useMemo, useRef, useState} from 'react';
 import type {ChangeEvent} from 'react';
@@ -71,9 +72,9 @@ export function RiskLensApplicationWidget(props: WidgetProps) {
   const host = useHost();
   const session = useAppSession<RiskLensSession>(props.sessionId ?? '');
   if (!props.sessionId) throw new Error('The Risk Lens app widget requires an application session association.');
-  return <RiskLensSessionProvider session={session}>
+  return <SampoAppearanceProvider><RiskLensSessionProvider session={session}>
     <RiskLensAppView portalContainer={host.getPortalContainer()} />
-  </RiskLensSessionProvider>;
+  </RiskLensSessionProvider></SampoAppearanceProvider>;
 }
 
 export function RiskLensAppView({portalContainer}: {portalContainer?: HTMLElement}) {
@@ -243,7 +244,7 @@ export function RiskLensAppView({portalContainer}: {portalContainer?: HTMLElemen
   return <div className="risk-lens-shell">
     <main className="lens-main" id="risk-lens">
       <header className="lens-topbar">
-        <div className="lens-breadcrumb"><a className="lens-wordmark" href="#risk-lens" aria-label="Risk Lens home">Risk Lens</a><span aria-hidden="true">/</span><h1>Risk Lens</h1><strong>{modeTitle}</strong></div>
+        <div className="lens-breadcrumb"><h1>Risk Lens</h1><strong>{modeTitle}</strong></div>
         <div className="lens-topbar__actions">
           {activeFixture && <StatusBadge status="ready" label="Synthetic demo" />}
           {viewDateLabel(dateEnd) && <span className="lens-publication-date">As of {dateLabel(dateEnd)}</span>}
@@ -346,7 +347,7 @@ export function RiskLensAppView({portalContainer}: {portalContainer?: HTMLElemen
         {overlapMode && !hasError && !missingData && !comparisonLoading && comparison?.data && !hasReferenceBook && <ResultState status="missing"
           title="Reference book book is not in this publication"
           description="Overlap requires a published reference book to compare against these peers. No zero-overlap result is inferred." />}
-        {partial && <ResultState status="partial" title="Partial publication"
+        {partial && <ResultState status="partial" className="lens-coverage-notice" title="Partial publication"
           description={activeEnvelope?.message ?? 'Some source observations are unavailable. Totals preserve missing values as unknown.'}
           detail={activeEnvelope?.coverage?.complete === false ? 'Coverage is incomplete for this result.' : undefined} />}
 
@@ -375,7 +376,7 @@ export function RiskLensAppView({portalContainer}: {portalContainer?: HTMLElemen
           </div>}
 
           <section className={`lens-workspace-grid${inspectorOpen ? ' lens-workspace-grid--inspecting' : ''}`} aria-label="Exposure workspace">
-            {inspectorOpen && <div className="lens-history-wrap" onKeyDown={event => {
+            {inspectorOpen && <div className="lens-history-wrap" data-sampo-surface="floating" onKeyDown={event => {
               if (event.key === 'Escape' && !event.defaultPrevented && !(event.target instanceof HTMLSelectElement)) { event.stopPropagation(); closeInspector(); }
             }}>
               <div className="lens-inspector-toolbar">

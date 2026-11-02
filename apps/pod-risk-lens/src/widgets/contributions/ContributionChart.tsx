@@ -116,7 +116,7 @@ interface PlotProps {
 
 function Plot({items, kind, unit, plotWidth, formatValue, selectedId, onSelect, onPointerEnter, onPointerLeave, onFocus, onBlur}: PlotProps) {
   const width = Math.max(316, plotWidth, items.length * 62 + 62);
-  const height = kind === 'current' ? 158 : 188;
+  const height = kind === 'current' ? 134 : 158;
   const margin = {left: 43, right: 10, top: 9, bottom: kind === 'current' ? 12 : 43};
   const top = margin.top, bottom = height - margin.bottom;
   const {min, max, ticks} = valueDomain(items, kind);
@@ -174,8 +174,8 @@ function Plot({items, kind, unit, plotWidth, formatValue, selectedId, onSelect, 
               aria-hidden="true"><title>{`${segment.label}: ${statusLabel(measure, formatValue, unit)}`}</title></rect>;
           })}
           {finite(aggregate.value) && aggregate.coverage !== 'unavailable' && <circle className={`contribution-chart-net${aggregate.coverage === 'partial' ? ' is-partial' : ''}`}
-            cx={center} cy={y(aggregate.value)} r="3.3" fill={aggregate.coverage === 'complete' ? '#192a32' : 'white'}
-            stroke="#192a32" strokeWidth="1.5" aria-hidden="true"><title>{`${label} net ${statusLabel(aggregate, formatValue, unit)}`}</title></circle>}
+            cx={center} cy={y(aggregate.value)} r="3.3" fill={aggregate.coverage === 'complete' ? 'var(--risk-ink,#192a32)' : 'var(--risk-surface,#fff)'}
+            stroke="var(--risk-ink,#192a32)" strokeWidth="1.5" aria-hidden="true"><title>{`${label} net ${statusLabel(aggregate, formatValue, unit)}`}</title></circle>}
           {statusMark && <text className="contribution-chart-coverage-mark" x={center} y={top + 8} textAnchor="middle" aria-hidden="true">{statusMark}</text>}
           {kind === 'movement' && <text className="contribution-chart-category" x={center} y={height - 15} textAnchor="end"
             transform={`rotate(-28 ${center} ${height - 15})`} aria-hidden="true">{item.label.length > 10 ? `${item.label.slice(0, 9)}…` : item.label}</text>}

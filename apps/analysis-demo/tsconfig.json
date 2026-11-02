@@ -1,0 +1,10 @@
+{
+  "extends": "../pod-risk-lens/tsconfig.json",
+  "compilerOptions": {
+    "noImplicitAny": false
+  },
+  "include": [
+    "./*.ts",
+    "./*.tsx"
+  ]
+}

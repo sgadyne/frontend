@@ -1,3 +1,4 @@
+import {SampoAppearanceProvider} from '../../presentation/src/index';
 import React,{useEffect,useRef,useState,useSyncExternalStore} from 'react';
 import {useHost,useAppSession,type ExtensionModule,type WidgetProps} from '@sampo/sdk-react';
 import type {JsonValue} from '@sampo/contracts';
@@ -94,4 +95,6 @@ function CommandCenter(props:WidgetProps){
 
  return <CommandNode session={session} state={state} uiState={views.current.workspace} onUiState={value=>{views.current={...views.current,workspace:value};props.onViewStateChange?.(views.current)}} renderLive={()=><VolatilityLive session={session} state={state}/>} renderInspector={()=><Inspector {...child('inspector')}/>} renderCustom={()=><CustomEditor {...child('custom')}/>}/>;
 }
-export function createWorkspaceExtension(APP:string,provider:ProviderRoot){const application=createApplication(provider);return {runtimeAbi:1,applications:{[APP]:application},widgets:{VfoApplication:{id:APP+'.application',Component:CommandCenter},CommandCenter:{id:APP+'.command',Component:CommandCenter},MarketList:{id:APP+'.markets',Component:Markets},SurfaceInspector:{id:APP+'.surface',Component:SurfaceWidget},InputInspector:{id:APP+'.inspector',Component:Inspector},CustomEditor:{id:APP+'.custom',Component:CustomEditor}}} satisfies ExtensionModule;}
+export function createWorkspaceExtension(APP:string,provider:ProviderRoot){const application=createApplication(provider);return {runtimeAbi:1,applications:{[APP]:application},widgets:{VfoApplication:{id:APP+'.application',Component:withAppearance(CommandCenter)},CommandCenter:{id:APP+'.command',Component:withAppearance(CommandCenter)},MarketList:{id:APP+'.markets',Component:withAppearance(Markets)},SurfaceInspector:{id:APP+'.surface',Component:withAppearance(SurfaceWidget)},InputInspector:{id:APP+'.inspector',Component:withAppearance(Inspector)},CustomEditor:{id:APP+'.custom',Component:withAppearance(CustomEditor)}}} satisfies ExtensionModule;}
+
+function withAppearance(Component:React.ComponentType<WidgetProps>){return function HostedPanel(props:WidgetProps){return <SampoAppearanceProvider><Component {...props}/></SampoAppearanceProvider>}}

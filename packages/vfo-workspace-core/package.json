@@ -20,8 +20,8 @@
   "peerDependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "@sampo/sdk-react": "^0.1.0",
-    "@sampo/contracts": "^0.1.0"
+    "@sampo/sdk-react": ">=0.2.0-alpha.20261102.1 <0.3.0",
+    "@sampo/contracts": ">=0.2.0-alpha.20261102.1 <0.3.0"
   },
   "peerDependenciesMeta": {
     "@sampo/sdk-react": {

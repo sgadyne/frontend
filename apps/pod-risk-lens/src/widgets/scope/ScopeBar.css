@@ -9,7 +9,7 @@
 .scope-bar__preset { min-width:120px; max-width:min(240px,60vw); min-height:30px; padding:4px 25px 4px 8px; border:1px solid var(--line,#d5dfe1); border-radius:5px; color:var(--ink,#132b36); background:var(--surface,#fff); font-size:12px; }
 .scope-bar__preset:focus-visible,.scope-bar button:focus-visible,.scope-bar summary:focus-visible,.scope-bar input:focus-visible { outline:2px solid var(--accent,#167a71); outline-offset:2px; }
 .scope-bar__reset { min-height:30px; padding:4px 8px; border:1px solid transparent; border-radius:5px; color:var(--accent,#167a71); background:transparent; font-size:11px; font-weight:600; }
-.scope-bar__reset:hover { background:#edf5f3; }
+.scope-bar__reset:hover { background:var(--sampo-surface-sunken,#edf5f3); }
 .scope-bar__summary { display:flex; align-items:flex-start; flex-wrap:wrap; gap:5px 16px; }
 .scope-bar__summary-item { min-width:0; display:inline-flex; align-items:baseline; flex-wrap:wrap; gap:4px 6px; color:var(--muted,#526871); font-size:11px; line-height:1.4; }
 .scope-bar__summary-label { color:var(--ink,#132b36); font-weight:650; }
@@ -24,7 +24,7 @@
 .scope-bar__menu { position:absolute; z-index:8; top:calc(100% + 7px); left:0; width:min(300px,calc(100vw - 28px)); max-height:min(360px,65vh); overflow:auto; padding:11px; border:1px solid var(--line,#dce5e7); border-radius:7px; background:var(--surface,#fff); box-shadow:0 8px 24px rgba(16,40,50,.14); }
 .scope-bar__menu-heading { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:7px; color:var(--ink,#132b36); font-size:12px; }
 .scope-bar__menu-actions { display:flex; align-items:center; gap:5px; }
-.scope-bar__menu-heading button { padding:3px 7px; border:1px solid var(--line,#dce5e7); border-radius:4px; background:#fff; color:var(--accent,#167a71); font-size:11px; }
+.scope-bar__menu-heading button { padding:3px 7px; border:1px solid var(--line,#dce5e7); border-radius:4px; background:var(--sampo-panel,#fff); color:var(--accent,#167a71); font-size:11px; }
 .scope-bar__options { display:grid; grid-template-columns:repeat(auto-fit,minmax(125px,1fr)); gap:4px 10px; }
 .scope-bar__option { min-width:0; display:flex; align-items:center; gap:7px; padding:4px 2px; color:var(--ink,#132b36); font-size:12px; line-height:1.3; cursor:pointer; }
 .scope-bar__option input { accent-color:var(--accent,#167a71); }

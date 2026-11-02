@@ -25,3 +25,6 @@ playwright-report/
 *.pfx
 *.zip
 *.db
+
+# Also ignore a task-local dependency symlink.
+node_modules

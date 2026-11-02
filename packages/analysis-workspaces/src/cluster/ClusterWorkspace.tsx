@@ -1,3 +1,4 @@
+import {SampoAppearanceProvider} from '../../../presentation/src/index';
 import {useEffect,useMemo,useRef,useState,useSyncExternalStore} from 'react';
 import {useHost,type WidgetProps} from '@sampo/sdk-react';
 import type {HostEnvironmentSnapshot,JsonValue} from '@sampo/contracts';
@@ -14,7 +15,7 @@ import './cluster.css';
 
 const absent:HostEnvironmentSnapshot={scope:null,generation:0},noop=()=>()=>{},empty=()=>absent;
 const errorText=(error:unknown)=>error instanceof Error?error.message:'The cached analysis is unavailable.';
-export function ClusterWorkspace(props:WidgetProps){
+function ClusterWorkspaceContent(props:WidgetProps){
   const host=useHost(),environment=useSyncExternalStore(host.environment?.subscribe??noop,host.environment?.getSnapshot??empty,empty);
   let bindingId:string;try{bindingId=parseConfig(props.config).bindingId;}catch(error){return <div className="analysis-workspace"><p role="alert">{errorText(error)}</p></div>;}
   if(!host.data||!host.environment||!environment.scope)return <div className="analysis-workspace"><p role="status">Select an authorised Sampo environment to open Cluster.</p></div>;
@@ -63,3 +64,5 @@ function Workbench({bindingId,config,viewState,onViewStateChange}:WidgetProps&{b
     </main></div><dialog className="cluster-dialog" ref={saveDialog}><header><h2>Save analysis</h2><button aria-label="Close save analysis" onClick={()=>saveDialog.current?.close()}><Icon name="close"/></button></header><p>Save portfolio selection and analytical settings. This does not schedule or execute a job.</p><label>Analysis name<input value={name} onChange={e=>setName(e.target.value)} maxLength={120}/></label><button className="cluster-run" disabled={!name.trim()||!draft} onClick={save}>Save</button></dialog><dialog className="cluster-dialog" ref={inspector} onClose={()=>setInspect(null)}><header><h2>{inspect?.title}</h2><button aria-label="Close inspector" onClick={()=>inspector.current?.close()}><Icon name="close"/></button></header><dl>{inspect&&Object.entries(inspect.row).map(([key,value])=><div key={key}><dt>{key.replaceAll('_',' ')}</dt><dd>{value===null?'—':typeof value==='object'?JSON.stringify(value):String(value)}</dd></div>)}</dl></dialog>
   </div>;
 }
+
+export function ClusterWorkspace(props:Parameters<typeof ClusterWorkspaceContent>[0]) {return <SampoAppearanceProvider><ClusterWorkspaceContent {...props}/></SampoAppearanceProvider>;}

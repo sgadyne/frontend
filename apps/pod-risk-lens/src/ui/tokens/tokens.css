@@ -1,16 +1,16 @@
 /* Provisional analytical UI palette; these are role tokens, not an official brand specification. */
 .risk-lens-shell, .risk-lens-portal-root, .risk-lens-widget {
-  --risk-canvas: #f4f6f7;
-  --risk-surface: #ffffff;
-  --risk-ink: #132b36;
-  --risk-muted: #526871;
-  --risk-line: #dbe3e5;
-  --risk-brand: #14685f;
-  --risk-selected: #eaf5f2;
-  --risk-focus: #126d66;
-  --risk-warning: #76500f;
-  --risk-positive: #076f59;
-  --risk-negative: #a23c36;
+  --risk-canvas: var(--sampo-canvas, #f4f6f7);
+  --risk-surface: var(--sampo-panel, #ffffff);
+  --risk-ink: var(--sampo-ink, #132b36);
+  --risk-muted: var(--sampo-muted, #526871);
+  --risk-line: var(--sampo-line, #dbe3e5);
+  --risk-brand: var(--sampo-accent, #14685f);
+  --risk-selected: var(--sampo-accent-soft, #eaf5f2);
+  --risk-focus: var(--sampo-focus, #126d66);
+  --risk-warning: var(--sampo-warning, #76500f);
+  --risk-positive: var(--sampo-success, #076f59);
+  --risk-negative: var(--sampo-danger, #a23c36);
   --risk-series-1: #126f67;
   --risk-series-2: #496ab7;
   --risk-series-3: #9b5d15;

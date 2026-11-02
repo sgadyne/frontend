@@ -88,10 +88,10 @@
 .exposure-table__tag {
   display: inline-block;
   padding: 2px 6px;
-  border: 1px solid #e4eaeb;
+  border: 1px solid var(--sampo-line,#e4eaeb);
   border-radius: 4px;
   color: var(--muted, #647780);
-  background: #f8fafb;
+  background: var(--sampo-panel,#f8fafb);
   font-size: 10px;
 }
 
@@ -120,7 +120,7 @@
 
 .exposure-table .risk-data-table__row.is-ineligible .exposure-table__symbol,
 .exposure-table .risk-data-table__row.is-ineligible .exposure-table__pod {
-  color: #66777d;
+  color: var(--sampo-muted,#66777d);
 }
 
 .exposure-table__status {

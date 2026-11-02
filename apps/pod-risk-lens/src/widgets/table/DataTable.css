@@ -74,7 +74,7 @@
 }
 
 .risk-data-table__columns[open] summary {
-  border-color: #9cc9bf;
+  border-color: var(--sampo-line,#9cc9bf);
 }
 
 .risk-data-table__columns fieldset {
@@ -174,7 +174,7 @@
   height: 38px;
   padding-top: 0;
   padding-bottom: 0;
-  background: #f8fafb;
+  background: var(--sampo-panel,#f8fafb);
   color: var(--muted, #647780);
   box-shadow: 0 1px 0 var(--line, #e1e7e9);
   font-size: 11px;
@@ -245,12 +245,12 @@
 }
 
 .risk-data-table__row.is-selectable:hover {
-  background: #f6faf9;
+  background: var(--sampo-panel,#f6faf9);
 }
 
 .risk-data-table__row[aria-selected='true'],
 .risk-data-table__row[aria-selected='true']:hover {
-  background: #eaf5f2;
+  background: var(--sampo-accent-soft,#eaf5f2);
 }
 
 .risk-data-table__row[tabindex]:focus-visible {

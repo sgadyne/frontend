@@ -154,7 +154,7 @@
 }
 
 .time-series-chart__tooltip text {
-  fill: #fff;
+  fill: var(--sampo-on-accent,#fff);
   font-family: inherit;
   font-size: 11px;
   font-variant-numeric: tabular-nums;

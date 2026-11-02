@@ -82,3 +82,7 @@ To checkpoint the completed public source changes and this handoff:
 .\scripts\Commit-Frontend-Handoff.ps1
 # Optional: use -Push to push the resulting branch to origin.
 ```
+
+## Workspace appearance · 0.3.1
+
+See [the appearance integration guide](docs/APPEARANCE_INTEGRATION.md) for the corporate checkout, host/renderer boundaries and synthetic preview. This increment adds shared theme handling across the four apps, a keyboard-driven floating search demo and a three-view VFO tearsheet. Existing providers and app identities stay consumer-owned. Component use remains on the published beta.2 SDK; the optional six-preset demo uses a paired Sampo source branch.
