@@ -73,7 +73,10 @@
     "./market-universe/groups.json": "./assets/market-universe/groups.json",
     "./market-universe/logos/*": "./assets/market-universe/logos/*",
     "./presentation": "./packages/presentation/src/index.tsx",
-    "./presentation/core": "./packages/presentation/src/core.tsx"
+    "./presentation/core": "./packages/presentation/src/core.tsx",
+    "./market-universe/navigation.json": "./assets/market-universe/navigation.json",
+    "./market-universe/workbench": "./packages/vfo-workspace-core/src/market/UniverseWorkbench.tsx",
+    "./market-universe/model": "./packages/vfo-workspace-core/src/market/universe-model.ts"
   },
   "files": [
     "assets/market-universe",

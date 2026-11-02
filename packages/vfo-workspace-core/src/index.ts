@@ -8,3 +8,7 @@ export {createHttpProvider} from './data/http-provider.mjs';
 export {VfoSession} from './session';
 export type {ProviderRoot,Provider,Surface,Evaluation,CutSelection,EnvironmentProfile,JsonValue} from './model';
 export type {WorkspaceSite,AssetDirectoryEntry,MarketFrame,MarketObservation,Board} from './market/contracts';
+
+export {MarketUniverseWorkbench} from './market/UniverseWorkbench';
+export type {MarketUniverseProps,MarketUniverseState} from './market/UniverseWorkbench';
+export * from './market/universe-model';

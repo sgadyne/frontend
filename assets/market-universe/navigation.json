@@ -1,0 +1,228 @@
+{
+  "schemaVersion": 1,
+  "regions": [
+    {
+      "id": "americas",
+      "title": "US & Americas",
+      "shortTitle": "Americas",
+      "description": "The Americas selection in the bundled catalogue. Listings, not issuer domicile.",
+      "groupId": "region:Americas",
+      "featuredAssetIds": [
+        "EQUITY:AAPL",
+        "EQUITY:MSFT",
+        "EQUITY:NVDA",
+        "EQUITY:AMZN",
+        "EQUITY:META",
+        "EQUITY:GOOGL",
+        "EQUITY:JPM",
+        "EQUITY:XOM"
+      ],
+      "etfs": [
+        {
+          "assetId": "EQUITY:SPY",
+          "label": "US large cap"
+        },
+        {
+          "assetId": "EQUITY:QQQ",
+          "label": "Nasdaq 100"
+        },
+        {
+          "assetId": "EQUITY:IWM",
+          "label": "US small cap"
+        },
+        {
+          "assetId": "EQUITY:XLK",
+          "label": "Technology",
+          "groupId": "holdings:xlk:XLK"
+        },
+        {
+          "assetId": "EQUITY:XLF",
+          "label": "Financials",
+          "groupId": "holdings:xlf:XLF"
+        },
+        {
+          "assetId": "EQUITY:XLE",
+          "label": "Energy",
+          "groupId": "holdings:xle:XLE"
+        }
+      ]
+    },
+    {
+      "id": "europe",
+      "title": "Europe",
+      "shortTitle": "Europe",
+      "description": "European listings from the static catalogue. Regional ETF shortcuts may trade elsewhere.",
+      "groupId": "region:Europe",
+      "featuredAssetIds": [
+        "EQUITY:ASML-NA",
+        "EQUITY:SAP-GY",
+        "EQUITY:SIE-GY",
+        "EQUITY:MC-FP",
+        "EQUITY:TTE-FP",
+        "EQUITY:OR-FP",
+        "EQUITY:SU-FP",
+        "EQUITY:ALV-GY"
+      ],
+      "etfs": [
+        {
+          "assetId": "EQUITY:EWG",
+          "label": "Germany exposure"
+        },
+        {
+          "assetId": "EQUITY:EWQ",
+          "label": "France exposure"
+        }
+      ]
+    },
+    {
+      "id": "asia",
+      "title": "Asia Pacific",
+      "shortTitle": "Asia",
+      "description": "Asian listings from the static catalogue. Regional ETF shortcuts are curated links, not holdings claims.",
+      "groupId": "region:Asia",
+      "featuredAssetIds": [
+        "EQUITY:700-HK",
+        "EQUITY:9988-HK",
+        "EQUITY:388-HK",
+        "EQUITY:285A-JT",
+        "EQUITY:1-HK",
+        "EQUITY:5-HK",
+        "EQUITY:NIFTY",
+        "EQUITY:NKY"
+      ],
+      "etfs": [
+        {
+          "assetId": "EQUITY:EWJ",
+          "label": "Japan exposure"
+        },
+        {
+          "assetId": "EQUITY:EWH",
+          "label": "Hong Kong exposure"
+        },
+        {
+          "assetId": "EQUITY:EWT",
+          "label": "Taiwan exposure"
+        },
+        {
+          "assetId": "EQUITY:FXI",
+          "label": "China exposure"
+        }
+      ]
+    }
+  ],
+  "collections": [
+    {
+      "id": "basket:us-platforms",
+      "title": "Platforms & cloud",
+      "description": "Curated frontend basket; not index or fund constituents.",
+      "regionId": "americas",
+      "assetIds": [
+        "EQUITY:AAPL",
+        "EQUITY:MSFT",
+        "EQUITY:AMZN",
+        "EQUITY:GOOGL",
+        "EQUITY:META",
+        "EQUITY:ORCL",
+        "EQUITY:CRM"
+      ],
+      "etfIds": [
+        "EQUITY:QQQ",
+        "EQUITY:XLK"
+      ]
+    },
+    {
+      "id": "basket:us-semiconductors",
+      "title": "Semiconductors",
+      "description": "Curated frontend basket; compare with the separately recorded XSD holdings.",
+      "regionId": "americas",
+      "assetIds": [
+        "EQUITY:NVDA",
+        "EQUITY:AMD",
+        "EQUITY:AVGO",
+        "EQUITY:INTC",
+        "EQUITY:QCOM",
+        "EQUITY:MU",
+        "EQUITY:AMAT",
+        "EQUITY:LRCX"
+      ],
+      "etfIds": [
+        "EQUITY:XSD",
+        "EQUITY:XLK"
+      ]
+    },
+    {
+      "id": "basket:eu-industrial",
+      "title": "European industry",
+      "description": "Curated industrial and technology navigation basket.",
+      "regionId": "europe",
+      "assetIds": [
+        "EQUITY:SIE-GY",
+        "EQUITY:SU-FP",
+        "EQUITY:AIR-FP",
+        "EQUITY:SAF-FP",
+        "EQUITY:ASML-NA",
+        "EQUITY:SAP-GY",
+        "EQUITY:IFX-GY"
+      ],
+      "etfIds": [
+        "EQUITY:EWG",
+        "EQUITY:EWQ"
+      ]
+    },
+    {
+      "id": "basket:eu-consumer",
+      "title": "European consumer",
+      "description": "Curated consumer and luxury navigation basket.",
+      "regionId": "europe",
+      "assetIds": [
+        "EQUITY:MC-FP",
+        "EQUITY:OR-FP",
+        "EQUITY:RMS-FP",
+        "EQUITY:KER-FP",
+        "EQUITY:ITX-SQ",
+        "EQUITY:BMW-GY"
+      ],
+      "etfIds": [
+        "EQUITY:EWQ",
+        "EQUITY:EWG"
+      ]
+    },
+    {
+      "id": "basket:asia-internet",
+      "title": "Asian digital economy",
+      "description": "Curated regional navigation basket; no live observations implied.",
+      "regionId": "asia",
+      "assetIds": [
+        "EQUITY:700-HK",
+        "EQUITY:9988-HK",
+        "EQUITY:20-HK",
+        "EQUITY:268-HK",
+        "EQUITY:285-HK",
+        "EQUITY:241-HK"
+      ],
+      "etfIds": [
+        "EQUITY:FXI",
+        "EQUITY:EWH"
+      ]
+    },
+    {
+      "id": "basket:asia-infrastructure",
+      "title": "Asian infrastructure",
+      "description": "Curated regional navigation basket.",
+      "regionId": "asia",
+      "assetIds": [
+        "EQUITY:388-HK",
+        "EQUITY:1-HK",
+        "EQUITY:2-HK",
+        "EQUITY:66-HK",
+        "EQUITY:728-HK",
+        "EQUITY:762-HK",
+        "EQUITY:788-HK"
+      ],
+      "etfIds": [
+        "EQUITY:EWH",
+        "EQUITY:EWJ"
+      ]
+    }
+  ]
+}

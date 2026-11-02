@@ -1,0 +1,3550 @@
+{
+  "asOf": "2026-11-02T14:00:00Z",
+  "kind": "demo",
+  "label": "Illustrative coverage",
+  "rows": [
+    {
+      "assetId": "EQUITY:AAPL",
+      "quotes": "ready",
+      "surfaces": "ready",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:MSFT",
+      "quotes": "partial",
+      "surfaces": "ready",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:NVDA",
+      "quotes": "stale",
+      "surfaces": "partial",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:AMZN",
+      "quotes": "missing",
+      "surfaces": "stale",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:META",
+      "quotes": "failed",
+      "surfaces": "missing",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:GOOGL",
+      "quotes": "unknown",
+      "surfaces": "failed",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:JPM",
+      "quotes": "ready",
+      "surfaces": "unknown",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": []
+    },
+    {
+      "assetId": "EQUITY:XOM",
+      "quotes": "ready",
+      "surfaces": "ready",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:ASML-NA",
+      "quotes": "partial",
+      "surfaces": "ready",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:SAP-GY",
+      "quotes": "stale",
+      "surfaces": "partial",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:SIE-GY",
+      "quotes": "missing",
+      "surfaces": "stale",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:MC-FP",
+      "quotes": "failed",
+      "surfaces": "missing",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:TTE-FP",
+      "quotes": "unknown",
+      "surfaces": "failed",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:OR-FP",
+      "quotes": "ready",
+      "surfaces": "unknown",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": []
+    },
+    {
+      "assetId": "EQUITY:SU-FP",
+      "quotes": "ready",
+      "surfaces": "ready",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:ALV-GY",
+      "quotes": "partial",
+      "surfaces": "ready",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:700-HK",
+      "quotes": "stale",
+      "surfaces": "partial",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:9988-HK",
+      "quotes": "missing",
+      "surfaces": "stale",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:388-HK",
+      "quotes": "failed",
+      "surfaces": "missing",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:285A-JT",
+      "quotes": "unknown",
+      "surfaces": "failed",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:1-HK",
+      "quotes": "ready",
+      "surfaces": "unknown",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": []
+    },
+    {
+      "assetId": "EQUITY:5-HK",
+      "quotes": "ready",
+      "surfaces": "ready",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:NIFTY",
+      "quotes": "partial",
+      "surfaces": "ready",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:NKY",
+      "quotes": "stale",
+      "surfaces": "partial",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:SPY",
+      "quotes": "missing",
+      "surfaces": "stale",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:QQQ",
+      "quotes": "failed",
+      "surfaces": "missing",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:IWM",
+      "quotes": "unknown",
+      "surfaces": "failed",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:XLK",
+      "quotes": "ready",
+      "surfaces": "unknown",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": []
+    },
+    {
+      "assetId": "EQUITY:XLF",
+      "quotes": "ready",
+      "surfaces": "ready",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:XLE",
+      "quotes": "partial",
+      "surfaces": "ready",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:EWG",
+      "quotes": "stale",
+      "surfaces": "partial",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:EWQ",
+      "quotes": "missing",
+      "surfaces": "stale",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:EWJ",
+      "quotes": "failed",
+      "surfaces": "missing",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:EWH",
+      "quotes": "unknown",
+      "surfaces": "failed",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    },
+    {
+      "assetId": "EQUITY:EWT",
+      "quotes": "ready",
+      "surfaces": "unknown",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": []
+    },
+    {
+      "assetId": "EQUITY:FXI",
+      "quotes": "ready",
+      "surfaces": "ready",
+      "source": "demo-archive",
+      "asOf": "2026-11-02T14:00:00Z",
+      "intervals": [
+        {
+          "start": "2026-08-03",
+          "end": "2026-08-10",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-10",
+          "end": "2026-08-17",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-17",
+          "end": "2026-08-24",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-24",
+          "end": "2026-08-31",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-08-31",
+          "end": "2026-09-07",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-07",
+          "end": "2026-09-14",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-14",
+          "end": "2026-09-21",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-21",
+          "end": "2026-09-28",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-09-28",
+          "end": "2026-10-05",
+          "status": "gap",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-05",
+          "end": "2026-10-12",
+          "status": "partial",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-12",
+          "end": "2026-10-19",
+          "status": "unknown",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-19",
+          "end": "2026-10-26",
+          "status": "failed",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        },
+        {
+          "start": "2026-10-26",
+          "end": "2026-11-02",
+          "status": "available",
+          "source": "demo-archive",
+          "dataset": "volatility-surfaces",
+          "detail": "Fixed synthetic UI scenario; not a statement about actual retained data."
+        }
+      ]
+    }
+  ]
+}

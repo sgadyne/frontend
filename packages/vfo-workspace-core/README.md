@@ -30,3 +30,9 @@ A private application supplies its backend binding and application identifier. F
 This is a distribution candidate, not a publication or licence grant. It remains private / UNLICENSED pending owner review. Public ticker logos are external site assets and are not included; review their rights separately before distribution. Plotly and Motion retain their upstream notices in build output.
 
 Market boards can declare ETF portfolios with dated holding weights and separate sourced sector classifications. Funds remain pinned above scrollable company lists. Only configured asset IDs can open fitted-model views; other holdings remain visible and non-actionable. Branding and membership datasets are external site assets, excluded from this package.
+
+## Catalogue and coverage composition
+
+`MarketUniverseWorkbench` is a separate catalogue-first presentation surface. Callers supply `assets`, `groups`, `navigation`, catalogue revision/as-of, a historical display window and optional `CoverageSnapshot`. It owns local browsing state and emits portable state through `onStateChange`. An optional `renderSurface(instrument)` supplies a real ticker renderer. Existing `VolatilityWorkspace`/session contracts remain available.
+
+The pure `makeBackfillDraft` helper emits explicit intent only. Confirmed-gap selection uses source/product-matched evidence; unknown/failed intervals are never assumed missing. The UI can export the draft or notify `onDraft`; consumers must separately validate current permissions, resource bindings, evidence and job parameters before any execution. `onDraft` is a review notification, not execution authorization. See the installed-app example README for composition and review steps.
