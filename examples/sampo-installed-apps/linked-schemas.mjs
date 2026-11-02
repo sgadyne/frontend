@@ -12,6 +12,7 @@ export const vfoStateSchema = object({
   watchlist:list(),selected:list(),focused:string(),inspectTab:string(16,['identity','coverage','surface']),
   page:{type:'integer',minimum:0,maximum:10000},sort:string(16,['featured','az']),showDemo:boolean,
   source:string(),dataset:string(),historyStart:string(10),historyEnd:string(10),
+  scrollTop:{type:'number',minimum:0,maximum:1000000},focusLabel:string(180),
 });
 const modes = ['positions','trades','overlap'];
 export const riskSelectionSchema = object({mode:string(16,modes),metric:string(8,['delta','risk'])});
