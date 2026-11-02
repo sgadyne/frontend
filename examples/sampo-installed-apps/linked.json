@@ -1,64 +1,37 @@
 {
   "schemaVersion": 1,
   "publisherId": "sampo.synthetic",
-  "applicationId": "example.installed-apps",
+  "applicationId": "example.vfo",
   "entries": [
-    {
-      "id": "risk",
-      "title": "Risk Lens",
-      "routeId": "risk",
-      "selection": {}
-    },
     {
       "id": "vfo",
       "title": "VFO",
       "routeId": "vfo",
       "selection": {}
-    },
-    {
-      "id": "cluster",
-      "title": "Cluster",
-      "routeId": "cluster",
-      "selection": {}
-    },
-    {
-      "id": "replication",
-      "title": "Replication",
-      "routeId": "replication",
-      "selection": {}
     }
   ],
   "routes": [
-    {
-      "id": "risk",
-      "contributionId": "example.risk-lens.main",
-      "selectionSchema": {
-        "type": "object",
-        "properties": {},
-        "additionalProperties": false
-      },
-      "presentations": [
-        "open",
-        "peek",
-        "addToDraft"
-      ],
-      "shareable": true,
-      "portableState": {
-        "id": "example.risk-lens.main.state",
-        "version": 1,
-        "schema": {
-          "type": "object",
-          "properties": {},
-          "additionalProperties": false
-        }
-      }
-    },
     {
       "id": "vfo",
       "contributionId": "example.vfo.main",
       "selectionSchema": {
         "type": "object",
-        "properties": {},
+        "properties": {
+          "view": {
+            "type": "string",
+            "maxLength": 16,
+            "enum": [
+              "universe",
+              "live",
+              "history"
+            ]
+          },
+          "instrumentId": {
+            "type": "string",
+            "maxLength": 180
+          }
+        },
+        "required": [],
         "additionalProperties": false
       },
       "presentations": [
@@ -69,20 +42,143 @@
       "shareable": true,
       "portableState": {
         "id": "example.vfo.main.state",
-        "version": 1,
+        "version": 2,
         "schema": {
           "type": "object",
-          "properties": {},
+          "properties": {
+            "version": {
+              "type": "integer",
+              "enum": [
+                1
+              ]
+            },
+            "view": {
+              "type": "string",
+              "maxLength": 16,
+              "enum": [
+                "universe",
+                "live",
+                "history"
+              ]
+            },
+            "filters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "region": {
+                  "type": "string",
+                  "maxLength": 180
+                },
+                "group": {
+                  "type": "string",
+                  "maxLength": 180
+                },
+                "type": {
+                  "type": "string",
+                  "maxLength": 64
+                },
+                "coverage": {
+                  "type": "string",
+                  "maxLength": 32
+                },
+                "watchlistOnly": {
+                  "type": "boolean"
+                }
+              },
+              "required": [],
+              "additionalProperties": false
+            },
+            "watchlist": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 180
+              },
+              "maxItems": 100
+            },
+            "selected": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 180
+              },
+              "maxItems": 100
+            },
+            "focused": {
+              "type": "string",
+              "maxLength": 180
+            },
+            "inspectTab": {
+              "type": "string",
+              "maxLength": 16,
+              "enum": [
+                "identity",
+                "coverage",
+                "surface"
+              ]
+            },
+            "page": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            },
+            "sort": {
+              "type": "string",
+              "maxLength": 16,
+              "enum": [
+                "featured",
+                "az"
+              ]
+            },
+            "showDemo": {
+              "type": "boolean"
+            },
+            "source": {
+              "type": "string",
+              "maxLength": 180
+            },
+            "dataset": {
+              "type": "string",
+              "maxLength": 180
+            },
+            "historyStart": {
+              "type": "string",
+              "maxLength": 10
+            },
+            "historyEnd": {
+              "type": "string",
+              "maxLength": 10
+            }
+          },
+          "required": [],
           "additionalProperties": false
         }
       }
     },
     {
-      "id": "cluster",
-      "contributionId": "example.cluster.main",
+      "id": "vfo.universe",
+      "contributionId": "example.vfo.main",
       "selectionSchema": {
         "type": "object",
-        "properties": {},
+        "properties": {
+          "view": {
+            "type": "string",
+            "maxLength": 16,
+            "enum": [
+              "universe"
+            ]
+          },
+          "instrumentId": {
+            "type": "string",
+            "maxLength": 180
+          }
+        },
+        "required": [
+          "view"
+        ],
         "additionalProperties": false
       },
       "presentations": [
@@ -92,21 +188,144 @@
       ],
       "shareable": true,
       "portableState": {
-        "id": "example.cluster.main.state",
-        "version": 1,
+        "id": "example.vfo.main.state",
+        "version": 2,
         "schema": {
           "type": "object",
-          "properties": {},
+          "properties": {
+            "version": {
+              "type": "integer",
+              "enum": [
+                1
+              ]
+            },
+            "view": {
+              "type": "string",
+              "maxLength": 16,
+              "enum": [
+                "universe",
+                "live",
+                "history"
+              ]
+            },
+            "filters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "region": {
+                  "type": "string",
+                  "maxLength": 180
+                },
+                "group": {
+                  "type": "string",
+                  "maxLength": 180
+                },
+                "type": {
+                  "type": "string",
+                  "maxLength": 64
+                },
+                "coverage": {
+                  "type": "string",
+                  "maxLength": 32
+                },
+                "watchlistOnly": {
+                  "type": "boolean"
+                }
+              },
+              "required": [],
+              "additionalProperties": false
+            },
+            "watchlist": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 180
+              },
+              "maxItems": 100
+            },
+            "selected": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 180
+              },
+              "maxItems": 100
+            },
+            "focused": {
+              "type": "string",
+              "maxLength": 180
+            },
+            "inspectTab": {
+              "type": "string",
+              "maxLength": 16,
+              "enum": [
+                "identity",
+                "coverage",
+                "surface"
+              ]
+            },
+            "page": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            },
+            "sort": {
+              "type": "string",
+              "maxLength": 16,
+              "enum": [
+                "featured",
+                "az"
+              ]
+            },
+            "showDemo": {
+              "type": "boolean"
+            },
+            "source": {
+              "type": "string",
+              "maxLength": 180
+            },
+            "dataset": {
+              "type": "string",
+              "maxLength": 180
+            },
+            "historyStart": {
+              "type": "string",
+              "maxLength": 10
+            },
+            "historyEnd": {
+              "type": "string",
+              "maxLength": 10
+            }
+          },
+          "required": [],
           "additionalProperties": false
         }
       }
     },
     {
-      "id": "replication",
-      "contributionId": "example.replication.main",
+      "id": "vfo.live",
+      "contributionId": "example.vfo.main",
       "selectionSchema": {
         "type": "object",
-        "properties": {},
+        "properties": {
+          "view": {
+            "type": "string",
+            "maxLength": 16,
+            "enum": [
+              "live"
+            ]
+          },
+          "instrumentId": {
+            "type": "string",
+            "maxLength": 180
+          }
+        },
+        "required": [
+          "view"
+        ],
         "additionalProperties": false
       },
       "presentations": [
@@ -116,16 +335,445 @@
       ],
       "shareable": true,
       "portableState": {
-        "id": "example.replication.main.state",
-        "version": 1,
+        "id": "example.vfo.main.state",
+        "version": 2,
         "schema": {
           "type": "object",
-          "properties": {},
+          "properties": {
+            "version": {
+              "type": "integer",
+              "enum": [
+                1
+              ]
+            },
+            "view": {
+              "type": "string",
+              "maxLength": 16,
+              "enum": [
+                "universe",
+                "live",
+                "history"
+              ]
+            },
+            "filters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "region": {
+                  "type": "string",
+                  "maxLength": 180
+                },
+                "group": {
+                  "type": "string",
+                  "maxLength": 180
+                },
+                "type": {
+                  "type": "string",
+                  "maxLength": 64
+                },
+                "coverage": {
+                  "type": "string",
+                  "maxLength": 32
+                },
+                "watchlistOnly": {
+                  "type": "boolean"
+                }
+              },
+              "required": [],
+              "additionalProperties": false
+            },
+            "watchlist": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 180
+              },
+              "maxItems": 100
+            },
+            "selected": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 180
+              },
+              "maxItems": 100
+            },
+            "focused": {
+              "type": "string",
+              "maxLength": 180
+            },
+            "inspectTab": {
+              "type": "string",
+              "maxLength": 16,
+              "enum": [
+                "identity",
+                "coverage",
+                "surface"
+              ]
+            },
+            "page": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            },
+            "sort": {
+              "type": "string",
+              "maxLength": 16,
+              "enum": [
+                "featured",
+                "az"
+              ]
+            },
+            "showDemo": {
+              "type": "boolean"
+            },
+            "source": {
+              "type": "string",
+              "maxLength": 180
+            },
+            "dataset": {
+              "type": "string",
+              "maxLength": 180
+            },
+            "historyStart": {
+              "type": "string",
+              "maxLength": 10
+            },
+            "historyEnd": {
+              "type": "string",
+              "maxLength": 10
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "id": "vfo.history",
+      "contributionId": "example.vfo.main",
+      "selectionSchema": {
+        "type": "object",
+        "properties": {
+          "view": {
+            "type": "string",
+            "maxLength": 16,
+            "enum": [
+              "history"
+            ]
+          },
+          "instrumentId": {
+            "type": "string",
+            "maxLength": 180
+          }
+        },
+        "required": [
+          "view"
+        ],
+        "additionalProperties": false
+      },
+      "presentations": [
+        "open",
+        "peek",
+        "addToDraft"
+      ],
+      "shareable": true,
+      "portableState": {
+        "id": "example.vfo.main.state",
+        "version": 2,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "integer",
+              "enum": [
+                1
+              ]
+            },
+            "view": {
+              "type": "string",
+              "maxLength": 16,
+              "enum": [
+                "universe",
+                "live",
+                "history"
+              ]
+            },
+            "filters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "region": {
+                  "type": "string",
+                  "maxLength": 180
+                },
+                "group": {
+                  "type": "string",
+                  "maxLength": 180
+                },
+                "type": {
+                  "type": "string",
+                  "maxLength": 64
+                },
+                "coverage": {
+                  "type": "string",
+                  "maxLength": 32
+                },
+                "watchlistOnly": {
+                  "type": "boolean"
+                }
+              },
+              "required": [],
+              "additionalProperties": false
+            },
+            "watchlist": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 180
+              },
+              "maxItems": 100
+            },
+            "selected": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 180
+              },
+              "maxItems": 100
+            },
+            "focused": {
+              "type": "string",
+              "maxLength": 180
+            },
+            "inspectTab": {
+              "type": "string",
+              "maxLength": 16,
+              "enum": [
+                "identity",
+                "coverage",
+                "surface"
+              ]
+            },
+            "page": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            },
+            "sort": {
+              "type": "string",
+              "maxLength": 16,
+              "enum": [
+                "featured",
+                "az"
+              ]
+            },
+            "showDemo": {
+              "type": "boolean"
+            },
+            "source": {
+              "type": "string",
+              "maxLength": 180
+            },
+            "dataset": {
+              "type": "string",
+              "maxLength": 180
+            },
+            "historyStart": {
+              "type": "string",
+              "maxLength": 10
+            },
+            "historyEnd": {
+              "type": "string",
+              "maxLength": 10
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "id": "vfo.instrument",
+      "contributionId": "example.vfo.main",
+      "selectionSchema": {
+        "type": "object",
+        "properties": {
+          "view": {
+            "type": "string",
+            "maxLength": 16,
+            "enum": [
+              "universe",
+              "live",
+              "history"
+            ]
+          },
+          "instrumentId": {
+            "type": "string",
+            "maxLength": 180
+          }
+        },
+        "required": [
+          "instrumentId"
+        ],
+        "additionalProperties": false
+      },
+      "presentations": [
+        "open",
+        "peek",
+        "addToDraft"
+      ],
+      "shareable": true,
+      "portableState": {
+        "id": "example.vfo.main.state",
+        "version": 2,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "integer",
+              "enum": [
+                1
+              ]
+            },
+            "view": {
+              "type": "string",
+              "maxLength": 16,
+              "enum": [
+                "universe",
+                "live",
+                "history"
+              ]
+            },
+            "filters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string",
+                  "maxLength": 160
+                },
+                "region": {
+                  "type": "string",
+                  "maxLength": 180
+                },
+                "group": {
+                  "type": "string",
+                  "maxLength": 180
+                },
+                "type": {
+                  "type": "string",
+                  "maxLength": 64
+                },
+                "coverage": {
+                  "type": "string",
+                  "maxLength": 32
+                },
+                "watchlistOnly": {
+                  "type": "boolean"
+                }
+              },
+              "required": [],
+              "additionalProperties": false
+            },
+            "watchlist": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 180
+              },
+              "maxItems": 100
+            },
+            "selected": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 180
+              },
+              "maxItems": 100
+            },
+            "focused": {
+              "type": "string",
+              "maxLength": 180
+            },
+            "inspectTab": {
+              "type": "string",
+              "maxLength": 16,
+              "enum": [
+                "identity",
+                "coverage",
+                "surface"
+              ]
+            },
+            "page": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            },
+            "sort": {
+              "type": "string",
+              "maxLength": 16,
+              "enum": [
+                "featured",
+                "az"
+              ]
+            },
+            "showDemo": {
+              "type": "boolean"
+            },
+            "source": {
+              "type": "string",
+              "maxLength": 180
+            },
+            "dataset": {
+              "type": "string",
+              "maxLength": 180
+            },
+            "historyStart": {
+              "type": "string",
+              "maxLength": 10
+            },
+            "historyEnd": {
+              "type": "string",
+              "maxLength": 10
+            }
+          },
+          "required": [],
           "additionalProperties": false
         }
       }
     }
   ],
-  "references": [],
+  "references": [
+    {
+      "id": "related-risk",
+      "relation": "references",
+      "target": {
+        "kind": "published-entry",
+        "entry": {
+          "publisherId": "sampo.synthetic",
+          "applicationId": "example.risk-lens",
+          "entryId": "risk"
+        }
+      }
+    },
+    {
+      "id": "related-replication",
+      "relation": "references",
+      "target": {
+        "kind": "published-entry",
+        "entry": {
+          "publisherId": "sampo.synthetic",
+          "applicationId": "example.replication",
+          "entryId": "replication"
+        }
+      }
+    }
+  ],
   "reuse": []
 }

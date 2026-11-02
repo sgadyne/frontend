@@ -1,5 +1,5 @@
+// @ts-nocheck — synthetic service envelopes validated by the app contract readers.
 import {reports} from '../../packages/analysis-workspaces/tests/fixtures/reports';
-// @ts-nocheck — existing synthetic service envelopes, validated by the app contract readers.
 // Synthetic SDK service fixture only. No real source, service or credentials.
 
 

@@ -1,0 +1,12 @@
+import type {PortableSelectionSchema} from '@sampo/contracts';
+export const vfoSelectionSchema:PortableSelectionSchema;
+export const instrumentSelectionSchema:PortableSelectionSchema;
+export const vfoStateSchema:PortableSelectionSchema;
+export const riskSelectionSchema:PortableSelectionSchema;
+export const riskStateSchema:PortableSelectionSchema;
+export const clusterSelectionSchema:PortableSelectionSchema;
+export const clusterStateSchema:PortableSelectionSchema;
+export const replicationSelectionSchema:PortableSelectionSchema;
+export const replicationStateSchema:PortableSelectionSchema;
+export const marketViews:string[];
+export const clusterViews:string[];
