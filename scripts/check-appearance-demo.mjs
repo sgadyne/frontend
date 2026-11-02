@@ -8,7 +8,7 @@ const page=await browser.newPage({viewport:{width:1512,height:1050}}),errors=[],
 page.on('pageerror',e=>errors.push(e.message));page.on('request',()=>requests++);
 await page.route('**/*',route=>new URL(route.request().url()).origin===new URL(url).origin?route.continue():route.abort());
 const nav=name=>page.getByRole('navigation',{name:'Workspace apps',exact:true}).getByRole('button',{name,exact:true}).click();
-const preset=id=>page.getByLabel('Theme preset',{exact:true}).selectOption(id);
+const preset=async id=>{await page.getByRole('navigation',{name:'Environment',exact:true}).getByRole('button',{name:'Settings',exact:true}).click();await page.getByLabel('Theme preset',{exact:true}).selectOption(id);await page.getByRole('button',{name:'Close appearance settings',exact:true}).click();};
 try{
  await page.goto(url);await page.getByRole('heading',{name:'Analysis, connected.'}).waitFor();
  await nav('Risk Lens');await page.getByRole('heading',{name:'Exposure rows',exact:true}).waitFor();
@@ -36,7 +36,7 @@ try{
   }
  }
  await nav('Cluster');await nav('Replication');await page.goBack();await page.waitForTimeout(200);assert.equal(await page.locator('.workspace-view:not([hidden])').getAttribute('aria-label'),'Cluster');checks.push('Qualified link and browser back restore the prior app');
- await page.getByRole('button',{name:'Open appearance settings',exact:true}).click();await page.getByLabel('Density',{exact:true}).selectOption('compact');await page.getByText('Effects & accessibility',{exact:true}).click();await page.getByLabel('Transparency',{exact:true}).selectOption('reduced');await page.getByLabel('Motion',{exact:true}).selectOption('reduced');await page.keyboard.press('Escape');assert.equal(await page.locator('.demo-settings').isVisible(),false);
+ await page.getByRole('navigation',{name:'Environment',exact:true}).getByRole('button',{name:'Settings',exact:true}).click();await page.getByLabel('Density',{exact:true}).selectOption('compact');await page.getByText('Effects & accessibility',{exact:true}).click();await page.getByLabel('Transparency',{exact:true}).selectOption('reduced');await page.getByLabel('Motion',{exact:true}).selectOption('reduced');await page.keyboard.press('Escape');assert.equal(await page.locator('.demo-settings').isVisible(),false);
  await page.setViewportSize({width:800,height:1000});for(const name of ['Risk Lens','VFO','Cluster','Replication']){await nav(name);await page.waitForTimeout(150);checks.push({app:name,width:800,overflow:await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1)});await page.screenshot({path:`${out}/narrow-${name.replaceAll(' ','-')}.png`});}
  assert.deepEqual(errors,[]);await writeFile(out+'/receipt.json',JSON.stringify({errors,checks},null,2));console.log(JSON.stringify({errors,checks},null,2));
 }finally{await browser.close()}

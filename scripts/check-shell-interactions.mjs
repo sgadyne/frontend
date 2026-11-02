@@ -11,7 +11,7 @@ try{
 await page.goto('http://127.0.0.1:5186');await page.getByRole('heading',{name:'Analysis, connected.'}).waitFor();
 for(const name of ['Library','Workspaces','Activity','Settings'])assert.equal(await page.getByRole('navigation',{name:'Environment',exact:true}).getByRole('button',{name:new RegExp('^'+name)}).count(),1);
 for(const [preset,glass] of [['studio-porcelain',false],['industrial-slate',false],['glass-aurora',true]]){
- await page.getByLabel('Theme preset',{exact:true}).selectOption(preset);
+ await page.getByRole('navigation',{name:'Environment',exact:true}).getByRole('button',{name:'Settings',exact:true}).click();await page.getByLabel('Theme preset',{exact:true}).selectOption(preset);await page.getByRole('button',{name:'Close appearance settings',exact:true}).click();
  await page.getByRole('button',{name:'Search environment',exact:true}).focus();
  await page.keyboard.press('Control+k');const dialog=page.getByRole('dialog',{name:'Search your environment'});await dialog.waitFor();
  if(glass)await dialog.locator('[data-optical-ready=true]').waitFor();

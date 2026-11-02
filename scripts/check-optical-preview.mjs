@@ -8,8 +8,8 @@ const page=await browser.newPage({viewport:{width:1512,height:1050}}),errors=[];
 page.on('pageerror',e=>errors.push(e.message));
 try{
 await page.goto('http://127.0.0.1:5186');
+await page.getByRole('navigation',{name:'Environment',exact:true}).getByRole('button',{name:'Settings',exact:true}).click();
 await page.getByLabel('Theme preset',{exact:true}).selectOption('glass-mist');
-await page.getByRole('button',{name:'Open appearance settings',exact:true}).click();
 const settings=page.locator('.demo-settings');
 await settings.locator('[data-optical-ready=true]').waitFor({timeout:20000});
 await page.waitForTimeout(600);
