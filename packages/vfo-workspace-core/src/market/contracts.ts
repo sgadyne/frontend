@@ -1,0 +1,9 @@
+export type AssetDirectoryEntry={assetId:string;name:string;issuerId?:string;logo?:string;region?:string;country?:string;exchange?:string;currency?:string;sector?:string;industry?:string;instrumentType?:string;lifecycle?:string;source:string;asof?:string};
+export type MarketMetric={value:number|null;unit:string;asof:string;baselineAsOf?:string;reason?:string};
+export type MarketObservation={assetId:string;asof:string;surfaceRevision?:string;spot?:MarketMetric;spotChange?:MarketMetric;atmIv?:MarketMetric;atmIvChange?:MarketMetric;skew?:MarketMetric;curvature?:MarketMetric;volume?:MarketMetric;vegaTraded?:MarketMetric;tenor?:string;events?:{kind:string;label:string;at:string}[];history?:{asof:string;spot?:number;atmIv?:number}[];reason?:string};
+export type MarketFrame={observedAt:string;items:MarketObservation[];unavailable?:string[]};
+export type Board={id:string;title:string;description:string;region?:string;instrumentType?:string;kind:'universe'|'movers'|'attention'|'events'|'activity';metric?:string};
+export type FundHolding={name:string;ticker:string;weight?:number;assetId?:string};
+export type IndustryFund={name:string;ticker:string;assetId?:string;asof:string;sourceUrl:string;holdings:FundHolding[]};
+export type IndustryView={id:string;title:string;description?:string;funds:IndustryFund[];classificationMembers?:{assetId:string;sourceUrl:string;asof:string}[]};
+export type WorkspaceSite={presentation:{title:string;eyebrow:string;subtitle?:string};assets:AssetDirectoryEntry[];boards:Board[];industries?:IndustryView[];refreshSeconds?:number};

@@ -1,0 +1,21 @@
+{
+  "presentation": {
+    "title": "Demo market"
+  },
+  "assets": [
+    {
+      "assetId": "EQUITY:DEMO",
+      "name": "Demonstration market",
+      "region": "Americas"
+    }
+  ],
+  "boards": [
+    {
+      "id": "global",
+      "title": "Global overview",
+      "description": "Synthetic example",
+      "kind": "universe"
+    }
+  ],
+  "industries": []
+}

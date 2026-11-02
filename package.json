@@ -1,0 +1,50 @@
+{
+  "name": "frontend",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "node node_modules/typescript/bin/tsc -p apps/pod-risk-lens/tsconfig.json && node node_modules/typescript/bin/tsc -p apps/vfo-operations/tsconfig.json",
+    "build:vfo": "npm --prefix packages/vfo-workspace-core run build",
+    "build:risk": "node scripts/build-risk.mjs",
+    "build:risk:demo": "node node_modules/vite/bin/vite.js build --config apps/risk-lens-demo/vite.config.mjs",
+    "build": "npm run typecheck && npm run build:risk && npm run build:vfo && npm run build:analysis",
+    "test": "node --test --test-isolation=none apps/pod-risk-lens/tests/*.test.mjs packages/risk-lens-data/*.test.mjs packages/vfo-workspace-core/tests/*.test.mjs",
+    "demo": "node node_modules/vite/bin/vite.js --config apps/workspace-demo/vite.config.mjs",
+    "build:demo": "node node_modules/vite/bin/vite.js build --config apps/workspace-demo/vite.config.mjs",
+    "audit:boundary": "node scripts/audit-public.mjs",
+    "typecheck:analysis": "node node_modules/typescript/bin/tsc -p packages/analysis-workspaces/tsconfig.json",
+    "build:analysis": "npm --prefix packages/analysis-workspaces run build",
+    "test:analysis": "node --experimental-strip-types --test --test-isolation=none packages/analysis-workspaces/tests/*.test.mjs",
+    "demo:risk": "node node_modules/vite/bin/vite.js --config apps/risk-lens-demo/vite.config.mjs",
+    "preview:risk": "node node_modules/vite/bin/vite.js preview --config apps/risk-lens-demo/vite.config.mjs",
+    "check": "npm run audit:boundary && npm run typecheck && npm run typecheck:analysis && npm test && npm run test:analysis",
+    "test:risk-browser": "node scripts/check-risk-demo.mjs"
+  },
+  "dependencies": {
+    "@sampo/contracts": "file:vendor/sampo-sdk-v2-bed3234/sampo-contracts-0.2.0-alpha.20261031.1.tgz",
+    "@sampo/runtime": "file:vendor/sampo-sdk-v2-bed3234/sampo-runtime-0.2.0-alpha.20261031.1.tgz",
+    "@sampo/sdk-react": "file:vendor/sampo-sdk-v2-bed3234/sampo-sdk-react-0.2.0-alpha.20261031.1.tgz",
+    "@sampo/tooling": "file:vendor/sampo-sdk-v2-bed3234/sampo-tooling-0.2.0-alpha.20261031.1.tgz",
+    "ag-grid-community": "34.1.2",
+    "ag-grid-react": "34.1.2",
+    "motion": "14.9.0",
+    "plotly.js-gl3d-dist-min": "4.2.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "@sampo/client": "file:vendor/sampo-sdk-v2-bed3234/sampo-client-0.2.0-alpha.20261031.1.tgz",
+    "@sampo/design-tokens": "file:vendor/sampo-sdk-v2-bed3234/sampo-design-tokens-0.1.0.tgz"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.21",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
+    "playwright": "1.61.1",
+    "typescript": "5.9.3",
+    "vite": "7.3.5"
+  },
+  "overrides": {
+    "esbuild": "0.28.1"
+  },
+  "license": "UNLICENSED"
+}

@@ -1,0 +1,238 @@
+.time-series-chart {
+  --ink:var(--risk-ink,#132b36);
+  --muted:var(--risk-muted,#526871);
+  --line:var(--risk-line,#dbe3e5);
+  --surface:var(--risk-surface,#fff);
+  --soft:var(--risk-selected,#eaf5f2);
+  --accent:var(--risk-brand,#14685f);
+  --positive:var(--risk-positive,#076f59);
+  --negative:var(--risk-negative,#a23c36);
+  min-width: 0;
+  color: var(--ink, #132b36);
+  font-family: inherit;
+}
+
+.time-series-chart__legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px 12px;
+  margin: 1px 0 5px;
+}
+
+.time-series-chart__legend button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 25px;
+  padding: 2px 5px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--muted, #526871);
+  cursor: pointer;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.time-series-chart__legend button:hover {
+  border-color: var(--line, #e1e7e9);
+  color: var(--ink, #132b36);
+}
+
+.time-series-chart__legend button:focus-visible,
+.time-series-chart__clear-range:focus-visible {
+  outline: 2px solid var(--accent, #167a71);
+  outline-offset: 2px;
+}
+
+.time-series-chart__legend button[aria-pressed="true"] {
+  color: var(--ink, #132b36);
+}
+
+.time-series-chart__swatch {
+  width: 15px;
+  height: 3px;
+  flex: none;
+  border-radius: 3px;
+  background: var(--series-color, var(--accent, #167a71));
+  opacity: .34;
+}
+
+.time-series-chart__legend button[aria-pressed="true"] .time-series-chart__swatch {
+  opacity: 1;
+}
+
+.time-series-chart__plot-wrap {
+  position: relative;
+  min-width: 0;
+}
+
+.time-series-chart__plot {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.time-series-chart__y-tick line,
+.time-series-chart__x-tick line {
+  stroke: var(--line, #e1e7e9);
+  stroke-width: 1;
+}
+
+.time-series-chart__y-tick text,
+.time-series-chart__x-tick text {
+  fill: var(--muted, #526871);
+  font-family: inherit;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.time-series-chart__axis-unit {
+  fill: var(--muted, #526871);
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.time-series-chart__zero {
+  stroke: var(--muted, #526871);
+  stroke-dasharray: 3 4;
+  stroke-width: 1;
+  opacity: .75;
+}
+
+.time-series-chart__selected-range {
+  fill: color-mix(in srgb, var(--accent, #167a71) 11%, transparent);
+  pointer-events: none;
+}
+
+.time-series-chart__cursor {
+  stroke: var(--muted, #526871);
+  stroke-dasharray: 2 4;
+  stroke-width: 1;
+  opacity: .8;
+  pointer-events: none;
+}
+
+.time-series-chart__interaction-surface {
+  fill: transparent;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.time-series-chart__line {
+  fill: none;
+  stroke: var(--series-color, var(--accent, #167a71));
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.3;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+
+.time-series-chart__point {
+  fill: var(--surface, #fff);
+  stroke: var(--series-color, var(--accent, #167a71));
+  stroke-width: 1.8;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+
+.time-series-chart__point.is-active {
+  fill: var(--series-color, var(--accent, #167a71));
+  stroke: var(--surface, #fff);
+  stroke-width: 2.2;
+}
+
+.time-series-chart__tooltip rect {
+  fill: var(--ink, #132b36);
+  opacity: .97;
+}
+
+.time-series-chart__tooltip text {
+  fill: #fff;
+  font-family: inherit;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.time-series-chart__tooltip-date {
+  fill: #c8d7d8 !important;
+  font-size: 10px !important;
+  font-weight: 600;
+}
+
+.time-series-chart__tooltip-series {
+  font-weight: 700;
+}
+
+.time-series-chart__instruction {
+  margin: -2px 0 0;
+  color: var(--muted, #526871);
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.time-series-chart__clear-range {
+  min-height: 25px;
+  margin-top: 5px;
+  padding: 2px 6px;
+  border: 1px solid var(--line, #e1e7e9);
+  border-radius: 5px;
+  background: var(--surface, #fff);
+  color: var(--muted, #526871);
+  cursor: pointer;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.time-series-chart__clear-range:hover {
+  border-color: color-mix(in srgb, var(--accent, #167a71) 35%, var(--line, #e1e7e9));
+  color: var(--accent, #167a71);
+}
+
+.time-series-chart__point-controls {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.time-series-chart__point-controls button {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.time-series-chart__empty {
+  display: flex;
+  min-height: 118px;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  border: 1px dashed var(--line, #e1e7e9);
+  border-radius: 9px;
+  background: var(--soft, #f8fafb);
+  color: var(--muted, #526871);
+  font-size: 11px;
+  line-height: 1.45;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .time-series-chart__legend button { transition: none; }
+}

@@ -1,0 +1,6 @@
+import test from 'node:test';import assert from 'node:assert/strict';import ts from 'typescript';import {readFile} from 'node:fs/promises';
+const compile=source=>'data:text/javascript;base64,'+Buffer.from(ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText).toString('base64');
+const presentationUrl=compile(await readFile(new URL('../src/features/risk-lens/presentation.ts',import.meta.url),'utf8'));const presentation=await import(presentationUrl);
+const source=(await readFile(new URL('../src/features/risk-lens/model.ts',import.meta.url),'utf8')).replace("from './presentation';",`from '${presentationUrl}';`);const model=await import(compile(source));
+test('public presentation has neutral defaults and accepts app-owned settings',()=>{assert.equal(presentation.riskLensPresentation.referenceBook,'REFERENCE');assert.deepEqual(presentation.riskLensPresentation.defaultExclusions.positions,[]);presentation.configureRiskLensPresentation({referenceBook:'EXAMPLE'});assert.equal(presentation.riskLensPresentation.referenceBook,'EXAMPLE')});
+test('view aggregates preserve missing values and do not invent a total',()=>{assert.equal(model.completeSum([1,null]),null);assert.equal(model.completeSum([1,-1]),0)});

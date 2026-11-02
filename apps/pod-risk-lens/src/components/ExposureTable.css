@@ -1,0 +1,160 @@
+.exposure-table {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex-direction: column;
+  color: var(--ink, #132b36);
+}
+
+.exposure-table__units {
+  padding: 0 1px 7px;
+  color: var(--muted, #647780);
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.exposure-table .risk-data-table__toolbar {
+  min-height: 0;
+  justify-content: flex-end;
+  padding-bottom: 7px;
+}
+
+.exposure-table .risk-data-table__count {
+  margin-right: auto;
+  color: var(--ink, #132b36);
+  font-size: 12px;
+}
+
+.exposure-table .risk-data-table__grid {
+  min-width: 1080px;
+}
+
+.exposure-table .exposure-table__exposure-cell {
+  position: relative;
+  min-width: 180px;
+  text-align: left;
+  font-weight: 400;
+}
+
+.exposure-table .risk-data-table__row[aria-selected='true'] > .exposure-table__exposure-cell::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 3px;
+  background: var(--accent, #167a71);
+  content: '';
+}
+
+.exposure-table__identity,
+.exposure-table__pod-group {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+}
+
+.exposure-table__symbol {
+  color: var(--ink, #132b36);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .01em;
+}
+
+.exposure-table__secondary {
+  color: var(--muted, #647780);
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.exposure-table__unit {
+  color: var(--muted, #526871);
+}
+
+.exposure-table__pod-cell {
+  min-width: 130px;
+}
+
+.exposure-table__pod-group {
+  gap: 5px;
+}
+
+.exposure-table__pod {
+  color: var(--ink, #132b36);
+  font-weight: 600;
+}
+
+.exposure-table__tag {
+  display: inline-block;
+  padding: 2px 6px;
+  border: 1px solid #e4eaeb;
+  border-radius: 4px;
+  color: var(--muted, #647780);
+  background: #f8fafb;
+  font-size: 10px;
+}
+
+.exposure-table__number {
+  min-width: 108px;
+  color: var(--ink, #132b36);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.exposure-table__value.is-positive {
+  color: var(--positive, #087f66);
+}
+
+.exposure-table__value.is-negative {
+  color: var(--negative, #bd5d57);
+}
+
+.exposure-table__value.is-missing {
+  color: #9aa7ab;
+}
+
+.exposure-table .risk-data-table__row.is-ineligible > th,
+.exposure-table .risk-data-table__row.is-ineligible > td {
+  color: #7d8b90;
+}
+
+.exposure-table .risk-data-table__row.is-ineligible .exposure-table__symbol,
+.exposure-table .risk-data-table__row.is-ineligible .exposure-table__pod {
+  color: #66777d;
+}
+
+.exposure-table__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted, #647780);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.exposure-table__status.is-eligible {
+  color: var(--positive, #087f66);
+}
+
+.exposure-table__status.is-ineligible {
+  color: #76858a;
+}
+
+.exposure-table__status-dot {
+  width: 6px;
+  height: 6px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #a5b1b5;
+}
+
+.exposure-table__status.is-eligible .exposure-table__status-dot {
+  background: var(--positive, #087f66);
+}
+
+@media (max-width: 680px) {
+  .exposure-table .risk-data-table__grid {
+    min-width: 1030px;
+    font-size: 11px;
+  }
+}

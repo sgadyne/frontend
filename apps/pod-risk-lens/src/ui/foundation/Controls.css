@@ -1,0 +1,157 @@
+.risk-button,.risk-segmented,.risk-search,.risk-select {
+  --ink:var(--risk-ink,#132b36);
+  --muted:var(--risk-muted,#526871);
+  --line:var(--risk-line,#dbe3e5);
+  --surface:var(--risk-surface,#fff);
+  --soft:var(--risk-selected,#eaf5f2);
+  --accent:var(--risk-brand,#14685f);
+}
+
+.risk-button {
+  display: inline-flex;
+  min-height: 32px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 11px;
+  border: 1px solid var(--line, #e1e7e9);
+  border-radius: 5px;
+  color: var(--ink, #132b36);
+  background: var(--surface, #fff);
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.risk-button:hover:not(:disabled) {
+  border-color: #a9ccc4;
+  background: #f8fbfa;
+}
+
+.risk-button:focus-visible,
+.risk-segmented__option:focus-visible,
+.risk-search input:focus-visible,
+.risk-select select:focus-visible {
+  outline: 2px solid var(--accent, #167a71);
+  outline-offset: 2px;
+}
+
+.risk-button:disabled,
+.risk-segmented__option:disabled {
+  cursor: not-allowed;
+  opacity: .55;
+}
+
+.risk-button--primary {
+  border-color: #126f67;
+  color: #fff;
+  background: var(--accent, #167a71);
+}
+
+.risk-button--primary:hover:not(:disabled) {
+  border-color: #126f67;
+  color: #fff;
+  background: #116b63;
+}
+
+.risk-button--quiet {
+  border-color: transparent;
+  color: var(--muted, #647780);
+  background: transparent;
+}
+
+.risk-button--quiet:hover:not(:disabled) {
+  border-color: var(--line, #e1e7e9);
+  color: var(--ink, #132b36);
+  background: var(--soft, #f8fafb);
+}
+
+.risk-segmented {
+  display: inline-flex;
+  min-height: 31px;
+  align-items: stretch;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--line, #e1e7e9);
+  border-radius: 6px;
+  background: var(--soft, #f8fafb);
+}
+
+.risk-segmented__option {
+  min-width: 44px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 4px;
+  color: var(--muted, #647780);
+  background: transparent;
+  font-size: 11px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.risk-segmented__option:hover:not(:disabled):not(.is-selected) {
+  color: var(--ink, #132b36);
+  background: #edf3f2;
+}
+
+.risk-segmented__option.is-selected {
+  color: var(--ink, #132b36);
+  background: var(--surface, #fff);
+  box-shadow: 0 1px 3px rgba(16, 40, 50, .12);
+}
+
+.risk-search,
+.risk-select {
+  display: inline-flex;
+  min-width: 0;
+  min-height: 32px;
+  align-items: center;
+  padding: 0 9px;
+  border: 1px solid var(--line, #e1e7e9);
+  border-radius: 5px;
+  color: var(--muted, #647780);
+  background: var(--surface, #fff);
+}
+
+.risk-search:focus-within,
+.risk-select:focus-within {
+  border-color: #9cc9bf;
+  box-shadow: 0 0 0 2px rgba(22, 122, 113, .08);
+}
+
+.risk-search__label,
+.risk-select__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.risk-search input,
+.risk-select select {
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  color: var(--ink, #132b36);
+  background: transparent;
+  font-size: 11px;
+}
+
+.risk-search input {
+  width: 100%;
+}
+
+.risk-search input::placeholder {
+  color: #a3afb2;
+}
+
+.risk-select select {
+  width: 100%;
+  cursor: pointer;
+}

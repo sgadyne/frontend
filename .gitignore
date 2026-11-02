@@ -1,0 +1,27 @@
+node_modules/
+.npm-cache/
+dist/
+.runtime/
+.review/
+.venv/
+__pycache__/
+*.pyc
+.env
+.env.*
+*.key
+*.pem
+*.lic
+*.sqlite*
+*.parquet
+
+# Generated output, credentials and raw data stay outside the source commit.
+**/dist/
+coverage/
+test-results/
+playwright-report/
+*.log
+*.keytab
+*.p12
+*.pfx
+*.zip
+*.db

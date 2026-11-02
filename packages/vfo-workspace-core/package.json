@@ -1,0 +1,49 @@
+{
+  "name": "@vfo/workspace-core",
+  "version": "0.7.2",
+  "private": true,
+  "type": "module",
+  "license": "UNLICENSED",
+  "exports": {
+    ".": "./src/index.ts",
+    "./sampo": "./src/extension.tsx",
+    "./client": "./src/data/http-provider.mjs"
+  },
+  "files": [
+    "src",
+    "tests",
+    "build.mjs",
+    "audit.mjs",
+    "README.md",
+    "BACKEND-CONTRACT.md"
+  ],
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "@sampo/sdk-react": "^0.1.0",
+    "@sampo/contracts": "^0.1.0"
+  },
+  "peerDependenciesMeta": {
+    "@sampo/sdk-react": {
+      "optional": true
+    },
+    "@sampo/contracts": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "motion": "14.9.0",
+    "plotly.js-gl3d-dist-min": "4.2.0"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "audit": "node audit.mjs",
+    "test": "node --test --test-isolation=none tests/*.test.mjs"
+  },
+  "devDependencies": {
+    "vite": "7.3.5",
+    "typescript": "5.9.3",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3"
+  }
+}
