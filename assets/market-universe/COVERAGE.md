@@ -1,6 +1,6 @@
 # Public listing coverage
 
-Generated 2026-11-03T21:59:17Z. 210,576 catalogue records; 53 source MICs plus 144 retained legacy references. These are security listings/trading admissions, including bonds and structured products; they are not 210,576 distinct companies.
+Generated 2026-11-03T22:06:40Z. 210,576 catalogue records; 53 source MICs plus 144 retained legacy references. These are security listings/trading admissions, including bonds and structured products; they are not 210,576 distinct companies.
 
 `complete-source-scope` means every row within the named public source scope was consumed, with the evidence below. It is not a claim to all instruments at all venues or all markets worldwide. `provider-snapshot` means the public provider total and pagination were exhausted; exchange-wide completeness is unverified. `partial` is explicit. Source dates differ from retrieval times. None of these statuses describes price/history availability.
 
@@ -452,11 +452,11 @@ Counts are deduplicated catalogue records by exact source MIC, not issuer domici
 
 ## Instrument and artwork totals
 
-Instrument types: Warrant: 60,483; Equity: 58,027; Bond: 48,260; ETF: 27,489; CBBC: 5,904; Fund: 2,870; Structured Finance Products: 1,782; ETN: 1,646; ETP: 935; ETC: 717; ADR: 633; Preferred share: 482; Unspecified: 398; Unit: 315; Security: 221; Right: 141; Securitised derivatives: 139; REIT: 80; Future: 38; Index: 6; OTHER: 4; Asset-backed security: 4; Other equity-like financial instruments: 2.
+Instrument types: Warrant: 60,483; Equity: 58,027; Bond: 48,260; ETF: 27,489; CBBC: 5,904; Fund: 2,933; Structured Finance Products: 1,782; ETN: 1,646; ETP: 935; ETC: 717; Preferred share: 482; Unspecified: 398; Depositary receipt: 329; Unit: 315; ADR: 294; Security: 221; Right: 141; Securitised derivatives: 139; Future: 38; REIT: 17; TDR: 10; Index: 6; OTHER: 4; Asset-backed security: 4; Other equity-like financial instruments: 2.
 
 Artwork: 162 local SVG files (506,324 bytes); 529 records bound to authentic issuer/instrument artwork; 209,989 generated monograms; zero missing badges. Separate roles: underlying-country: 14; underlying-product: 21; category: 3; instrument-artwork: 519; fund-artwork: 10; monogram: 209,989; country-exposure: 19; ticker-tile: 1. Country/underlying/category/ticker tiles are not counted as authentic logos. Source copyright/trademark rights remain with their owners. See artwork.json and NOTICES.md.
 
-Transport: canonical JSON 91,505,029 bytes; compact JSON 24,183,793 bytes, gzip 4,201,976 bytes. Compact rows decode to the same listing identities; images remain separate emitted assets.
+Transport: canonical JSON 91,544,881 bytes; compact JSON 24,184,222 bytes, gzip 4,202,195 bytes. Compact rows decode to the same listing identities; images remain separate emitted assets.
 
 ## Remaining source queue
 

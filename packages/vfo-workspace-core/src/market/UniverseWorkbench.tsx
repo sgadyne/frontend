@@ -106,7 +106,7 @@ function Badge({
   const logo = localArtworkUrl(asset.logo);
   useEffect(() => setFailed(false), [asset.assetId, logo]);
   return (
-    <span className={"mu-badge " + size + " tone-" + instrumentBadgeTone(asset.assetId)} title={asset.logoLabel ?? (logo ? "Instrument artwork" : "Generated monogram")}>
+    <span className={"mu-badge " + size + " tone-" + instrumentBadgeTone(asset.assetId)} title={logo && !failed ? asset.logoLabel ?? "Instrument artwork" : "Generated monogram"}>
       {logo && !failed ? (
         <img
           src={logo}

@@ -47,6 +47,9 @@ class ImportTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d,patch.object(refresh,'BUNDLE',pathlib.Path(d)):
             p=pathlib.Path(d)/'snapshots/fixture.json';p.parent.mkdir();old={'rows':[{'ticker':'OLD'}],'report':{'retrievedAt':'2026-10-31T00:00:00Z'}};refresh.write_json(p,old)
             report=refresh.run_source(BASE,Failed());self.assertEqual(report['status'],'error-retained');self.assertEqual(json.loads(p.read_text()),old)
+    def test_depositary_receipts_do_not_imply_american_exposure(self):
+        self.assertEqual(refresh.us_instrument_type('Example American Depositary Shares','N'),'ADR')
+        self.assertEqual(refresh.us_instrument_type('Example Depositary Shares','N'),'Depositary receipt')
     def test_missing_fields_fail_instead_of_guessing(self):
         with self.assertRaises(ValueError):refresh.listing(BASE,'','Missing')
         data=b'SYMBOL,NAME OF COMPANY, SERIES\nABC,Example,EQ\n';rows,_=refresh.parse({**BASE,'adapter':'nse'},data)

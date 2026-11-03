@@ -23,5 +23,6 @@ const rows=catalog.assets.map(a=>{
 });
 const packed={schemaVersion:1,revision:catalog.revision,generatedAt:report.generatedAt,columns,dictionaries,sources:Object.fromEntries(report.sources.filter(s=>s.retrievedAt).map(s=>[s.id,{retrievedAt:s.retrievedAt,...(s.asof?{asof:s.asof}:{})}])),rows};
 const output=JSON.stringify(packed)+'\n';await writeFile(new URL('catalog.compact.json',root),output);
-const sizes={records:rows.length,canonicalBytes:(await readFile(new URL('catalog.json',root))).length,compactBytes:Buffer.byteLength(output),compactGzipBytes:gzipSync(output).length};
+const groupData=await readFile(new URL('groups.json',root));
+const sizes={records:rows.length,groupsBytes:groupData.length,groupsGzipBytes:gzipSync(groupData).length,canonicalBytes:(await readFile(new URL('catalog.json',root))).length,compactBytes:Buffer.byteLength(output),compactGzipBytes:gzipSync(output).length};
 await writeFile(new URL('payload-report.json',root),JSON.stringify(sizes,null,2)+'\n');console.log(sizes);

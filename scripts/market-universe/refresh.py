@@ -50,7 +50,7 @@ def xlsx_rows(data):
     return [[text(v) for v in row] for row in s.values]
 def us_instrument_type(name, etf):
     if etf=='Y':return 'ETF'
-    for pattern,kind in [(r'\bwarrants?\b','Warrant'),(r'\brights?\b','Right'),(r'\bunits?\b','Unit'),(r'\b(preferred|preference)\b','Preferred share'),(r'\b(depositary|depository)\b','ADR'),(r'\b(notes? due|debentures?)\b','Bond')]:
+    for pattern,kind in [(r'\bwarrants?\b','Warrant'),(r'\brights?\b','Right'),(r'\bunits?\b','Unit'),(r'\b(preferred|preference)\b','Preferred share'),(r'\bAmerican (depositary|depository)\b','ADR'),(r'\b(depositary|depository)\b','Depositary receipt'),(r'\b(notes? due|debentures?)\b','Bond')]:
         if re.search(pattern,name,re.I):return kind
     return 'Equity' if re.search(r'common|ordinary|shares|stock',name,re.I) else 'Security'
 def listing(s,symbol,name,**extra):
@@ -96,7 +96,7 @@ def parse(s,data):
         if rr[0][0] not in ['Effective Date','Date','日付']:raise ValueError('JPX header changed')
         for r in rr[1:]:
             date=r[0];asof=f'{date[:4]}-{date[4:6]}-{date[6:8]}'
-            subtype=r[3];typ='ETP' if 'ETF' in subtype or 'ETN' in subtype else 'REIT' if 'REIT' in subtype else 'Fund' if 'Fund' in subtype else 'Equity'
+            subtype=r[3];typ='ETP' if 'ETF' in subtype or 'ETN' in subtype else 'Fund' if 'REIT' in subtype or 'Fund' in subtype else 'Equity'
             add(r[1],r[2],instrumentType=typ,subtype=subtype,industry=r[5] if r[5]!='-' else None)
         evidence='Every issue in the official month-end TSE workbook consumed; other Japanese exchanges and Tokyo PRO not asserted.'
     elif a=='deutsche':
@@ -119,7 +119,7 @@ def parse(s,data):
             head=next(i for i,r in enumerate(rr) if r and r[0]=='TIDM');header=rr[head];raw=[dict(zip(header,r)) for r in rr[head+1:] if r and r[0]]
             if len(raw)!=declared:raise ValueError('LSE row count does not equal declared '+str(declared))
             for r in raw:
-                typ={'SHRS':'Equity','DPRS':'ADR','ETFS':'ETF','BOND':'Bond','ETCS':'ETC','ETNS':'ETN'}.get(r['MiFIR Identifier Code'],r['MiFIR Indentifier Name'])
+                typ={'SHRS':'Equity','DPRS':'Depositary receipt','ETFS':'ETF','BOND':'Bond','ETCS':'ETC','ETNS':'ETN'}.get(r['MiFIR Identifier Code'],r['MiFIR Indentifier Name'])
                 add(r['TIDM'],r['Issuer Name']+' — '+r['Instrument Name'],instrumentType=typ,currency=r['Trading Currency'],isin=r['ISIN'],marketSegment=r.get('Market Segment Code'),industry=r.get('ICB Industry'))
         evidence='Both official All Equity and All Non-Equity aggregate sheets consumed exactly once; accepted row counts checked against declared Number of Instruments. Includes AIM, main market, international securities and funds; operating MIC XLON used with sourced segment.'
     elif a=='nse':
@@ -150,7 +150,7 @@ def parse(s,data):
             if len(v)<7 or not re.fullmatch('[A-Z0-9]{12}',v[1]):rejected['malformed-isin-row']+=1;continue
             pair=re.split(r'\s+',v[0],maxsplit=1)
             if len(pair)!=2:rejected['missing-local-symbol-or-name']+=1;continue
-            symbol,name=pair;typ={'股票':'Equity','特別股':'Preferred share','創新板':'Equity','ETF':'ETF','ETN':'ETN','臺灣存託憑證(TDR)':'ADR','受益證券-不動產投資信託':'REIT','受益證券-資產基礎證券':'Asset-backed security'}.get(category,'Warrant' if '權證' in category else 'Security')
+            symbol,name=pair;typ={'股票':'Equity','特別股':'Preferred share','創新板':'Equity','ETF':'ETF','ETN':'ETN','臺灣存託憑證(TDR)':'TDR','受益證券-不動產投資信託':'REIT','受益證券-資產基礎證券':'Asset-backed security'}.get(category,'Warrant' if '權證' in category else 'Security')
             categoryCounts[category]+=1
             rows.append(listing(s,symbol,name,isin=v[1],instrumentType=typ,subtype=category,industry=v[4],cfi=v[5]))
         evidence='Official domestic listed/OTC ISIN directory, entire single HTML security table consumed. Numeric/local codes preserved including ETFs, preferred shares, warrants and other published categories; source says formal listing notices prevail. No currency inferred.'
@@ -178,7 +178,7 @@ def tradingview(s,fetch):
             v=row['d'];alltypes[v[4]]+=1
             if v[2]!=s['exchange']:raise ValueError('Provider venue filter leaked')
             if v[4] not in ['stock','fund','dr']:continue
-            typ='ETF' if v[4]=='fund' and v[5]=='etf' else 'Fund' if v[4]=='fund' else 'ADR' if v[4]=='dr' else 'Equity'
+            typ='ETF' if v[4]=='fund' and v[5]=='etf' else 'Fund' if v[4]=='fund' else 'Depositary receipt' if v[4]=='dr' else 'Equity'
             out.append(listing(s,v[0],v[1],currency=v[3],instrumentType=typ,subtype=v[5],isin=v[6]))
         if start+len(rr)>=total:break
     if expected is None or sum(alltypes.values())!=expected:raise ValueError('Provider pagination did not reach total')
@@ -264,7 +264,7 @@ def compile_catalogue(reports):
             if len(matches)==1:aliasMap[canonical(r)]=next(iter(matches))
     for alias,lid in aliasMap.items():
         if alias in legacy and lid not in legacy:legacy[lid]=legacy[alias]
-    added=0;updated=0;seen=set();byListing={};conflicts=[]
+    added=0;updated=0;seen=set();byListing={};primaryFields={};conflicts=[]
 
     # Registry order gives official directories precedence over provider supplements.
     for s in json.loads((BUNDLE/'sources.json').read_text())['sources']:
@@ -278,8 +278,8 @@ def compile_catalogue(reports):
                 if a.get('isin') and r.get('isin') and a['isin']!=r['isin']:
                     conflicts.append({'listingId':lid,'preferredSource':a.get('metadataSourceId'),'alternateSource':s['id'],'preferredIsin':a['isin'],'alternateIsin':r['isin']});continue
                 supplements=a.setdefault('metadataFieldSources',{})
-                for field in ['currency','isin','englishName','instrumentType']:
-                    if not a.get(field) and r.get(field):a[field]=r[field];supplements[field]=s['id']
+                for bit,field in enumerate(['currency','isin','englishName','instrumentType']):
+                    if not (primaryFields[lid] & (1<<bit)) and r.get(field):a[field]=r[field];supplements[field]=s['id']
                 supplement_alternate_name(a,r,s['id'])
                 if not supplements:a.pop('metadataFieldSources',None)
                 if rawId!=lid and lid in byListing:
@@ -297,6 +297,10 @@ def compile_catalogue(reports):
             # Preserve legacy display tickers and legacy asof/source provenance, supplement with verified listing metadata.
             a.update({k:v for k,v in r.items() if k not in ['ticker','mic','localSymbol']})
             if old is None:a['ticker']=r['ticker'];a['source']=s['id']
+            primaryFields[lid]=sum(1<<bit for bit,field in enumerate(['currency','isin','englishName','instrumentType']) if r.get(field))
+            for field in r:
+                if field in a.get('metadataFieldSources',{}):a['metadataFieldSources'].pop(field,None)
+            if not a.get('metadataFieldSources'):a.pop('metadataFieldSources',None)
             byListing[lid]=a
             if not a['assetId'].startswith('LISTING:'):a['aliases']=sorted(set(a.get('aliases',[])+[lid]))
             a.update(listingId=lid,mic=r['mic'],localSymbol=r['localSymbol'],exchange=r['mic'],metadataSourceId=s['id'],listingStatus='listed-in-source')

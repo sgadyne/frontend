@@ -1,10 +1,21 @@
-import packed from "../../assets/market-universe/catalog.compact.json";
-import configuredGroups from "../../assets/market-universe/groups.json";
+import packedUrl from "../../assets/market-universe/catalog.compact.json?url&no-inline";
+import groupsUrl from "../../assets/market-universe/groups.json?url&no-inline";
 import configuredNavigation from "../../assets/market-universe/navigation.json";
 import artwork from "../../assets/market-universe/artwork.json";
 import fixture from "./coverage-fixture.json";
 import {decodeMarketCatalogue, type PackedMarketCatalogue} from "../../packages/vfo-workspace-core/src/market/market-catalogue";
 import type {Instrument,MarketGroup,MarketNavigation,CoverageSnapshot} from "../../packages/vfo-workspace-core/src/market/universe-model";
+// Static package assets, loaded once before the module's existing array exports
+// become available. They are independent of every market-data/coverage reader.
+async function packageJson<T>(url: string): Promise<T> {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`Static market directory asset could not be loaded (${response.status}).`);
+  return response.json() as Promise<T>;
+}
+const [packed, configuredGroups] = await Promise.all([
+  packageJson<PackedMarketCatalogue>(packedUrl),
+  packageJson<{revision:string;groups:MarketGroup[]}>(groupsUrl),
+]);
 // Only a small manifest of emitted local URLs enters JS. SVG bodies are separate
 // assets and requested by visible/page images; no website requests or tracking.
 const imageAssets = import.meta.glob("../../assets/market-universe/logos/*.svg", {

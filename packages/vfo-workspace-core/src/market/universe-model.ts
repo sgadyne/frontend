@@ -250,7 +250,7 @@ function instrumentSearchText(asset: Instrument) {
   return value;
 }
 const fundTypes = new Set(["ETF", "ETP", "ETC", "ETN", "Fund", "REIT"]);
-const equityTypes = new Set(["Equity", "ADR", "Preferred share"]);
+const equityTypes = new Set(["Equity", "ADR", "TDR", "Depositary receipt", "Preferred share"]);
 export function filterInstruments(
   assets: readonly Instrument[],
   groups: readonly MarketGroup[],
