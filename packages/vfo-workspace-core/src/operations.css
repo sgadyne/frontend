@@ -300,3 +300,42 @@
 [data-material=glass]:not([data-effects=efficient]):not([data-reduced-transparency=true]) .ops-ticker .vol-lab-switch,
 [data-material=glass]:not([data-effects=efficient]):not([data-reduced-transparency=true]) .ops-ticker .vol-lab-icon{backdrop-filter:blur(12px) saturate(1.2);-webkit-backdrop-filter:blur(12px) saturate(1.2)}
 @media(prefers-reduced-transparency:reduce){.ops-ticker .vol-lab-switch,.ops-ticker .vol-lab-icon{background:var(--sampo-panel)!important;backdrop-filter:none!important}}
+
+/* Historical date navigation: retain evidence hues, keep selection independent. */
+.ops-history-calendar{margin-top:16px;min-width:0}
+.ops-calendar-controls{display:grid;grid-template-columns:minmax(0,1fr) 94px auto;align-items:end;gap:12px}
+.ops-calendar-controls label{font-size:11px;letter-spacing:0}
+.ops-calendar-paging{display:flex;gap:5px}
+.ops-calendar-paging button{width:34px;min-height:34px;font-size:20px;line-height:1;padding:0}
+.ops-calendar-months{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;margin:16px 0 18px}
+.ops-calendar-months button{display:flex;flex-direction:column;gap:7px;padding:9px 8px 7px;font-size:11px;min-width:0;background:var(--sampo-panel,#fff)}
+.ops-calendar-months button[aria-pressed=true]{border-color:var(--sampo-accent,#24536a);box-shadow:0 0 0 1px var(--sampo-accent,#24536a);color:var(--sampo-ink,#244e67);font-weight:600}
+.ops-month-evidence{display:flex;width:100%;height:4px;border-radius:2px;overflow:hidden;background:var(--sampo-line,#d5dfe5)}
+.ops-month-evidence i{height:100%;min-width:1px}
+.ops-calendar-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:12px}
+.ops-calendar-heading strong{font-size:15px;font-weight:600;letter-spacing:-.02em;color:var(--sampo-ink,#244e67)}
+.ops-calendar-heading>span{font-size:11px;color:var(--sampo-muted,#788f9f)}
+.ops-calendar-week,.ops-calendar-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.ops-calendar-week{margin-bottom:6px;text-align:center;color:var(--sampo-muted,#788f9f);font-size:10px}
+.ops-workspace button.ops-calendar-day{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;min-height:40px;padding:7px 5px;border:1px solid var(--ops-line);border-radius:7px;font-size:12px;font-variant-numeric:tabular-nums;color:var(--sampo-ink,#244e67);background:var(--sampo-panel,#fff)}
+.ops-day-evidence{display:block;width:65%;max-width:32px;height:4px;border-radius:3px}
+.ops-workspace button.ops-calendar-day:not(:disabled):hover{background:var(--sampo-accent-soft,#edf5f8);border-color:var(--sampo-accent,#24536a)}
+.ops-workspace button.ops-calendar-day.is-selected{border-color:var(--sampo-accent,#24536a);box-shadow:inset 0 0 0 1px var(--sampo-accent,#24536a);background:var(--sampo-accent-soft,#edf5f8);font-weight:700}
+.ops-workspace button.ops-calendar-day:disabled{opacity:.48}
+.ops-calendar-selection{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-top:14px;min-height:32px;padding:9px 11px;border-radius:7px;background:var(--sampo-surface-sunken,#f5f8fa);color:var(--sampo-muted,#788f9f);font-size:11px}
+.ops-calendar-selection strong{color:var(--sampo-ink,#244e67);font-weight:600;font-variant-numeric:tabular-nums}
+.ops-calendar-selection>i{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ops-history-calendar .ops-calendar-note{font-size:10px;line-height:1.6;color:var(--sampo-muted,#788f9f);margin-top:9px}
+.ops-history-picker .ops-history-title>b{font-size:14px;font-weight:600;color:var(--sampo-ink,#244e67)}
+.ops-history-picker .ops-legend{font-size:10px;line-height:1.5;gap:7px 14px;padding-top:12px;border-top:1px solid var(--ops-line)}
+.ops-history-picker .ops-legend i{width:9px;height:9px}
+.ops-history-picker .ops-history-range>span{color:var(--sampo-muted,#788f9f);font-size:10px}
+.ops-history-picker .ops-attempt-selector{flex-wrap:wrap}
+.ops-history-picker .ops-attempt-selector>label{min-width:180px}
+.ops-history-picker .ops-attempt-selector>button{min-height:34px}
+@media(max-width:600px){
+ .ops-calendar-controls{grid-template-columns:minmax(0,1fr) 78px auto;gap:8px}
+ .ops-calendar-months{gap:5px}
+ .ops-calendar-week,.ops-calendar-days{gap:4px}
+ .ops-history-picker{padding:12px}
+}
