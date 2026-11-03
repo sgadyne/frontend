@@ -1,6 +1,7 @@
 import {build} from 'vite';
 import {chromium} from 'playwright';
 import {createServer} from 'node:http';
+import {execFileSync} from 'node:child_process';
 import {readFile,mkdir,writeFile,stat} from 'node:fs/promises';
 import {resolve,extname} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -38,5 +39,5 @@ try{
  await search.fill('');await app.getByRole('button',{name:'History & backfills',exact:true}).click();assert.equal(await app.locator('tbody tr').count(),18);assert.ok(await app.locator('tbody .mu-cell').count()<=18*52);checks.push('history uses 18 visible rows and bounded window cells');
  await page.goto(origin+prefix+'packages/vfo-workspace-core/tests/synthetic-instrument-badges.html');const badge=page.locator('.market-asset-badge');await badge.locator('img').waitFor();await page.getByRole('button',{name:'Fail image',exact:true}).click();await badge.locator('span').waitFor();assert.equal(await badge.innerText(),'TE');await page.getByRole('button',{name:'Recover image',exact:true}).click();await badge.locator('img').waitFor();assert.ok(await badge.locator('img').evaluate(i=>i.complete?i.naturalWidth>0:new Promise(done=>{i.onload=()=>done(i.naturalWidth>0);})));await page.getByRole('button',{name:'Unsafe external image',exact:true}).click();assert.equal(await badge.innerText(),'1');assert.equal(await badge.locator('img').count(),0);checks.push('failed image falls back, resets after source change, external URL is excluded and numeric monogram retains useful digits');
  assert.deepEqual(errors,[]);assert.deepEqual(badResponses,[]);assert.deepEqual(external,[]);assert.ok(initialRenderMs<15000);
- const receipt={status:'passed',records:catalog.assets.length,payload,initialRenderMs,searchTimings,maxSearchMs:Math.max(...searchTimings.map(s=>s.ms)),localImageRequests:imageRequests.size,mountPrefix:prefix,checks,errors,badResponses,external,environment:'Headless Chromium on devbox; production Vite fixture below nested OCI-like path. Not a live-pilot qualification.'};await writeFile(resolve(output,'receipt.json'),JSON.stringify(receipt,null,2)+'\n');console.log(JSON.stringify(receipt,null,2));
+ const receipt={status:'passed',sourceSha:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),records:catalog.assets.length,payload,initialRenderMs,searchTimings,maxSearchMs:Math.max(...searchTimings.map(s=>s.ms)),localImageRequests:imageRequests.size,mountPrefix:prefix,checks,errors,badResponses,external,environment:'Headless Chromium on devbox; production Vite fixture below nested OCI-like path. Not a live-pilot qualification.'};await writeFile(resolve(output,'receipt.json'),JSON.stringify(receipt,null,2)+'\n');console.log(JSON.stringify(receipt,null,2));
 }finally{await browser?.close();await new Promise(done=>server.close(done));}

@@ -23,14 +23,14 @@ class Fetcher:
         if p.exists() and (self.offline or not self.refresh):return p.read_bytes(),old
         if self.offline:raise ValueError('Uncached request: '+url)
         headers={'User-Agent':'SampoPublicDirectory/1.0 (offline reference metadata authoring)','Accept':'*/*'}
-        if body is None:
+        if body is None and form is None:
             if old.get('etag'):headers['If-None-Match']=old['etag']
             if old.get('lastModified'):headers['If-Modified-Since']=old['lastModified']
         for attempt in range(3):
             try:
                 r=requests.request('POST' if body or form else 'GET',url,json=body,data=form,headers=headers,timeout=(12,40),stream=True)
                 if r.status_code==304 and p.exists():r.close();return p.read_bytes(),old
-                if r.status_code in [429,500,502,503,504] and attempt<2:time.sleep(min(4,2**attempt));continue
+                if r.status_code in [429,500,502,503,504] and attempt<2:r.close();time.sleep(min(4,2**attempt));continue
                 r.raise_for_status()
                 chunks=[];size=0
                 for chunk in r.iter_content(chunk_size=1_048_576):
@@ -231,6 +231,13 @@ def run_source(s,fetch):
         return {'id':s['id'],'status':'error-retained' if old else 'unavailable','error':str(e),'sourceUrl':s['url'],'scope':s['scope'],'rowsAccepted':len(old['rows']) if old else 0,'lastGoodRetrievedAt':old['report']['retrievedAt'] if old else None,'license':s['license'],'limitations':s.get('limitations',[])}
 def canonical(r):return 'LISTING:'+r['mic']+':'+urllib.parse.quote(r['localSymbol'],safe='.-_')
 SUFFIX={'HK':('XHKG',5),'JT':('XTKS',0),'GY':('XETR',0),'FP':('XPAR',0),'NA':('XAMS',0),'BB':('XBRU',0),'LN':('XLON',0),'SW':('XSWX',0),'SQ':('XMAD',0),'IM':('XMIL',0),'DC':('XCSE',0),'FH':('XHEL',0),'SS':('XSTO',0),'AU':('XASX',0)}
+def supplement_alternate_name(preferred, alternate, source_id):
+    if alternate['name']==preferred['name']:return
+    preferred['alternateNames']=sorted(set(preferred.get('alternateNames',[])+[alternate['name']]))
+    fields=preferred.setdefault('metadataFieldSources',{})
+    old=fields.get('alternateNames',[])
+    if isinstance(old,str):old=[old]
+    fields['alternateNames']=sorted(set(old+[source_id]))
 def compile_catalogue(reports):
     catalog=json.loads((BUNDLE/'catalog.json').read_text());assets=catalog['assets'];legacy={};existing={a['assetId']:a for a in assets}
     for a in assets:
@@ -273,9 +280,7 @@ def compile_catalogue(reports):
                 supplements=a.setdefault('metadataFieldSources',{})
                 for field in ['currency','isin','englishName','instrumentType']:
                     if not a.get(field) and r.get(field):a[field]=r[field];supplements[field]=s['id']
-                if r['name']!=a['name']:
-                    a['alternateNames']=sorted(set(a.get('alternateNames',[])+[r['name']]))
-                    supplements['alternateNames']=s['id']
+                supplement_alternate_name(a,r,s['id'])
                 if not supplements:a.pop('metadataFieldSources',None)
                 if rawId!=lid and lid in byListing:
                     a=byListing[lid];a['aliases']=sorted(set(a.get('aliases',[])+[rawId]))

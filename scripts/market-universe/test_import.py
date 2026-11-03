@@ -26,6 +26,14 @@ class ImportTests(unittest.TestCase):
         a=refresh.listing(BASE,'0010','One');b=refresh.listing({**BASE,'mic':'XNYS'},'0010','Other')
         self.assertNotEqual(refresh.canonical(a),refresh.canonical(b));self.assertEqual(a['localSymbol'],'0010')
         hk=refresh.listing({**BASE,'mic':'XHKG'},'700','Tencent');self.assertEqual(hk['localSymbol'],'00700');self.assertEqual(hk['sourceSymbols']['provider'],'700')
+    def test_alternate_names_retain_every_contributing_source_on_replay(self):
+        preferred={'name':'官方名'}
+        refresh.supplement_alternate_name(preferred,{'name':'Official English Name'},'official')
+        refresh.supplement_alternate_name(preferred,{'name':'Provider English Name'},'provider')
+        before=json.dumps(preferred,sort_keys=True)
+        refresh.supplement_alternate_name(preferred,{'name':'Official English Name'},'official')
+        self.assertEqual(preferred['metadataFieldSources']['alternateNames'],['official','provider'])
+        self.assertEqual(json.dumps(preferred,sort_keys=True),before)
     def test_provider_truncation_is_not_a_complete_snapshot(self):
         class Fake:
             def get(self,url,body=None):

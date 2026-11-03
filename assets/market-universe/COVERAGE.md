@@ -1,6 +1,6 @@
 # Public listing coverage
 
-Generated 2026-11-03T21:49:52Z. 210,576 catalogue records; 53 source MICs plus 144 retained legacy references. These are security listings/trading admissions, including bonds and structured products; they are not 210,576 distinct companies.
+Generated 2026-11-03T21:59:17Z. 210,576 catalogue records; 53 source MICs plus 144 retained legacy references. These are security listings/trading admissions, including bonds and structured products; they are not 210,576 distinct companies.
 
 `complete-source-scope` means every row within the named public source scope was consumed, with the evidence below. It is not a claim to all instruments at all venues or all markets worldwide. `provider-snapshot` means the public provider total and pagination were exhausted; exchange-wide completeness is unverified. `partial` is explicit. Source dates differ from retrieval times. None of these statuses describes price/history availability.
 
@@ -456,7 +456,7 @@ Instrument types: Warrant: 60,483; Equity: 58,027; Bond: 48,260; ETF: 27,489; CB
 
 Artwork: 162 local SVG files (506,324 bytes); 529 records bound to authentic issuer/instrument artwork; 209,989 generated monograms; zero missing badges. Separate roles: underlying-country: 14; underlying-product: 21; category: 3; instrument-artwork: 519; fund-artwork: 10; monogram: 209,989; country-exposure: 19; ticker-tile: 1. Country/underlying/category/ticker tiles are not counted as authentic logos. Source copyright/trademark rights remain with their owners. See artwork.json and NOTICES.md.
 
-Transport: canonical JSON 91,462,680 bytes; compact JSON 24,183,793 bytes, gzip 4,201,976 bytes. Compact rows decode to the same listing identities; images remain separate emitted assets.
+Transport: canonical JSON 91,505,029 bytes; compact JSON 24,183,793 bytes, gzip 4,201,976 bytes. Compact rows decode to the same listing identities; images remain separate emitted assets.
 
 ## Remaining source queue
 
