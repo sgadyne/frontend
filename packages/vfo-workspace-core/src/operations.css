@@ -114,6 +114,7 @@
 .ops-legend span{display:flex;align-items:center;gap:5px}
 .ops-legend i{width:7px;height:7px;border-radius:2px;display:inline-block}
 .ops-workspace .ops-cov-verified,.ops-workspace .ops-quality-good{background:#6cab94!important}
+.ops-workspace .ops-cov-observed{background:#83aeca!important}
 .ops-workspace .ops-cov-computed,.ops-workspace .ops-quality-warning{background:#ddb266!important}
 .ops-workspace .ops-cov-missing{background:#e7b4ba!important}
 .ops-workspace .ops-cov-failed,.ops-workspace .ops-quality-bad{background:#ba6775!important}

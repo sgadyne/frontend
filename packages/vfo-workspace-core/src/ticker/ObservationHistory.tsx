@@ -20,7 +20,7 @@ export function ObservationHistory({session,asset}:{session:VfoSession;asset:str
  const [selection,setSelection]=useState<{source:string;date:string}|null>(null),[items,setItems]=useState<SourceObservation[]>([]),[selected,setSelected]=useState<SourceObservation|null>(null);
  const [surface,setSurface]=useState<Surface|null>(null),[error,setError]=useState(''),[busy,setBusy]=useState(false),[expiry,setExpiry]=useState(0),[cut,setCut]=useState<CutSelection>({kind:'KF',value:1});
  useEffect(()=>{
-  const controller=new AbortController();setCoverage(null);setCoverageError('');
+  const controller=new AbortController();setCoverage(null);setCoverageError('');setSelection(null);setItems([]);setSelected(null);setSurface(null);setBusy(false);
   if(!provider.observationCoverage||end<=start)return()=>controller.abort();
   setCoverageBusy(true);
   provider.observationCoverage(asset,start,end,controller.signal).then(value=>{if(!controller.signal.aborted)setCoverage(value)}).catch(e=>{if(!controller.signal.aborted)setCoverageError(e.message)}).finally(()=>{if(!controller.signal.aborted)setCoverageBusy(false)});
@@ -43,10 +43,10 @@ export function ObservationHistory({session,asset}:{session:VfoSession;asset:str
  function select(source:string,date:string){setSurface(null);setSelection({source,date});}
  return <section aria-label="Historical source observations">
   <div className="ops-history-range"><label>Start<input aria-label="Source history start" type="date" value={start} onChange={e=>setStart(e.target.value)}/></label><label>End · excluded<input aria-label="Source history end" type="date" value={end} onChange={e=>setEnd(e.target.value)}/></label><button disabled={coverageBusy} onClick={()=>setRefresh(x=>x+1)}>Refresh coverage</button></div>
-  <p className="ops-hint">Dates and timestamps below come from stored source observations. Stored fit quality is shown as supplied; no independent quality assessment or fitting-job lineage is inferred.</p>
+  <p className="ops-hint">Dates and timestamps below come from stored source observations. Blue marks a stored observation, not a quality verdict. Stored fit quality is shown as supplied. The initial one-year window can be extended using Start and End.</p>
   {coverageBusy&&<p role="status">Reading historical coverage…</p>}{coverageError&&<p role="alert" className="ops-error">{coverageError}</p>}
   {coverage?.sources.map(source=><div className="ops-source-strip" key={source.source}><div className="ops-source-caption"><b>{source.label}</b><span>{source.days.length} observed dates · {source.days.reduce((sum,day)=>sum+day.snapshots,0)} snapshots</span></div><div className="ops-date-cells" role="group" aria-label={source.label+' observed dates'}>
-   {source.days.map(day=><button key={day.date} className={'ops-cell ops-cov-computed'+(selection?.source===source.source&&selection.date===day.date?' is-selected':'')} aria-label={source.label+' '+day.date} title={day.date+' · '+day.snapshots+' snapshots · stored quality '+num(day.last_fit_quality,5)} onClick={()=>select(source.source,day.date)}/>)}
+   {source.days.map(day=><button key={day.date} className={'ops-cell ops-cov-observed'+(selection?.source===source.source&&selection.date===day.date?' is-selected':'')} aria-label={source.label+' '+day.date} title={day.date+' · '+day.snapshots+' snapshots · stored quality '+num(day.last_fit_quality,5)} onClick={()=>select(source.source,day.date)}/>)}
   </div><div className="ops-date-labels"><span>{source.days[0]?.date??'No observations in this window'}</span><span>{source.days.at(-1)?.date}</span></div></div>)}
   {items.length>0&&<label>Stored snapshot<select aria-label="Stored source snapshot" value={selected?.timestamp??''} onChange={e=>{setSurface(null);setSelected(items.find(row=>row.timestamp===e.target.value)??null)}}>{items.map(row=><option key={row.timestamp} value={row.timestamp}>{expiryLabel(row.timestamp)} · {row.expiry_count} expiries · quality {num(row.fit_quality,5)}</option>)}</select></label>}
   {busy&&<p role="status">Loading selected stored model…</p>}{error&&<p role="alert" className="ops-error">{error}</p>}

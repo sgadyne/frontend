@@ -6,7 +6,7 @@ import {VolatilityTearsheet} from './VolatilityTearsheet';
 export function VolatilityLive({session,state}:{session:VfoSession;state:ReturnType<VfoSession['getSnapshot']>}){
  const [query,setQuery]=useState<{strike:number|null;term:boolean;cut:CutSelection}>({strike:null,term:false,cut:{kind:'KF',value:1}});
  const [native,setNative]=useState<Surface|null>(null);
- useEffect(()=>{setNative(old=>old?.asset_id===state.surface?.asset_id&&old?.revision===state.surface?.revision?old:null);const c=new AbortController(),base=state.surface;if(!base)return()=>c.abort();const p=session.getProvider();
+ useEffect(()=>{setNative(old=>old?.asset_id===state.surface?.asset_id&&old?.revision===state.surface?.revision?old:null);const c=new AbortController(),base=state.surface;if(!base)return()=>c.abort();if(base.evaluation.state==='sampled'&&base.evaluation.rows.length&&base.evaluation.rows.every(row=>row.cut?.kind===query.cut.kind&&row.cut.value===query.cut.value)){setNative(null);return()=>c.abort()}const p=session.getProvider();
   const timer=setTimeout(()=>{if(base&&p?.evaluatedSurface)void p.evaluatedSurface(base.asset_id,base.source,base.revision,c.signal,query.cut).then(value=>{if(!c.signal.aborted&&value.asset_id===base.asset_id&&value.revision===base.revision&&value.native_asof_ns===base.native_asof_ns){if(value.evaluation.state==='sampled')setNative(value)}}).catch(()=>{});},120);
   return()=>{clearTimeout(timer);c.abort()};
  },[state.surface?.asset_id,state.surface?.revision,state.deployment,query.cut.kind,query.cut.value]);
