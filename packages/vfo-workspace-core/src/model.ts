@@ -24,6 +24,9 @@ export type HistoryDay={schema:string;asset:string;business_date:string;source:s
 export type EnvironmentProfile={id:string;label:string;available:boolean;reason?:string|null;customWrites:boolean};
 export type ProviderRoot={forEnvironment:(environment:string)=>Provider;profiles:(signal:AbortSignal)=>Promise<{defaultEnvironment:string;profiles:EnvironmentProfile[]}>};
 export type Provider={
+ observationCoverage?(asset:string,start:string,end:string,signal:AbortSignal):Promise<ObservationCoverage>;
+ observations?(asset:string,source:string,date:string,signal:AbortSignal):Promise<SourceObservation[]>;
+ observationSurface?(asset:string,source:string,date:string,timestamp:string,signal:AbortSignal,cut?:CutSelection):Promise<Surface>;
  site?(signal:AbortSignal):Promise<import('./market/contracts').WorkspaceSite>;
  market?(assets:string[],signal:AbortSignal):Promise<import('./market/contracts').MarketFrame>;
  analyticsResult?(asset:string,workId:string,index:number,signal:AbortSignal):Promise<{work_id:string;asset_id:string;product:string;book:string|null;payload:JsonValue}>;
@@ -59,3 +62,5 @@ export const expiryLabel=(value:string|null|undefined):string=>{
  if(/^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}/.test(value))return value+' (timezone unspecified)';
  return value;
 };
+export type SourceObservation={source:string;timestamp:string;revision:string;expiry_count:number;fit_quality:number|null};
+export type ObservationCoverage={asset_id:string;start_date:string;end_date:string;sources:{source:string;label:string;days:{date:string;snapshots:number;last_timestamp:string;last_fit_quality:number|null}[]}[]};
