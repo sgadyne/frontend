@@ -28,18 +28,18 @@
     "test:optics": "node scripts/check-optical-preview.mjs"
   },
   "dependencies": {
-    "@sampo/contracts": "https://github.com/sgadyne/sampo/releases/download/v1.0.0-beta.2/sampo-contracts-0.2.0-alpha.20261102.1.tgz",
-    "@sampo/runtime": "https://github.com/sgadyne/sampo/releases/download/v1.0.0-beta.2/sampo-runtime-0.2.0-alpha.20261102.1.tgz",
-    "@sampo/sdk-react": "https://github.com/sgadyne/sampo/releases/download/v1.0.0-beta.2/sampo-sdk-react-0.2.0-alpha.20261102.1.tgz",
-    "@sampo/tooling": "https://github.com/sgadyne/sampo/releases/download/v1.0.0-beta.2/sampo-tooling-0.2.0-alpha.20261102.1.tgz",
+    "@sampo/contracts": "https://github.com/sgadyne/sampo/releases/download/v1.0.0-beta.3/sampo-contracts-0.2.0-alpha.20261102.5.tgz",
+    "@sampo/runtime": "https://github.com/sgadyne/sampo/releases/download/v1.0.0-beta.3/sampo-runtime-0.2.0-alpha.20261102.5.tgz",
+    "@sampo/sdk-react": "https://github.com/sgadyne/sampo/releases/download/v1.0.0-beta.3/sampo-sdk-react-0.2.0-alpha.20261102.5.tgz",
+    "@sampo/tooling": "https://github.com/sgadyne/sampo/releases/download/v1.0.0-beta.3/sampo-tooling-0.2.0-alpha.20261102.5.tgz",
     "ag-grid-community": "34.1.2",
     "ag-grid-react": "34.1.2",
     "motion": "14.9.0",
     "plotly.js-gl3d-dist-min": "4.2.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "@sampo/client": "https://github.com/sgadyne/sampo/releases/download/v1.0.0-beta.2/sampo-client-0.2.0-alpha.20261102.1.tgz",
-    "@sampo/design-tokens": "https://github.com/sgadyne/sampo/releases/download/v1.0.0-beta.2/sampo-design-tokens-0.1.0.tgz"
+    "@sampo/client": "https://github.com/sgadyne/sampo/releases/download/v1.0.0-beta.3/sampo-client-0.2.0-alpha.20261102.5.tgz",
+    "@sampo/design-tokens": "https://github.com/sgadyne/sampo/releases/download/v1.0.0-beta.3/sampo-design-tokens-0.1.0.tgz"
   },
   "devDependencies": {
     "@types/node": "22.19.21",

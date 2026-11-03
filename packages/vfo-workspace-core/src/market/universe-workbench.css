@@ -1582,3 +1582,6 @@
   background: var(--mu-panel);
   backdrop-filter: none;
 }
+
+/* Tables inherit the resolved appearance instead of the browser initial text colour. */
+.mu-workbench .mu-table { color: var(--mu-text); }

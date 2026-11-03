@@ -46,6 +46,8 @@ export type MarketUniverseProps = {
   onStateChange?: (state: MarketUniverseState) => void;
   onDraft?: (draft: BackfillDraft) => void;
   renderSurface?: (instrument: Instrument) => ReactNode;
+  onInspectInstrument?: (instrument: Instrument, view: 'identity'|'coverage'|'surface', interval: CoverageInterval|null) => void;
+  onCoverageRequest?: (assetIds: string[], window: {start:string;end:string}) => void;
 };
 const n = (value: number) => value.toLocaleString();
 const date = (value: string) =>
@@ -175,6 +177,8 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
     [notice, setNotice] = useState(""),
     [historyStart, setHistoryStart] = useState(historyWindow.start),
     [historyEnd, setHistoryEnd] = useState(historyWindow.end);
+  const seededWindow=useRef(historyWindow);
+  useEffect(()=>{const previous=seededWindow.current;setHistoryStart(old=>old===previous.start?historyWindow.start:old);setHistoryEnd(old=>old===previous.end?historyWindow.end:old);seededWindow.current=historyWindow;},[historyWindow.start,historyWindow.end]);
   const closeInspector = useRef<HTMLButtonElement>(null),
     opener = useRef<HTMLElement | null>(null),
     stateCallback = useRef(props.onStateChange);
@@ -182,8 +186,8 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
   const activeCoverage =
     coverage?.kind === "demo" && !showDemo ? undefined : coverage;
   const rows = useMemo(
-    () => new Map(activeCoverage?.rows.map((r) => [r.assetId, r]) ?? []),
-    [activeCoverage],
+    () => new Map(activeCoverage?.rows.map((r) => [r.assetId, source?{...r,intervals:r.intervals.filter(i=>i.source===source)}:r]) ?? []),
+    [activeCoverage,source],
   );
   const byId = useMemo(
       () => new Map(assets.map((a) => [a.assetId, a])),
@@ -205,7 +209,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
         { ...filters, query },
         rows,
         watch,
-      ).filter((a) => !source || rows.get(a.assetId)?.source === source),
+      ).filter((a) => !source || rows.get(a.assetId)?.source === source || rows.get(a.assetId)?.intervals.some(i=>i.source===source)),
     [assets, groups, navigation, filters, query, rows, watch, source],
   );
   const featured = useMemo(
@@ -232,6 +236,8 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
     selectedSet = new Set(selected);
   const windows = weeklyWindows(historyStart, historyEnd),
     timeline = windows;
+  const visibleIds = visible.map(a=>a.assetId).join('|');
+  useEffect(()=>{if(view==='history'&&historyStart<historyEnd)props.onCoverageRequest?.(visibleIds.split('|').filter(Boolean),{start:historyStart,end:historyEnd});},[view,visibleIds,historyStart,historyEnd]);
   const active = focused ? byId.get(focused) : undefined,
     activeRow = focused ? rows.get(focused) : undefined;
   const coverageCounts = useMemo(() => {
@@ -260,7 +266,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
   }, [saved]);
   useEffect(
     () => setPage(0),
-    [filters, query, view, source, sort, activeCoverage],
+    [filters, query, view, source, sort],
   );
   useEffect(() => {
     if (focused) closeInspector.current?.focus({ preventScroll: true });
@@ -291,6 +297,8 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
     tab: "identity" | "coverage" | "surface" = "identity",
     cell: CoverageInterval | null = null,
   ) {
+    const instrument=byId.get(assetId);
+    if(instrument&&props.onInspectInstrument){props.onInspectInstrument(instrument,tab,cell);return;}
     opener.current = document.activeElement as HTMLElement;
     setFocused(assetId);
     setInspectTab(tab);
@@ -340,7 +348,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
   const regionalEtfs =
     region?.etfs ?? navigation.regions.flatMap((r) => r.etfs);
   const availableSources = [
-    ...new Set(activeCoverage?.rows.map((r) => r.source) ?? []),
+    ...new Set(activeCoverage?.rows.flatMap(r=>view==='history'?r.intervals.map(i=>i.source):[r.source]).filter(Boolean) ?? []),
   ];
   const showGroupMembership = group?.category === "fund-holdings";
   return (

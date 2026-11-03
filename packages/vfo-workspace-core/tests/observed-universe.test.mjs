@@ -1,0 +1,16 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import ts from 'typescript';
+const transpile=text=>ts.transpileModule(text,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
+const uri=js=>'data:text/javascript;base64,'+Buffer.from(js).toString('base64');
+const history=uri(transpile(await readFile(new URL('../src/history.ts',import.meta.url),'utf8')));
+const client=uri(transpile(await readFile(new URL('../src/command-client.ts',import.meta.url),'utf8')));
+const js=transpile(await readFile(new URL('../src/market/observed-universe.ts',import.meta.url),'utf8')).replace(/(['"])\.\.\/history\1/g,JSON.stringify(history)).replace(/(['"])\.\.\/command-client\1/g,JSON.stringify(client));
+const {observedInstruments,observedCoverage}=await import(uri(js));
+const asset={asset_id:'EQUITY:TEST',ticker:'TEST',source:'live',input:{state:'stale'},accepted_output:{state:'observed'}};
+const coverage={observed_at:'now',index:{data_complete:true},items:[{asset:'TEST',recorded_requests:1,sources:[{source:'ivol',state:'verified',request:{start_date:'2026-05-01',end_date:'2026-05-04'}}]}]};
+const timeline=day=>({start_date:'2026-05-01',end_date:'2026-05-02',data_complete:true,index:{data_complete:true},generations:[{request_id:'fit',source:'ivol',accepted_at_ms:1,days:[{date:'2026-05-01',session:true,products:{fit:'verified'},has_commit:true,state:'verified',...day}]}]});
+test('registered request summaries never become complete historical coverage',()=>{const row=observedCoverage([asset],coverage,{}).rows[0];assert.equal(row.intervals[0].status,'unknown');assert.equal(row.quotes,'stale');assert.equal(row.surfaces,'ready');});
+test('only committed fit evidence is recorded; unknown and incomplete discovery are never gaps',()=>{assert.equal(observedCoverage([asset],coverage,{'EQUITY:TEST':timeline({})}).rows[0].intervals[0].status,'available');const t=timeline({state:'missing',has_commit:false,products:{fit:'missing'}});t.index.data_complete=false;assert.equal(observedCoverage([asset],coverage,{'EQUITY:TEST':t}).rows[0].intervals[0].status,'unknown');});
+test('catalogue-only instruments survive without a market observation',()=>{const items=observedInstruments({assets:[{assetId:'EQUITY:UNBOUND',name:'Unbound',source:'static'}]},[asset]);assert.deepEqual(items.map(a=>a.assetId),['EQUITY:UNBOUND','EQUITY:TEST']);});

@@ -2,7 +2,7 @@ import {createHash} from 'node:crypto';
 import {copyFile,readFile,readdir,writeFile,cp,rm} from 'node:fs/promises';
 import {join,relative,sep} from 'node:path';
 import {SDK_VERSION,REACT_VERSION,validateLinkedDescriptor} from '@sampo/contracts';
-const name=process.argv[2];const names={risk:'risk-lens',vfo:'vfo',cluster:'cluster',replication:'replication'};if(!names[name])throw Error('Select risk, vfo, cluster or replication');const root='dist-'+name,cohort='0.2.0-alpha.20261102.1';
+const name=process.argv[2];const names={risk:'risk-lens',vfo:'vfo',cluster:'cluster',replication:'replication'};if(!names[name])throw Error('Select risk, vfo, cluster or replication');const root='dist-'+name,cohort='0.2.0-alpha.20261102.5';
 if(SDK_VERSION!==cohort)throw Error('Install the exact linked SDK cohort '+cohort);
 await rm(root,{recursive:true,force:true});await cp('dist',root,{recursive:true});await Promise.all(['LICENSE','NOTICE'].map(name=>copyFile(name,join(root,name))));
 const contributions=JSON.parse(await readFile('contributions.json','utf8')).filter(c=>c.id==='example.'+names[name]+'.main');
