@@ -1674,3 +1674,6 @@
 
 .mu-inspector-body { background: var(--mu-panel); }
 .mu-toast { z-index: 4; max-width: calc(100% - 24px); }
+
+/* Tables inherit resolved appearance. */
+.mu-workbench .mu-table { color: var(--mu-text); }

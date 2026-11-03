@@ -300,3 +300,7 @@
 [data-material=glass]:not([data-effects=efficient]):not([data-reduced-transparency=true]) .ops-ticker .vol-lab-switch,
 [data-material=glass]:not([data-effects=efficient]):not([data-reduced-transparency=true]) .ops-ticker .vol-lab-icon{backdrop-filter:blur(12px) saturate(1.2);-webkit-backdrop-filter:blur(12px) saturate(1.2)}
 @media(prefers-reduced-transparency:reduce){.ops-ticker .vol-lab-switch,.ops-ticker .vol-lab-icon{background:var(--sampo-panel)!important;backdrop-filter:none!important}}
+
+/* The catalogue workbench owns scrolling inside the existing application frame. */
+.vfo-command-node.view-market .ops-root-scroll { display:flex; flex-direction:column; overflow:hidden; }
+.vfo-command-node.view-market .mu-workbench { flex:1; min-height:0; height:auto; }

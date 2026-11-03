@@ -49,6 +49,8 @@ export type MarketUniverseProps = {
   onStateChange?: (state: MarketUniverseState) => void;
   onDraft?: (draft: BackfillDraft) => void;
   renderSurface?: (instrument: Instrument) => ReactNode;
+  onInspectInstrument?: (instrument: Instrument, view: 'identity'|'coverage'|'surface', interval: CoverageInterval|null) => void;
+  onCoverageRequest?: (assetIds: string[], window: {start:string;end:string}) => void;
 };
 const n = (value: number) => value.toLocaleString();
 const date = (value: string) =>
@@ -180,6 +182,15 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
     setSort = setter("sort", true), setSource = setter("source", true),
     setFocused = setter("focused"), setInspectTab = setter("inspectTab"),
     setHistoryStart = setter("historyStart"), setHistoryEnd = setter("historyEnd");
+  const seededWindow = useRef(historyWindow);
+  useEffect(() => {
+    const previous = seededWindow.current;
+    seededWindow.current = historyWindow;
+    const patch: Partial<MarketUniverseState> = {};
+    if (stateRef.current.historyStart === previous.start) patch.historyStart = historyWindow.start;
+    if (stateRef.current.historyEnd === previous.end) patch.historyEnd = historyWindow.end;
+    if (Object.keys(patch).length) update(patch);
+  }, [historyWindow.start, historyWindow.end]);
   const [interval, setInterval] = useState<CoverageInterval | null>(null);
   const [planning, setPlanning] = useState(false), [notice, setNotice] = useState("");
   const closeInspector = useRef<HTMLButtonElement>(null), opener = useRef<HTMLElement | null>(null);
@@ -243,6 +254,13 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
     selectedSet = new Set(selected);
   const windows = weeklyWindows(historyStart, historyEnd),
     timeline = windows;
+  const visibleIds = JSON.stringify(visible.map(a => a.assetId));
+  const coverageRequest = useRef(props.onCoverageRequest);
+  coverageRequest.current = props.onCoverageRequest;
+  useEffect(() => {
+    if (view === 'history' && historyStart < historyEnd)
+      coverageRequest.current?.(JSON.parse(visibleIds), {start: historyStart, end: historyEnd});
+  }, [view, visibleIds, historyStart, historyEnd]);
   const active = focused ? byId.get(focused) : undefined,
     activeRow = focused ? rows.get(focused) : undefined;
   const coverageCounts = useMemo(() => {
@@ -293,6 +311,11 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
     tab: "identity" | "coverage" | "surface" = "identity",
     cell: CoverageInterval | null = null,
   ) {
+    const instrument = byId.get(assetId);
+    if (instrument && props.onInspectInstrument) {
+      props.onInspectInstrument(instrument, tab, cell);
+      return;
+    }
     opener.current = document.activeElement as HTMLElement;
     setFocused(assetId);
     setInspectTab(tab);
