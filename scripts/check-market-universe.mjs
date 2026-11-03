@@ -2,6 +2,9 @@ import { chromium } from "playwright";
 import assert from "node:assert/strict";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
+const catalogue = JSON.parse(await readFile(new URL("../assets/market-universe/catalog.json",import.meta.url), "utf8"));
+const groups = JSON.parse(await readFile(new URL("../assets/market-universe/groups.json",import.meta.url), "utf8"));
+const regionCount = region => groups.groups.find(g => g.id === "region:" + region).assetIds.length.toLocaleString("en-US");
 const base = process.env.SAMPO_URL,
   auth = process.env.SAMPO_STORAGE_STATE;
 if (!base || !auth)
@@ -57,7 +60,7 @@ try {
   await page.screenshot({ animations: "disabled", path: output + "/universe.png" });
   await app
     .locator(".mu-results-heading")
-    .filter({ hasText: "2,020" })
+    .filter({ hasText: catalogue.assets.length.toLocaleString("en-US") })
     .waitFor();
   assert.equal(
     await app
@@ -69,11 +72,11 @@ try {
   );
   checks.push("full catalogue, static logos and real host render");
   await nav.getByRole("button", { name: /^Europe / }).click();
-  await app.locator(".mu-results-heading").filter({ hasText: "183" }).waitFor();
+  await app.locator(".mu-results-heading").filter({ hasText: regionCount("Europe") }).waitFor();
   await app
     .getByRole("checkbox", { name: "Demo coverage", exact: true })
     .uncheck();
-  await app.locator(".mu-results-heading").filter({ hasText: "183" }).waitFor();
+  await app.locator(".mu-results-heading").filter({ hasText: regionCount("Europe") }).waitFor();
   assert.match(await app.locator("tbody").innerText(), /Not connected/);
   await app
     .getByRole("checkbox", { name: "Demo coverage", exact: true })
@@ -90,7 +93,7 @@ try {
   assert.match(await page.locator(":focus").innerText(), /ASML/);
   checks.push("Europe lookup, coverage independence, sheet and focus restore");
   await nav.getByRole("button", { name: /^Asia Pacific/ }).click();
-  await app.locator(".mu-results-heading").filter({ hasText: "367" }).waitFor();
+  await app.locator(".mu-results-heading").filter({ hasText: regionCount("Asia") }).waitFor();
   await search.fill("Tencent");
   await page.waitForTimeout(100);
   assert.match(await app.locator("tbody").innerText(), /700-HK/);

@@ -1677,3 +1677,11 @@
 
 /* Tables inherit resolved appearance. */
 .mu-workbench .mu-table { color: var(--mu-text); }
+
+/* Monograms remain readable when issuer artwork is absent or unavailable. */
+.mu-badge.tone-blue { background: #e2edff; color: #28548c; }
+.mu-badge.tone-teal { background: #dff2ed; color: #246459; }
+.mu-badge.tone-violet { background: #eee5fa; color: #67428b; }
+.mu-badge.tone-amber { background: #f8edda; color: #805b27; }
+.mu-badge.tone-rose { background: #f8e6ea; color: #8c4559; }
+.mu-badge img { display: block; max-width: 100%; max-height: 100%; object-fit: contain; }

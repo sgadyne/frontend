@@ -28,3 +28,10 @@ test("malformed or stale restore state is bounded to current catalogue and safe 
   assert.deepEqual(normalizeMarketState({ version: 9, view: "history" }, catalogue), normalizeMarketState({}, catalogue));
   assert.equal(normalizeMarketState(null, catalogue).view, "universe");
 });
+
+test("history pagination reaches the tail of a full regional inventory", () => {
+  const large = {...catalogue,assets:Array.from({length:210576},(_,i)=>({assetId:'LISTING:TEST:'+i,ticker:String(i),name:'Synthetic scale record'}))};
+  const state=normalizeMarketState({view:'history',page:11698},large);
+  assert.equal(state.page,11698);
+  assert.equal(normalizeMarketState({view:'history',page:1e9},large).page,Math.ceil(large.assets.length/18)-1);
+});

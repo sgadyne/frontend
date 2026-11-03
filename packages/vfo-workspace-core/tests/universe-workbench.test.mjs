@@ -46,10 +46,10 @@ const filter = (filters = {}, coverage = new Map()) =>
     new Set(),
   );
 test("catalogue membership is independent of coverage and supports regions, baskets and lookup", () => {
-  assert.equal(filter().length, 2020);
+  assert.equal(filter().length, catalog.assets.length);
   assert.equal(
     filter({}, new Map(fixture.rows.map((r) => [r.assetId, r]))).length,
-    2020,
+    catalog.assets.length,
   );
   for (const r of nav.regions)
     assert.equal(
@@ -65,7 +65,7 @@ test("catalogue membership is independent of coverage and supports regions, bask
     filter({ query: "AAPL" }).some((a) => a.ticker === "AAPL"),
     true,
   );
-  assert.equal(filter({ coverage: "not-connected" }).length, 2020);
+  assert.equal(filter({ coverage: "not-connected" }).length, catalog.assets.length);
   assert.equal(filter({ coverage: "ready" }).length, 0);
 });
 const gap = (

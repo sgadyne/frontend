@@ -27,18 +27,26 @@ const object = (v: unknown): Record<string, unknown> =>
 const string = (v: unknown, limit = 180) => typeof v === "string" ? v.slice(0, limit) : "";
 const choice = <T extends string>(v: unknown, values: readonly T[], fallback: T): T =>
   values.includes(v as T) ? v as T : fallback;
+const identityCache = new WeakMap<readonly Instrument[], ReadonlySet<string>>();
+function catalogueIdentities(assets: readonly Instrument[]) {
+  let ids = identityCache.get(assets);
+  if (!ids) { ids = new Set(assets.map(a => a.assetId)); identityCache.set(assets, ids); }
+  return ids;
+}
 /** Rendering state only. Unknown fields and identities never enter a restored selection. */
 export function normalizeMarketState(value: unknown, catalogue: Catalogue): Required<MarketUniverseState> {
   const candidate = object(value);
   const s = candidate.version === undefined || candidate.version === 1 ? candidate : {};
-  const f = object(s.filters), ids = new Set(catalogue.assets.map(a => a.assetId));
+  const f = object(s.filters), ids = catalogueIdentities(catalogue.assets);
   const list = (v: unknown) => Array.isArray(v)
     ? [...new Set(v.filter((id): id is string => typeof id === "string" && ids.has(id)))].slice(0, 100) : [];
   const date = (v: unknown, fallback: string) => typeof v === "string" && /^\d{4}-\d{2}-\d{2}$/.test(v) &&
     Number.isFinite(Date.parse(v)) && new Date(v).toISOString().slice(0, 10) === v ? v : fallback;
+  const view = choice(s.view, ["universe", "live", "history"], "universe");
+  const lastPage = Math.max(10000, Math.ceil(catalogue.assets.length / (view === "history" ? 18 : 30)) - 1);
   return {
     version: 1,
-    view: choice(s.view, ["universe", "live", "history"], "universe"),
+    view,
     filters: {
       query: string(f.query, 160),
       region: catalogue.navigation.regions.some(r => r.id === f.region) ? string(f.region) : "",
@@ -50,7 +58,7 @@ export function normalizeMarketState(value: unknown, catalogue: Catalogue): Requ
     watchlist: list(s.watchlist), selected: list(s.selected),
     focused: typeof s.focused === "string" && ids.has(s.focused) ? s.focused : "",
     inspectTab: choice(s.inspectTab, ["identity", "coverage", "surface"], "identity"),
-    page: Number.isInteger(s.page) && (s.page as number) >= 0 ? Math.min(s.page as number, 10000) : 0,
+    page: Number.isInteger(s.page) && (s.page as number) >= 0 ? Math.min(s.page as number, lastPage) : 0,
     sort: choice(s.sort, ["featured", "az"], "featured"),
     showDemo: s.showDemo !== false, source: string(s.source), dataset: string(s.dataset),
     historyStart: date(s.historyStart, catalogue.historyWindow.start),

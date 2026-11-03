@@ -1,0 +1,589 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "id": "nasdaq",
+      "adapter": "nasdaq",
+      "url": "https://www.nasdaqtrader.com/dynamic/SymDir/nasdaqlisted.txt",
+      "mic": "XNAS",
+      "region": "Americas",
+      "country": "US",
+      "scope": "Nasdaq listed securities excluding test issues",
+      "minRows": 4000,
+      "completeness": "complete-source-scope",
+      "license": "Nasdaq Trader Symbol Lookup states directory information supplied without restriction or further licensing requirement; https://www.nasdaqtrader.com/Trader.aspx?id=symbollookup. NFN datasets have separate terms and are excluded."
+    },
+    {
+      "id": "us-other",
+      "adapter": "nasdaq",
+      "url": "https://www.nasdaqtrader.com/dynamic/SymDir/otherlisted.txt",
+      "mic": "",
+      "region": "Americas",
+      "country": "US",
+      "scope": "Other US listed securities excluding tests: NYSE, NYSE American, NYSE Arca, Cboe/BATS, IEX, TXSE and NYSE Texas codes actually present",
+      "minRows": 6000,
+      "completeness": "complete-source-scope",
+      "license": "Nasdaq Trader Symbol Lookup states directory information supplied without restriction or further licensing requirement; https://www.nasdaqtrader.com/Trader.aspx?id=symbollookup. NFN datasets have separate terms and are excluded.",
+      "identityReferences": [
+        "https://www.nasdaqtrader.com/trader.aspx?id=symboldirdefs",
+        "https://www.txse.com/regulations/id-codes",
+        "https://www.nasdaqtrader.com/TraderNews.aspx?id=DTN2026-10",
+        "https://www.nyse.com/publicdocs/nyse/data/Consolidated_Volume_Summary_Client_Spec_v1.5.pdf"
+      ]
+    },
+    {
+      "id": "hkex",
+      "adapter": "hkex",
+      "url": "https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx",
+      "mic": "XHKG",
+      "region": "Asia",
+      "country": "HK",
+      "scope": "HKEX full list of securities: equities, GEM, ETPs, REITs, debt, warrants and CBBCs",
+      "minRows": 10000,
+      "completeness": "complete-source-scope",
+      "license": "Public official directory; source copyright/terms retained. No open redistribution licence located; factual identifiers only, no price observations."
+    },
+    {
+      "id": "jpx",
+      "adapter": "jpx",
+      "url": "https://www.jpx.co.jp/english/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_e.xlsx",
+      "mic": "XTKS",
+      "region": "Asia",
+      "country": "JP",
+      "scope": "TSE month-end listed issues",
+      "minRows": 4000,
+      "completeness": "complete-source-scope",
+      "license": "Public official directory; source copyright/terms retained. No open redistribution licence located; factual identifiers only, no price observations."
+    },
+    {
+      "id": "xetra",
+      "adapter": "deutsche",
+      "url": "https://www.cashmarket.deutsche-boerse.com/resource/blob/1528/b52ea43a2edac92e8283d40645d1c076/data/t7-xetr-allTradableInstruments.csv",
+      "mic": "XETR",
+      "region": "Europe",
+      "country": "DE",
+      "scope": "Xetra active instruments with official local mnemonic (including secondary trading admissions)",
+      "minRows": 5000,
+      "completeness": "complete-source-scope",
+      "license": "Public official directory; source copyright/terms retained. No open redistribution licence located; factual identifiers only, no price observations."
+    },
+    {
+      "id": "frankfurt",
+      "adapter": "deutsche",
+      "url": "https://www.cashmarket.deutsche-boerse.com/resource/blob/2289108/af62aa4116e6e5ec6953702081cea715/data/t7-xfra-BF-allTradableInstruments.csv",
+      "mic": "XFRA",
+      "region": "Europe",
+      "country": "DE",
+      "scope": "Frankfurt active instruments with official local mnemonic (including secondary trading admissions)",
+      "minRows": 15000,
+      "completeness": "partial",
+      "license": "Public official directory; source copyright/terms retained. No open redistribution licence located; factual identifiers only, no price observations.",
+      "limitations": [
+        "Source includes 35k+ bonds often lacking mnemonic; unsymbolized rows rejected explicitly. Does not imply primary issuer listing in Germany."
+      ]
+    },
+    {
+      "id": "nse",
+      "adapter": "nse",
+      "url": "https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv",
+      "mic": "XNSE",
+      "region": "Asia",
+      "country": "IN",
+      "scope": "NSE main-board equity securities",
+      "minRows": 2000,
+      "completeness": "complete-source-scope",
+      "license": "Public official directory; source copyright/terms retained. No open redistribution licence located; factual identifiers only, no price observations."
+    },
+    {
+      "id": "nse-etf",
+      "adapter": "nse",
+      "url": "https://nsearchives.nseindia.com/content/equities/eq_etfseclist.csv",
+      "mic": "XNSE",
+      "region": "Asia",
+      "country": "IN",
+      "scope": "NSE exchange traded funds",
+      "minRows": 100,
+      "completeness": "complete-source-scope",
+      "license": "Public official directory; source copyright/terms retained. No open redistribution licence located; factual identifiers only, no price observations."
+    },
+    {
+      "id": "asx",
+      "adapter": "asx",
+      "url": "https://www.asx.com.au/asx/research/ASXListedCompanies.csv",
+      "mic": "XASX",
+      "region": "Asia",
+      "country": "AU",
+      "scope": "ASX company directory",
+      "minRows": 1500,
+      "completeness": "partial",
+      "license": "Public official directory; source copyright/terms retained. No open redistribution licence located; factual identifiers only, no price observations.",
+      "limitations": [
+        "Company inventory excludes ETP issuers, wholesale debt issuers, duplicate entities of stapled securities; not all instruments."
+      ]
+    },
+    {
+      "id": "twse-isin",
+      "adapter": "taiwan-isin",
+      "url": "https://isin.twse.com.tw/isin/C_public.jsp?strMode=2",
+      "mic": "XTAI",
+      "region": "Asia",
+      "country": "TW",
+      "scope": "TWSE domestic listed security ISIN directory",
+      "minRows": 30000,
+      "completeness": "complete-source-scope",
+      "license": "Public official directory; source copyright/terms retained. No open redistribution licence located; factual identifiers only, no price observations.",
+      "limitations": [
+        "Domestic securities directory only; foreign market segments, bonds, emerging markets or instruments outside this page are not asserted."
+      ]
+    },
+    {
+      "id": "tpex-isin",
+      "adapter": "taiwan-isin",
+      "url": "https://isin.twse.com.tw/isin/C_public.jsp?strMode=4",
+      "mic": "ROCO",
+      "region": "Asia",
+      "country": "TW",
+      "scope": "TPEX domestic OTC security ISIN directory",
+      "minRows": 10000,
+      "completeness": "complete-source-scope",
+      "license": "Public official directory; source copyright/terms retained. No open redistribution licence located; factual identifiers only, no price observations.",
+      "limitations": [
+        "Domestic securities directory only; foreign market segments, bonds, emerging markets or instruments outside this page are not asserted."
+      ]
+    },
+    {
+      "id": "twse",
+      "adapter": "taiwan",
+      "url": "https://openapi.twse.com.tw/v1/opendata/t187ap03_L",
+      "mic": "XTAI",
+      "region": "Asia",
+      "country": "TW",
+      "scope": "TWSE open-data listed company inventory",
+      "minRows": 900,
+      "completeness": "partial",
+      "license": "Public official directory; source copyright/terms retained. No open redistribution licence located; factual identifiers only, no price observations.",
+      "limitations": [
+        "Company inventory; not all security classes."
+      ]
+    },
+    {
+      "id": "tpex",
+      "adapter": "taiwan",
+      "url": "https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap03_O",
+      "mic": "ROCO",
+      "region": "Asia",
+      "country": "TW",
+      "scope": "TPEX open-data listed company inventory",
+      "minRows": 700,
+      "completeness": "partial",
+      "license": "Public official directory; source copyright/terms retained. No open redistribution licence located; factual identifiers only, no price observations.",
+      "limitations": [
+        "Company inventory; not all security classes."
+      ]
+    },
+    {
+      "id": "krx",
+      "adapter": "krx",
+      "url": "https://kind.krx.co.kr/corpgeneral/corpList.do?method=download&searchType=13",
+      "mic": "XKRX",
+      "region": "Asia",
+      "country": "KR",
+      "scope": "KRX KIND listed-company inventory",
+      "minRows": 2000,
+      "completeness": "partial",
+      "license": "Public official directory; source copyright/terms retained. No open redistribution licence located; factual identifiers only, no price observations.",
+      "limitations": [
+        "Operating MIC XKRX; company export has no reliable venue segment and excludes preferred shares and funds."
+      ]
+    },
+    {
+      "id": "lse",
+      "adapter": "lse",
+      "url": "https://docs.londonstockexchange.com/reports/instruments/Instrument%20list.xlsx",
+      "mic": "XLON",
+      "region": "Europe",
+      "country": "GB",
+      "scope": "LSE public instrument report",
+      "minRows": 10000,
+      "completeness": "complete-source-scope",
+      "license": "Public official directory; source copyright/terms retained. No open redistribution licence located; factual identifiers only, no price observations."
+    },
+    {
+      "id": "euronext",
+      "adapter": "euronext",
+      "url": "https://live.euronext.com/en/products/equities/list",
+      "mic": "",
+      "region": "Europe",
+      "country": "",
+      "scope": "Euronext official public equities directory, all returned venues including Growth/Access and Italian markets",
+      "minRows": 3000,
+      "completeness": "complete-source-scope",
+      "license": "Public official directory; source copyright/terms retained. No open redistribution licence located; factual identifiers only, no price observations."
+    },
+    {
+      "id": "euronext-etf",
+      "adapter": "euronext",
+      "url": "https://live.euronext.com/en/products/etfs/list",
+      "mic": "",
+      "region": "Europe",
+      "country": "",
+      "scope": "Euronext official public ETF directory",
+      "minRows": 500,
+      "completeness": "complete-source-scope",
+      "license": "Public official directory; source copyright/terms retained. No open redistribution licence located; factual identifiers only, no price observations.",
+      "instrumentType": "ETF"
+    },
+    {
+      "id": "tv-sse",
+      "adapter": "tradingview",
+      "url": "https://scanner.tradingview.com/global/scan",
+      "mic": "XSHG",
+      "region": "Asia",
+      "country": "CN",
+      "scope": "Public provider inventory for SSE: stocks, funds and depositary receipts only",
+      "minRows": 1,
+      "completeness": "provider-snapshot",
+      "license": "Publicly displayed factual listing metadata via TradingView scanner. No open redistribution licence located; provenance is not a licence grant. No TradingView bulk artwork collected.",
+      "exchange": "SSE",
+      "limitations": [
+        "All provider pages enumerated; provider coverage is not certified exchange-wide. No quote/history fields retrieved. Unknown source as-of; retrieval time reported separately."
+      ]
+    },
+    {
+      "id": "tv-szse",
+      "adapter": "tradingview",
+      "url": "https://scanner.tradingview.com/global/scan",
+      "mic": "XSHE",
+      "region": "Asia",
+      "country": "CN",
+      "scope": "Public provider inventory for SZSE: stocks, funds and depositary receipts only",
+      "minRows": 1,
+      "completeness": "provider-snapshot",
+      "license": "Publicly displayed factual listing metadata via TradingView scanner. No open redistribution licence located; provenance is not a licence grant. No TradingView bulk artwork collected.",
+      "exchange": "SZSE",
+      "limitations": [
+        "All provider pages enumerated; provider coverage is not certified exchange-wide. No quote/history fields retrieved. Unknown source as-of; retrieval time reported separately."
+      ]
+    },
+    {
+      "id": "tv-bse",
+      "adapter": "tradingview",
+      "url": "https://scanner.tradingview.com/global/scan",
+      "mic": "XBOM",
+      "region": "Asia",
+      "country": "IN",
+      "scope": "Public provider inventory for BSE: stocks, funds and depositary receipts only",
+      "minRows": 1,
+      "completeness": "provider-snapshot",
+      "license": "Publicly displayed factual listing metadata via TradingView scanner. No open redistribution licence located; provenance is not a licence grant. No TradingView bulk artwork collected.",
+      "exchange": "BSE",
+      "limitations": [
+        "All provider pages enumerated; provider coverage is not certified exchange-wide. No quote/history fields retrieved. Unknown source as-of; retrieval time reported separately."
+      ]
+    },
+    {
+      "id": "tv-nse",
+      "adapter": "tradingview",
+      "url": "https://scanner.tradingview.com/global/scan",
+      "mic": "XNSE",
+      "region": "Asia",
+      "country": "IN",
+      "scope": "Public provider inventory for NSE: stocks, funds and depositary receipts only",
+      "minRows": 1,
+      "completeness": "provider-snapshot",
+      "license": "Publicly displayed factual listing metadata via TradingView scanner. No open redistribution licence located; provenance is not a licence grant. No TradingView bulk artwork collected.",
+      "exchange": "NSE",
+      "limitations": [
+        "All provider pages enumerated; provider coverage is not certified exchange-wide. No quote/history fields retrieved. Unknown source as-of; retrieval time reported separately."
+      ]
+    },
+    {
+      "id": "tv-sgx",
+      "adapter": "tradingview",
+      "url": "https://scanner.tradingview.com/global/scan",
+      "mic": "XSES",
+      "region": "Asia",
+      "country": "SG",
+      "scope": "Public provider inventory for SGX: stocks, funds and depositary receipts only",
+      "minRows": 1,
+      "completeness": "provider-snapshot",
+      "license": "Publicly displayed factual listing metadata via TradingView scanner. No open redistribution licence located; provenance is not a licence grant. No TradingView bulk artwork collected.",
+      "exchange": "SGX",
+      "limitations": [
+        "All provider pages enumerated; provider coverage is not certified exchange-wide. No quote/history fields retrieved. Unknown source as-of; retrieval time reported separately."
+      ]
+    },
+    {
+      "id": "tv-six",
+      "adapter": "tradingview",
+      "url": "https://scanner.tradingview.com/global/scan",
+      "mic": "XSWX",
+      "region": "Europe",
+      "country": "CH",
+      "scope": "Public provider inventory for SIX: stocks, funds and depositary receipts only",
+      "minRows": 1,
+      "completeness": "provider-snapshot",
+      "license": "Publicly displayed factual listing metadata via TradingView scanner. No open redistribution licence located; provenance is not a licence grant. No TradingView bulk artwork collected.",
+      "exchange": "SIX",
+      "limitations": [
+        "All provider pages enumerated; provider coverage is not certified exchange-wide. No quote/history fields retrieved. Unknown source as-of; retrieval time reported separately."
+      ]
+    },
+    {
+      "id": "tv-bme",
+      "adapter": "tradingview",
+      "url": "https://scanner.tradingview.com/global/scan",
+      "mic": "XMAD",
+      "region": "Europe",
+      "country": "ES",
+      "scope": "Public provider inventory for BME: stocks, funds and depositary receipts only",
+      "minRows": 1,
+      "completeness": "provider-snapshot",
+      "license": "Publicly displayed factual listing metadata via TradingView scanner. No open redistribution licence located; provenance is not a licence grant. No TradingView bulk artwork collected.",
+      "exchange": "BME",
+      "limitations": [
+        "All provider pages enumerated; provider coverage is not certified exchange-wide. No quote/history fields retrieved. Unknown source as-of; retrieval time reported separately."
+      ]
+    },
+    {
+      "id": "tv-lse",
+      "adapter": "tradingview",
+      "url": "https://scanner.tradingview.com/global/scan",
+      "mic": "XLON",
+      "region": "Europe",
+      "country": "GB",
+      "scope": "Public provider inventory for LSE: stocks, funds and depositary receipts only",
+      "minRows": 1,
+      "completeness": "provider-snapshot",
+      "license": "Publicly displayed factual listing metadata via TradingView scanner. No open redistribution licence located; provenance is not a licence grant. No TradingView bulk artwork collected.",
+      "exchange": "LSE",
+      "limitations": [
+        "All provider pages enumerated; provider coverage is not certified exchange-wide. No quote/history fields retrieved. Unknown source as-of; retrieval time reported separately."
+      ]
+    },
+    {
+      "id": "tv-mil",
+      "adapter": "tradingview",
+      "url": "https://scanner.tradingview.com/global/scan",
+      "mic": "XMIL",
+      "region": "Europe",
+      "country": "IT",
+      "scope": "Public provider inventory for MIL: stocks, funds and depositary receipts only",
+      "minRows": 1,
+      "completeness": "provider-snapshot",
+      "license": "Publicly displayed factual listing metadata via TradingView scanner. No open redistribution licence located; provenance is not a licence grant. No TradingView bulk artwork collected.",
+      "exchange": "MIL",
+      "limitations": [
+        "All provider pages enumerated; provider coverage is not certified exchange-wide. No quote/history fields retrieved. Unknown source as-of; retrieval time reported separately."
+      ]
+    },
+    {
+      "id": "tv-omxsto",
+      "adapter": "tradingview",
+      "url": "https://scanner.tradingview.com/global/scan",
+      "mic": "XSTO",
+      "region": "Europe",
+      "country": "SE",
+      "scope": "Public provider inventory for OMXSTO: stocks, funds and depositary receipts only",
+      "minRows": 1,
+      "completeness": "provider-snapshot",
+      "license": "Publicly displayed factual listing metadata via TradingView scanner. No open redistribution licence located; provenance is not a licence grant. No TradingView bulk artwork collected.",
+      "exchange": "OMXSTO",
+      "limitations": [
+        "All provider pages enumerated; provider coverage is not certified exchange-wide. No quote/history fields retrieved. Unknown source as-of; retrieval time reported separately."
+      ]
+    },
+    {
+      "id": "tv-omxhex",
+      "adapter": "tradingview",
+      "url": "https://scanner.tradingview.com/global/scan",
+      "mic": "XHEL",
+      "region": "Europe",
+      "country": "FI",
+      "scope": "Public provider inventory for OMXHEX: stocks, funds and depositary receipts only",
+      "minRows": 1,
+      "completeness": "provider-snapshot",
+      "license": "Publicly displayed factual listing metadata via TradingView scanner. No open redistribution licence located; provenance is not a licence grant. No TradingView bulk artwork collected.",
+      "exchange": "OMXHEX",
+      "limitations": [
+        "All provider pages enumerated; provider coverage is not certified exchange-wide. No quote/history fields retrieved. Unknown source as-of; retrieval time reported separately."
+      ]
+    },
+    {
+      "id": "tv-omxcop",
+      "adapter": "tradingview",
+      "url": "https://scanner.tradingview.com/global/scan",
+      "mic": "XCSE",
+      "region": "Europe",
+      "country": "DK",
+      "scope": "Public provider inventory for OMXCOP: stocks, funds and depositary receipts only",
+      "minRows": 1,
+      "completeness": "provider-snapshot",
+      "license": "Publicly displayed factual listing metadata via TradingView scanner. No open redistribution licence located; provenance is not a licence grant. No TradingView bulk artwork collected.",
+      "exchange": "OMXCOP",
+      "limitations": [
+        "All provider pages enumerated; provider coverage is not certified exchange-wide. No quote/history fields retrieved. Unknown source as-of; retrieval time reported separately."
+      ]
+    },
+    {
+      "id": "tv-omxice",
+      "adapter": "tradingview",
+      "url": "https://scanner.tradingview.com/global/scan",
+      "mic": "XICE",
+      "region": "Europe",
+      "country": "IS",
+      "scope": "Public provider inventory for OMXICE: stocks, funds and depositary receipts only",
+      "minRows": 1,
+      "completeness": "provider-snapshot",
+      "license": "Publicly displayed factual listing metadata via TradingView scanner. No open redistribution licence located; provenance is not a licence grant. No TradingView bulk artwork collected.",
+      "exchange": "OMXICE",
+      "limitations": [
+        "All provider pages enumerated; provider coverage is not certified exchange-wide. No quote/history fields retrieved. Unknown source as-of; retrieval time reported separately."
+      ]
+    },
+    {
+      "id": "tv-omxtse",
+      "adapter": "tradingview",
+      "url": "https://scanner.tradingview.com/global/scan",
+      "mic": "XTAL",
+      "region": "Europe",
+      "country": "EE",
+      "scope": "Public provider inventory for OMXTSE: stocks, funds and depositary receipts only",
+      "minRows": 1,
+      "completeness": "provider-snapshot",
+      "license": "Publicly displayed factual listing metadata via TradingView scanner. No open redistribution licence located; provenance is not a licence grant. No TradingView bulk artwork collected.",
+      "exchange": "OMXTSE",
+      "limitations": [
+        "All provider pages enumerated; provider coverage is not certified exchange-wide. No quote/history fields retrieved. Unknown source as-of; retrieval time reported separately."
+      ]
+    },
+    {
+      "id": "tv-omxrse",
+      "adapter": "tradingview",
+      "url": "https://scanner.tradingview.com/global/scan",
+      "mic": "XRIS",
+      "region": "Europe",
+      "country": "LV",
+      "scope": "Public provider inventory for OMXRSE: stocks, funds and depositary receipts only",
+      "minRows": 1,
+      "completeness": "provider-snapshot",
+      "license": "Publicly displayed factual listing metadata via TradingView scanner. No open redistribution licence located; provenance is not a licence grant. No TradingView bulk artwork collected.",
+      "exchange": "OMXRSE",
+      "limitations": [
+        "All provider pages enumerated; provider coverage is not certified exchange-wide. No quote/history fields retrieved. Unknown source as-of; retrieval time reported separately."
+      ]
+    },
+    {
+      "id": "tv-omxvse",
+      "adapter": "tradingview",
+      "url": "https://scanner.tradingview.com/global/scan",
+      "mic": "XLIT",
+      "region": "Europe",
+      "country": "LT",
+      "scope": "Public provider inventory for OMXVSE: stocks, funds and depositary receipts only",
+      "minRows": 1,
+      "completeness": "provider-snapshot",
+      "license": "Publicly displayed factual listing metadata via TradingView scanner. No open redistribution licence located; provenance is not a licence grant. No TradingView bulk artwork collected.",
+      "exchange": "OMXVSE",
+      "limitations": [
+        "All provider pages enumerated; provider coverage is not certified exchange-wide. No quote/history fields retrieved. Unknown source as-of; retrieval time reported separately."
+      ]
+    },
+    {
+      "id": "tv-asx",
+      "adapter": "tradingview",
+      "url": "https://scanner.tradingview.com/global/scan",
+      "mic": "XASX",
+      "region": "Asia",
+      "country": "AU",
+      "scope": "Public provider inventory for ASX: stocks, funds and depositary receipts only",
+      "minRows": 1,
+      "completeness": "provider-snapshot",
+      "license": "Publicly displayed factual listing metadata via TradingView scanner. No open redistribution licence located; provenance is not a licence grant. No TradingView bulk artwork collected.",
+      "exchange": "ASX",
+      "limitations": [
+        "All provider pages enumerated; provider coverage is not certified exchange-wide. No quote/history fields retrieved. Unknown source as-of; retrieval time reported separately."
+      ]
+    },
+    {
+      "id": "tv-krx",
+      "adapter": "tradingview",
+      "url": "https://scanner.tradingview.com/global/scan",
+      "mic": "XKRX",
+      "region": "Asia",
+      "country": "KR",
+      "scope": "Public provider inventory for KRX: stocks, funds and depositary receipts only",
+      "minRows": 1,
+      "completeness": "provider-snapshot",
+      "license": "Publicly displayed factual listing metadata via TradingView scanner. No open redistribution licence located; provenance is not a licence grant. No TradingView bulk artwork collected.",
+      "exchange": "KRX",
+      "limitations": [
+        "All provider pages enumerated; provider coverage is not certified exchange-wide. No quote/history fields retrieved. Unknown source as-of; retrieval time reported separately."
+      ]
+    },
+    {
+      "id": "tv-twse",
+      "adapter": "tradingview",
+      "url": "https://scanner.tradingview.com/global/scan",
+      "mic": "XTAI",
+      "region": "Asia",
+      "country": "TW",
+      "scope": "Public provider inventory for TWSE: stocks, funds and depositary receipts only",
+      "minRows": 1,
+      "completeness": "provider-snapshot",
+      "license": "Publicly displayed factual listing metadata via TradingView scanner. No open redistribution licence located; provenance is not a licence grant. No TradingView bulk artwork collected.",
+      "exchange": "TWSE",
+      "limitations": [
+        "All provider pages enumerated; provider coverage is not certified exchange-wide. No quote/history fields retrieved. Unknown source as-of; retrieval time reported separately."
+      ]
+    },
+    {
+      "id": "tv-tpex",
+      "adapter": "tradingview",
+      "url": "https://scanner.tradingview.com/global/scan",
+      "mic": "ROCO",
+      "region": "Asia",
+      "country": "TW",
+      "scope": "Public provider inventory for TPEX: stocks, funds and depositary receipts only",
+      "minRows": 1,
+      "completeness": "provider-snapshot",
+      "license": "Publicly displayed factual listing metadata via TradingView scanner. No open redistribution licence located; provenance is not a licence grant. No TradingView bulk artwork collected.",
+      "exchange": "TPEX",
+      "limitations": [
+        "All provider pages enumerated; provider coverage is not certified exchange-wide. No quote/history fields retrieved. Unknown source as-of; retrieval time reported separately."
+      ]
+    },
+    {
+      "id": "tv-hkex",
+      "adapter": "tradingview",
+      "url": "https://scanner.tradingview.com/global/scan",
+      "mic": "XHKG",
+      "region": "Asia",
+      "country": "HK",
+      "scope": "Public provider inventory for HKEX: stocks, funds and depositary receipts only",
+      "minRows": 1,
+      "completeness": "provider-snapshot",
+      "license": "Publicly displayed factual listing metadata via TradingView scanner. No open redistribution licence located; provenance is not a licence grant. No TradingView bulk artwork collected.",
+      "exchange": "HKEX",
+      "limitations": [
+        "All provider pages enumerated; provider coverage is not certified exchange-wide. No quote/history fields retrieved. Unknown source as-of; retrieval time reported separately."
+      ]
+    },
+    {
+      "id": "tv-tse",
+      "adapter": "tradingview",
+      "url": "https://scanner.tradingview.com/global/scan",
+      "mic": "XTKS",
+      "region": "Asia",
+      "country": "JP",
+      "scope": "Public provider inventory for TSE: stocks, funds and depositary receipts only",
+      "minRows": 1,
+      "completeness": "provider-snapshot",
+      "license": "Publicly displayed factual listing metadata via TradingView scanner. No open redistribution licence located; provenance is not a licence grant. No TradingView bulk artwork collected.",
+      "exchange": "TSE",
+      "limitations": [
+        "All provider pages enumerated; provider coverage is not certified exchange-wide. No quote/history fields retrieved. Unknown source as-of; retrieval time reported separately."
+      ]
+    }
+  ]
+}

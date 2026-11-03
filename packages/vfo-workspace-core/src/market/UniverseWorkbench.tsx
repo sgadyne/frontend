@@ -31,6 +31,7 @@ import {
   type CoverageInterval,
 } from "./universe-model";
 import "./universe-workbench.css";
+import { instrumentMonogram, instrumentBadgeTone, localArtworkUrl } from "./instrument-badges";
 
 import { normalizeMarketState, type MarketUniverseState } from "./universe-state";
 export type { MarketUniverseState } from "./universe-state";
@@ -102,18 +103,20 @@ function Badge({
   size?: "normal" | "large";
 }) {
   const [failed, setFailed] = useState(false);
-  useEffect(() => setFailed(false), [asset.logo]);
+  const logo = localArtworkUrl(asset.logo);
+  useEffect(() => setFailed(false), [asset.assetId, logo]);
   return (
-    <span className={"mu-badge " + size}>
-      {asset.logo && !failed ? (
+    <span className={"mu-badge " + size + " tone-" + instrumentBadgeTone(asset.assetId)} title={asset.logoLabel ?? (logo ? "Instrument artwork" : "Generated monogram")}>
+      {logo && !failed ? (
         <img
-          src={asset.logo}
+          src={logo}
           alt=""
           loading="lazy"
+          decoding="async"
           onError={() => setFailed(true)}
         />
       ) : (
-        <span>{asset.ticker.replace(/[^a-z0-9]/gi, "").slice(0, 2)}</span>
+        <span>{instrumentMonogram(asset.localSymbol ?? asset.ticker)}</span>
       )}
     </span>
   );
@@ -371,7 +374,10 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
   const availableSources = [...new Set([historySource, ...scopes.map(s => s.source)].filter(Boolean))];
   const inWindow = (i: CoverageInterval) => i.start < historyEnd && i.end > historyStart;
   const activeIntervals = historyIntervals(activeRow, scope).filter(inWindow);
-  const matchingEvidenceCount = filtered.filter(a => historyIntervals(rows.get(a.assetId), scope).some(inWindow)).length;
+  const matchingEvidenceCount = useMemo(() => view !== "history" || !rows.size ? 0 :
+    filtered.filter(a => historyIntervals(rows.get(a.assetId), { source: historySource, dataset: historyDataset })
+      .some(i => i.start < historyEnd && i.end > historyStart)).length,
+    [view, filtered, rows, historySource, historyDataset, historyStart, historyEnd]);
   const surface = active && inspectTab === "surface" ? props.renderSurface?.(active) : null;
   const showGroupMembership = group?.category === "fund-holdings";
   return (
@@ -417,7 +423,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
             Static catalogue
           </span>
           <small>
-            {n(assets.length)} names · {catalogueAsOf}
+            {n(assets.length)} instruments · {catalogueAsOf}
           </small>
         </div>
       </header>
@@ -505,7 +511,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
               <br />
               <strong>Data is optional.</strong>
             </p>
-            <small>Static selections, not an exhaustive listing feed.</small>
+            <small>Public directory snapshots. Venue coverage varies.</small>
           </div>
         </aside>
         <section className="mu-main">
@@ -578,7 +584,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
                         <strong>
                           {n(groupById.get(r.groupId)?.assetIds.length ?? 0)}
                         </strong>
-                        <span>catalogue names</span>
+                        <span>catalogue instruments</span>
                         <b>↗</b>
                       </div>
                     </button>
@@ -667,7 +673,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
           ) : null}
           {view === "history" ? (
             <section className="mu-health-summary" aria-label="Historical evidence summary">
-              <div><small>CATALOGUE NAMES</small><strong>{n(filtered.length)}</strong><span>data is optional</span></div>
+              <div><small>CATALOGUE INSTRUMENTS</small><strong>{n(filtered.length)}</strong><span>data is optional</span></div>
               <div><small>MATCHING HISTORY</small><strong>{n(matchingEvidenceCount)}</strong><span>{historyDataset || "No product supplied"}</span></div>
               <div><small>NO MATCHING EVIDENCE</small><strong>{n(filtered.length - matchingEvidenceCount)}</strong><span>unknown stays unknown</span></div>
               <div><small>SUBMITTED JOBS</small><strong>0</strong><span>draft review only</span></div>
@@ -680,7 +686,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
               <div>
                 <small>IN CURRENT SELECTION</small>
                 <strong>{n(filtered.length)}</strong>
-                <span>catalogue names</span>
+                <span>catalogue instruments</span>
               </div>
               <button onClick={() => field("coverage", "ready")}>
                 <small>SURFACES AVAILABLE</small>
@@ -1148,8 +1154,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
             {activeCoverage?.kind === "demo"
               ? "Coverage colors are a fixed UI fixture. They do not describe actual feed health or retained data."
               : "No observation is inferred from a catalogue entry."}{" "}
-            Catalogue as of {catalogueAsOf}; supplied metadata may be
-            incomplete.
+            Bundle updated {catalogueAsOf}; source dates and venue coverage vary.
           </p>
         </section>
       </div>
@@ -1234,6 +1239,9 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
                     <dt>Exchange</dt>
                     <dd>{active.exchange ?? "Not supplied"}</dd>
                   </div>
+                  {active.listingCountry ? <div><dt>Listing country</dt><dd>{active.listingCountry}</dd></div> : null}
+                  {active.localSymbol ? <div><dt>Local symbol</dt><dd>{active.localSymbol}</dd></div> : null}
+                  {active.isin ? <div><dt>ISIN</dt><dd>{active.isin}</dd></div> : null}
                 </dl>
                 {navigation.regions.some(r => r.etfs.some(e => e.assetId === active.assetId)) ? <div className="mu-detail-source">
                   <small>EXPOSURE PATHWAYS</small><p>{navigation.regions.filter(r => r.etfs.some(e => e.assetId === active.assetId)).map(r => r.title).join(" · ")}</p>
@@ -1297,9 +1305,11 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
                   <small>METADATA</small>
                   <code>{active.assetId}</code>
                   <p>
-                    {active.source ?? "Static configuration"} ·{" "}
-                    {active.asof ?? catalogueAsOf}
+                    {active.metadataSourceId ?? active.source ?? "Static configuration"} ·{" "}
+                    {active.listingAsOf ?? (active.metadataSourceId ? "Source date not supplied" : active.asof ?? "Source date not supplied")}
                   </p>
+                  {active.metadataRetrievedAt ? <p>Retrieved {active.metadataRetrievedAt.slice(0, 10)}</p> : null}
+                  {active.listingId ? <code>{active.listingId}</code> : null}
                 </div>
               </>
             ) : null}

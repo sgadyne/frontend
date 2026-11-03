@@ -7,7 +7,7 @@ const directory=fileURLToPath(new URL('.',import.meta.url)),root=resolve(directo
 const shared=new Set(['react','react/jsx-runtime','react/jsx-dev-runtime','react-dom','react-dom/client','@sampo/sdk-react','@sampo/contracts']);
 export default defineConfig(({mode})=>{
   if(!['risk','vfo','cluster','replication'].includes(mode))throw Error('Select one app with --mode risk|vfo|cluster|replication');
-  return {root:directory,esbuild:{jsx:'automatic'},plugins:[{
+  return {base:"./",root:directory,esbuild:{jsx:'automatic'},plugins:[{
     name:'scope-installed-app-css',enforce:'post',
     generateBundle:{order:'post',async handler(_options,bundle){
       const modules=new Set(),imports=new Set();

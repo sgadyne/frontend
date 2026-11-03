@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "observedOn": "2026-11-03",
+  "policy": "Public requests only. No auth/paywall/anti-bot circumvention. An unavailable attempt is not a permanent assertion about the venue.",
+  "attempts": [
+    {
+      "venue": "SSE",
+      "url": "https://query.sse.com.cn/sseQuery/commonQuery.do?sqlId=COMMON_SSE_CP_GPJCTPZ_GPLB_GP_L&pageHelp.pageSize=10000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1",
+      "result": "Read timeout (35 seconds)",
+      "alternate": "tv-sse",
+      "limit": "Provider snapshot only; official exchange completeness unverified"
+    },
+    {
+      "venue": "SSE",
+      "url": "https://english.sse.com.cn/markets/equities/overview/",
+      "result": "Read timeout (20 seconds)",
+      "alternate": "tv-sse"
+    },
+    {
+      "venue": "SZSE",
+      "url": "https://www.szse.cn/api/report/ShowReport?SHOWTYPE=xlsx&CATALOGID=1110&TABKEY=tab1",
+      "result": "Connection reset by peer",
+      "alternate": "tv-szse",
+      "limit": "Provider snapshot only; official exchange completeness unverified"
+    },
+    {
+      "venue": "BSE",
+      "url": "https://api.bseindia.com/BseIndiaAPI/api/ListofScripData/w?Group=&Scripcode=&industry=&segment=Equity&status=Active",
+      "result": "HTTP 403 Access Denied",
+      "alternate": "tv-bse"
+    },
+    {
+      "venue": "BSE",
+      "url": "https://www.bseindia.com/corporates/List_Scrips.html",
+      "result": "HTTP 403 Access Denied",
+      "alternate": "tv-bse",
+      "limit": "No anti-bot/authentication bypass attempted"
+    },
+    {
+      "venue": "SIX",
+      "url": "https://www.six-group.com/dam/download/market-data/indices/equity-indices/six-consolidated-share-list.csv",
+      "result": "HTTP 404",
+      "alternate": "tv-six"
+    },
+    {
+      "venue": "SIX",
+      "url": "https://www.six-group.com/en/investing/investment-types/shares.html",
+      "result": "Public dynamic page reachable; all-security inventory not parsed",
+      "alternate": "tv-six",
+      "limit": "Provider snapshot not a certified official security inventory"
+    },
+    {
+      "venue": "Nordic",
+      "url": "https://www.nasdaqomxnordic.com/shares/listed-companies/nordic-large-cap",
+      "result": "Redirected to Nasdaq, then read timeout",
+      "alternate": "tv-omxsto, tv-omxhex, tv-omxcop, tv-omxice, tv-omxtse, tv-omxrse, tv-omxvse",
+      "limit": "Large-cap constituent page was not admitted as a whole-market inventory. Official Nordic Reference Data Files are separately entitled products; no paid access used."
+    },
+    {
+      "venue": "SGX",
+      "url": "https://www.sgx.com/securities/equities",
+      "result": "HTTP 200 JavaScript app shell; no complete static listing table",
+      "alternate": "tv-sgx"
+    },
+    {
+      "venue": "BME",
+      "url": "https://www.bolsasymercados.es/bme-exchange/en/Trading/Markets-and-Platforms/Equities/Continuous-Market/Companies-List",
+      "result": "HTTP 200 site response; complete security inventory not extracted",
+      "alternate": "tv-bme"
+    },
+    {
+      "venue": "NSE SME",
+      "url": "https://nsearchives.nseindia.com/emerge/corporates/content/SME_EQUITY_L.csv",
+      "result": "Read timeout (20 seconds)",
+      "alternate": "tv-nse",
+      "limit": "Official main-board equities and ETF files succeeded; SME/other class completeness is unverified"
+    },
+    {
+      "venue": "JPX",
+      "url": "https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xls",
+      "result": "HTTP 404 old XLS URL",
+      "alternate": "jpx",
+      "limit": "Current official English XLSX was retrieved and fully parsed; September 2026 effective date retained"
+    },
+    {
+      "venue": "LSE",
+      "url": "https://docs.londonstockexchange.com/sites/default/files/reports/Instrument%20list.xlsx",
+      "result": "HTTP 403 obsolete location",
+      "alternate": "lse",
+      "limit": "Current official public report URL discovered from page API, retrieved and declared totals validated"
+    },
+    {
+      "venue": "XLK artwork",
+      "url": "https://www.sectorspdrs.com/mainfund/XLK",
+      "result": "Legacy site migrated to SSGA; no usable authentic blue tile found",
+      "alternate": "curated blue ticker tile (not authentic artwork)",
+      "limit": "Current official SSGA sector page uses #FF28C8 for XLK"
+    }
+  ]
+}

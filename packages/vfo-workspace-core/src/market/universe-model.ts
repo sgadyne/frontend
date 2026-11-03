@@ -1,5 +1,20 @@
 export type Instrument = {
   assetId: string;
+  /** Venue + exact local symbol; assetId may retain an established legacy alias. */
+  listingId?: string;
+  mic?: string;
+  localSymbol?: string;
+  listingCountry?: string;
+  isin?: string;
+  aliases?: string[];
+  alternateNames?: string[];
+  englishName?: string;
+  listingAsOf?: string;
+  metadataSourceId?: string;
+  metadataSource?: string;
+  metadataRetrievedAt?: string;
+  logoRole?: string;
+  logoLabel?: string;
   ticker: string;
   name: string;
   region?: string;
@@ -223,6 +238,19 @@ export function historyIntervals(row?: CoverageRow, scope?: CoverageScope) {
   return (Array.isArray(row?.intervals) ? row.intervals : []).filter(i => intervalIsValid(i) &&
     (!scope || (i.source === scope.source && i.dataset === scope.dataset)));
 }
+const searchText = new WeakMap<Instrument, string>();
+function instrumentSearchText(asset: Instrument) {
+  let value = searchText.get(asset);
+  if (value === undefined) {
+    value = [asset.ticker, asset.name, asset.assetId, asset.listingId, asset.localSymbol,
+      asset.region, asset.exchange, asset.mic, asset.listingCountry, asset.isin, asset.sector,
+      asset.industry, asset.englishName, ...(asset.aliases ?? []), ...(asset.alternateNames ?? [])].filter(Boolean).join(" ").toLocaleLowerCase();
+    searchText.set(asset, value);
+  }
+  return value;
+}
+const fundTypes = new Set(["ETF", "ETP", "ETC", "ETN", "Fund", "REIT"]);
+const equityTypes = new Set(["Equity", "ADR", "Preferred share"]);
 export function filterInstruments(
   assets: readonly Instrument[],
   groups: readonly MarketGroup[],
@@ -253,8 +281,8 @@ export function filterInstruments(
       (!members || members.has(a.assetId)) &&
       (!filters.type ||
         (filters.type === "funds"
-          ? a.instrumentType === "ETF"
-          : a.instrumentType !== "ETF")) &&
+          ? fundTypes.has(a.instrumentType ?? "")
+          : equityTypes.has(a.instrumentType ?? ""))) &&
       (!filters.watchlistOnly || watchlist.has(a.assetId)) &&
       (!filters.coverage ||
         (filters.coverage === "attention"
@@ -263,21 +291,7 @@ export function filterInstruments(
             )
           : (coverage.get(a.assetId)?.surfaces ?? "not-connected") ===
             filters.coverage)) &&
-      words.every((w) =>
-        [
-          a.ticker,
-          a.name,
-          a.assetId,
-          a.region,
-          a.exchange,
-          a.sector,
-          a.industry,
-        ]
-          .filter(Boolean)
-          .join(" ")
-          .toLocaleLowerCase()
-          .includes(w),
-      ),
+      words.every((w) => instrumentSearchText(a).includes(w)),
   );
 }
 export function intervalAt(

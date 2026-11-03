@@ -1,0 +1,5 @@
+Symbol|Security Name|Market Category|Test Issue|Financial Status|Round Lot Size|ETF|NextShares
+AAAP|Pacer Barings CLO Market Flex ETF|G|N|N|100|Y|N
+AACG|ATA Creativity Global - American Depositary Shares, each representing two common shares|S|N|D|100|N|N
+AACI|Armada Acquisition Corp. III - Class A Ordinary Share|G|N|N|100|N|N
+File Creation Time: 1103202615:41|||||||
