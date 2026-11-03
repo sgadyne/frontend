@@ -305,3 +305,17 @@
 /* The catalogue workbench owns scrolling inside the existing application frame. */
 .vfo-command-node.view-market .ops-root-scroll { display:flex; flex-direction:column; overflow:hidden; }
 .vfo-command-node.view-market .mu-workbench { flex:1; min-height:0; height:auto; }
+
+/* History always shows month summaries, with at most one calendar per source. */
+.ops-history-calendar{min-width:0}.ops-history-years{display:grid;gap:10px}
+.ops-history-year{display:grid;gap:5px;min-width:0}.ops-history-year>strong{font-size:12px;color:var(--sampo-ink)}
+.ops-history-months{display:grid;grid-template-columns:repeat(auto-fit,minmax(44px,1fr));gap:5px;min-width:0}
+.ops-workspace button.ops-history-month{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:0;min-height:40px;padding:5px 2px;border:1px solid transparent;border-radius:6px;color:#142e3c;font-size:11px;line-height:1.2}
+.ops-history-month small{font-size:9px}.ops-workspace button.ops-history-month:disabled{opacity:.4;cursor:default}
+.ops-workspace button.ops-history-month[aria-expanded=true],.ops-workspace button.ops-history-day.is-selected{outline:2px solid var(--sampo-focus,#3682ad);outline-offset:1px}
+.ops-history-open-month{margin-top:12px;padding:12px;border:1px solid var(--ops-line);border-radius:8px;min-width:0;background:var(--sampo-surface-sunken)}
+.ops-history-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;max-width:420px;margin-top:10px}
+.ops-history-days>small{text-align:center;font-size:10px;color:var(--sampo-muted)}
+.ops-workspace button.ops-history-day{min-width:0;min-height:32px;padding:4px;border:0;border-radius:5px;color:#142e3c;font-size:12px}
+.ops-workspace button.ops-history-day:disabled{opacity:.4;cursor:default}
+.ops-workspace button.ops-history-day:focus-visible,.ops-workspace button.ops-history-month:focus-visible{outline:2px solid var(--sampo-focus,#3682ad);outline-offset:2px}
