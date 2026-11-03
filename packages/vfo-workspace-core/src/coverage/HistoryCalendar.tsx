@@ -1,80 +1,95 @@
-import {useEffect,useMemo,useState} from 'react';
+import {useEffect,useMemo,useRef,useState,type CSSProperties} from 'react';
+import {AnimatePresence,MotionConfig,motion,useReducedMotion} from 'motion/react';
 import type {SourceHistory,DateAttempt} from '../history';
-import {cellEvidence,sourceLabel} from './domain';
-
+import {cellEvidence,labels,sourceLabel,validDate} from './domain';
+import {CoverageLegend} from './TimelineStrip';
 const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const weekdays=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-type Props={histories:SourceHistory[];lens:'coverage'|'quality';selected:{request:string;date:string}|null;onSelect:(attempt:DateAttempt)=>void;busy?:boolean};
-
-/** Navigation only: all colors and selectable records come from retained evidence. */
-export function HistoryCalendar({histories,lens,selected,onSelect,busy=false}:Props){
- const [source,setSource]=useState('');
- const [month,setMonth]=useState('');
- const selectedHistory=histories.find(h=>h.dates.some(d=>d.date===selected?.date&&d.attempts.some(a=>a.generation.request_id===selected.request)));
- const history=histories.find(h=>h.source===source)??selectedHistory??histories[0];
- const availableMonths=useMemo(()=>[...new Set(history?.dates.map(d=>d.date.slice(0,7))??[])].sort(),[history]);
- const years=[...new Set(availableMonths.map(m=>m.slice(0,4)))];
- const visibleMonth=availableMonths.includes(month)?month:
-  selected?.date&&availableMonths.includes(selected.date.slice(0,7))?selected.date.slice(0,7):availableMonths.at(-1)??'';
- useEffect(()=>{
-  if(selectedHistory&&selected){setSource(selectedHistory.source);setMonth(selected.date.slice(0,7));}
- },[selected?.request,selected?.date]);
- const cells=history?.dates.filter(d=>d.date.startsWith(visibleMonth))??[];
- const byDate=new Map(cells.map(d=>[d.date,d]));
- const year=visibleMonth.slice(0,4);
- const offset=visibleMonth?(new Date(visibleMonth+'-01T12:00:00Z').getUTCDay()+6)%7:0;
- const days=visibleMonth?new Date(Date.UTC(Number(year),Number(visibleMonth.slice(5)),0)).getUTCDate():0;
- const monthIndex=availableMonths.indexOf(visibleMonth);
- function attemptFor(cell:SourceHistory['dates'][number]){
-  return cell.attempts.find(a=>cell.date===selected?.date&&a.generation.request_id===selected.request)??cell.selected;
- }
- const selectedCell=history?.dates.find(d=>d.date===selected?.date&&d.attempts.some(a=>a.generation.request_id===selected.request));
- const evidence=selectedCell?cellEvidence(attemptFor(selectedCell),lens):null;
- if(!history||!visibleMonth)return null;
- return <div className="ops-history-calendar" aria-label="Saved date browser" aria-busy={busy}>
-  <div className="ops-calendar-controls">
-   <label>Source<select aria-label="Historical source" value={history.source} onChange={e=>setSource(e.target.value)} disabled={busy}>
-    {histories.map(h=><option key={h.source} value={h.source}>{sourceLabel(h.source)}</option>)}
-   </select></label>
-   <label>Year<select aria-label="Historical year" value={year} disabled={busy} onChange={e=>{
-    const sameMonth=e.target.value+visibleMonth.slice(4);
-    setMonth(availableMonths.includes(sameMonth)?sameMonth:availableMonths.find(m=>m.startsWith(e.target.value))!);
-   }}>{years.map(y=><option key={y}>{y}</option>)}</select></label>
-   <div className="ops-calendar-paging">
-    <button aria-label="Previous historical month" disabled={busy||monthIndex<=0} onClick={()=>setMonth(availableMonths[monthIndex-1])}>‹</button>
-    <button aria-label="Next historical month" disabled={busy||monthIndex>=availableMonths.length-1} onClick={()=>setMonth(availableMonths[monthIndex+1])}>›</button>
-   </div>
-  </div>
-  <div className="ops-calendar-months" role="group" aria-label="Historical month">
-   {months.map((label,i)=>{
-    const key=year+'-'+String(i+1).padStart(2,'0');
-    const monthCells=history.dates.filter(d=>d.date.startsWith(key));
-    const tones=new Map<string,number>();
-    for(const cell of monthCells){const tone=cellEvidence(attemptFor(cell),lens).tone;tones.set(tone,(tones.get(tone)??0)+1);}
-    return <button key={key} aria-label={label+' '+year} aria-pressed={visibleMonth===key} disabled={busy||!monthCells.length} onClick={()=>setMonth(key)}>
-     <span>{label}</span><span className="ops-month-evidence" aria-hidden="true">{[...tones].map(([tone,count])=><i key={tone} className={'ops-'+tone} style={{flex:count}}/>)}</span>
-    </button>;
-   })}
-  </div>
-  <div className="ops-calendar-heading"><strong>{new Date(visibleMonth+'-01T12:00:00Z').toLocaleDateString('en',{month:'long',year:'numeric',timeZone:'UTC'})}</strong><span>{cells.filter(d=>d.selected&&['verified','computed'].includes(d.selected.day.state)).length} saved dates</span></div>
-  <div className="ops-calendar-week" aria-hidden="true">{weekdays.map(day=><span key={day}>{day}</span>)}</div>
-  <div className="ops-calendar-days" role="group" aria-label="Historical day">
-   {Array.from({length:offset},(_,i)=><span key={'blank-'+i} aria-hidden="true"/>)}
-   {Array.from({length:days},(_,i)=>{
-    const date=visibleMonth+'-'+String(i+1).padStart(2,'0');
-    const cell=byDate.get(date),attempt=cell?attemptFor(cell):undefined,e=cellEvidence(attempt,lens);
-    const chosen=Boolean(cell&&selected?.date===date&&cell.attempts.some(a=>a.generation.request_id===selected.request));
-    const label=cell?e.label:'Outside loaded range';
-    return <button key={date} className={'ops-calendar-day'+(chosen?' is-selected':'')} disabled={busy||!attempt} aria-pressed={chosen}
-     aria-label={sourceLabel(history.source)+' '+date+' · '+label} title={[date,label,e.detail,cell?cell.attempts.length+' saved attempts':''].filter(Boolean).join(' · ')}
-     onClick={()=>attempt&&onSelect(attempt)}>
-     <span>{i+1}</span><i aria-hidden="true" className={'ops-day-evidence ops-'+e.tone}/>
-    </button>;
-   })}
-  </div>
-  <div className="ops-calendar-selection" role="status">
-   {selectedCell&&evidence?<><i aria-hidden="true" className={'ops-'+evidence.tone}/><span>Selected</span><strong>{selectedCell.date}</strong><span>{evidence.label}</span></>:<span>Select a recorded day to inspect its saved attempt.</span>}
-  </div>
-  <p className="ops-calendar-note">Showing the loaded date range. Grey means {lens==='quality'?'unassessed quality':'no recorded observation'}; month bars show the mix of daily evidence.</p>
- </div>;
+type Props={histories:SourceHistory[];lens:'coverage'|'quality';selected:{request:string;date:string}|null;onSelect:(attempt:DateAttempt)=>void;busy?:boolean;range?:{start:string;end:string};sources?:string[];onLensChange?:(lens:'coverage'|'quality')=>void;onRefresh?:()=>void};
+type Summary={counts:Map<string,number>;recorded:number;attempt?:DateAttempt};
+const toneOrder=['quality-good','quality-warning','quality-bad','quality-unknown','cov-verified','cov-computed','cov-missing','cov-failed','cov-quality_held','cov-pending','cov-cancelled','cov-non_session','cov-unknown'];
+const toneLabel=(tone:string)=>({'quality-good':'Accepted','quality-warning':'Fallback / warning','quality-bad':'Assessed failure','quality-unknown':'Unassessed'}[tone]??labels[tone.replace('cov-','')]??'Unknown');
+const utc=(date:string)=>Date.parse(date+'T12:00:00Z');
+function periodRange(id:string){
+ const parts=id.split('-').map(Number),start=id.length===4?id+'-01-01':id.length===7?id+'-01':id;
+ const end=new Date(Date.UTC(parts[0],parts.length===1?0:parts[1]-1,parts[2]??1,12));
+ if(parts.length===1)end.setUTCFullYear(parts[0]+1);
+ else if(parts.length===2)end.setUTCMonth(parts[1]);
+ else end.setUTCDate(parts[2]+1);
+ return {start:utc(start),end:end.getTime()};
+}
+export function HistoryCalendar(props:Props){return <MotionConfig reducedMotion="user"><HistoryStrip {...props}/></MotionConfig>;}
+function HistoryStrip({histories,lens,selected,onSelect,busy=false,range,sources=[],onLensChange,onRefresh}:Props){
+ const [path,setPath]=useState<string[]>([]),[direction,setDirection]=useState(1),[hint,setHint]=useState<string|null>(null);
+ const reduced=useReducedMotion(),pane=useRef<HTMLDivElement>(null),pendingFocus=useRef<string|null>(null);
+ const bounds=useMemo(()=>{
+  if(range&&validDate(range.start)&&validDate(range.end)&&range.end>range.start)return range;
+  const dates=histories.flatMap(h=>h.dates.map(d=>d.date)).sort();
+  return dates.length?{start:dates[0],end:new Date(utc(dates.at(-1)!)+86400000).toISOString().slice(0,10)}:null;
+ },[range?.start,range?.end,histories]);
+ const rows=useMemo(()=>{
+  const bySource=new Map(histories.map(h=>[h.source,h]));
+  return [...new Set([...histories.map(h=>h.source),...sources])].map(source=>{
+   const periods=new Map<string,Summary>();
+   for(const cell of bySource.get(source)?.dates??[]){
+    const attempt=cell.attempts.find(a=>selected?.date===cell.date&&a.generation.request_id===selected.request)??cell.selected;
+    const tone=cellEvidence(attempt,lens).tone;
+    for(const key of [cell.date.slice(0,4),cell.date.slice(0,7),cell.date]){
+     const item:Summary=periods.get(key)??{counts:new Map(),recorded:0};
+     item.counts.set(tone,(item.counts.get(tone)??0)+1);
+     if(attempt)item.recorded++;
+     if(key.length===10)item.attempt=attempt;
+     periods.set(key,item);
+    }
+   }
+   return {source,periods};
+  });
+ },[histories,sources.join('\0'),lens,selected?.date,selected?.request]);
+ useEffect(()=>{if(selected&&validDate(selected.date))setPath(selected.date.slice(0,7).split('-'));},[selected?.date,selected?.request]);
+ useEffect(()=>{setHint(null);},[lens]);
+ useEffect(()=>{if(bounds&&path.length&&(path[0]<bounds.start.slice(0,4)||path[0]>bounds.end.slice(0,4)))setPath([]);},[bounds?.start,bounds?.end]);
+ if(!bounds)return null;
+ const lastDate=new Date(utc(bounds.end)-86400000).toISOString().slice(0,10);
+ const kind=path.length===0?'year':path.length===1?'month':'day';
+ const columns=path.length===0?Array.from({length:Number(lastDate.slice(0,4))-Number(bounds.start.slice(0,4))+1},(_,i)=>({id:String(Number(bounds.start.slice(0,4))+i),label:String(Number(bounds.start.slice(0,4))+i)})):path.length===1?months.map((label,i)=>({id:path[0]+'-'+String(i+1).padStart(2,'0'),label})):Array.from({length:new Date(Date.UTC(+path[0],+path[1],0)).getUTCDate()},(_,i)=>({id:path.join('-')+'-'+String(i+1).padStart(2,'0'),label:String(i+1)}));
+ function navigate(next:string[]){if(next.join('-')===path.join('-'))return;setDirection(next.length>=path.length?1:-1);pendingFocus.current=next.length<path.length?path.slice(0,next.length+1).join('-'):'first';setHint(null);setPath(next);}
+ const selectedRow=rows.find(r=>r.periods.get(selected?.date??'')?.attempt?.generation.request_id===selected?.request&&selected);
+ const selectedAttempt=selectedRow?.periods.get(selected?.date??'')?.attempt;
+ const detail=selected&&selectedRow&&selectedAttempt?sourceLabel(selectedRow.source)+' · '+selected.date+' · '+cellEvidence(selectedAttempt,lens).label:bounds.start+' – '+lastDate+' · Full registered history';
+ return <section className="ops-history-strip" aria-label="Saved date browser" aria-busy={busy}>
+  <header className="ops-strip-head"><strong>History</strong><nav aria-label="History breadcrumbs">
+   <button disabled={busy} aria-current={!path.length?'page':undefined} onClick={()=>navigate([])}>All years</button>
+   {path.length>0&&<><span aria-hidden="true">/</span><button disabled={busy} aria-current={path.length===1?'page':undefined} onClick={()=>navigate([path[0]])}>{path[0]}</button></>}
+   {path.length>1&&<><span aria-hidden="true">/</span><button disabled={busy} aria-current="page" onClick={()=>navigate(path)}>{months[+path[1]-1]}</button></>}
+  </nav>{onLensChange&&<div className="ops-strip-lenses" role="group" aria-label="Historical evidence view">{(['coverage','quality'] as const).map(value=><button key={value} aria-pressed={lens===value} onClick={()=>onLensChange(value)}>{value==='quality'?'Fit quality':'Coverage'}</button>)}</div>}
+  {onRefresh&&<button className="ops-strip-refresh" disabled={busy} onClick={onRefresh} aria-label="Refresh historical records" title="Refresh historical records">↻</button>}</header>
+  <div className="ops-strip-viewport"><AnimatePresence initial={false} mode="wait">
+   <motion.div key={path.join('-')||'all'} ref={pane} data-history-level={kind} initial={{opacity:reduced?1:0,x:reduced?0:direction*10}} animate={{opacity:1,x:0}} exit={{opacity:reduced?1:0,x:reduced?0:-direction*10}} transition={{duration:reduced?0:.14,ease:'easeOut'}} onAnimationComplete={()=>{
+    if(!pendingFocus.current)return;const target=pendingFocus.current;pendingFocus.current=null;
+    (target==='first'?pane.current?.querySelector<HTMLButtonElement>('.ops-period-cell:not(:disabled)'):pane.current?.querySelector<HTMLButtonElement>('[data-period="'+target+'"]:not(:disabled)'))?.focus({preventScroll:true});
+   }}>
+    <div className="ops-strip-scroll" tabIndex={0} role="group" aria-label={'Historical '+kind+' rows'}>
+     <div className={'ops-strip-grid level-'+kind} style={{'--periods':columns.length} as CSSProperties}>
+      <span className="ops-strip-source-heading">Source</span>{columns.map(col=><span className="ops-period-label" key={col.id}>{col.label}</span>)}
+      {rows.map(row=><div className="ops-strip-row" key={row.source}>
+       <span className="ops-strip-source" title={sourceLabel(row.source)}>{sourceLabel(row.source)}</span>
+       {columns.map(col=>{
+        const item=row.periods.get(col.id),period=periodRange(col.id);
+        const length=Math.max(0,(Math.min(utc(bounds.end),period.end)-Math.max(utc(bounds.start),period.start))/86400000);
+        const counts=new Map(item?.counts??[]),accounted=[...counts.values()].reduce((a,b)=>a+b,0),unknown=lens==='quality'?'quality-unknown':'cov-unknown';
+        if(length>accounted)counts.set(unknown,(counts.get(unknown)??0)+length-accounted);
+        const segments=[...counts].sort((a,b)=>toneOrder.indexOf(a[0])-toneOrder.indexOf(b[0]));
+        const chosen=selectedRow?.source===row.source&&Boolean(selected?.date.startsWith(col.id));
+        const description=sourceLabel(row.source)+' · '+col.id+' · '+(!length?'Outside registered range':!item?.recorded?'No recorded observation':kind==='day'&&item.attempt?cellEvidence(item.attempt,lens).label:segments.map(([tone,n])=>toneLabel(tone)+': '+n).join(' · '));
+        return <button key={col.id} data-period={col.id} className={'ops-period-cell'+(chosen?' is-selected':'')} disabled={busy||!length||(kind==='day'&&!item?.attempt)} aria-pressed={kind==='day'?chosen:undefined} aria-label={description} title={description} onMouseEnter={()=>setHint(description)} onMouseLeave={()=>setHint(null)} onFocus={()=>setHint(description)} onBlur={()=>setHint(null)} onClick={()=>kind==='day'?item?.attempt&&onSelect(item.attempt):navigate(col.id.split('-'))}>
+         <span className="ops-period-fill" aria-hidden="true">{segments.map(([tone,n])=><i key={tone} className={'ops-'+tone} style={{flex:n}}/>)}</span>
+        </button>;
+       })}
+      </div>)}
+     </div>
+    </div>
+   </motion.div>
+  </AnimatePresence></div>
+  <footer className="ops-strip-foot"><CoverageLegend lens={lens}/><span>Choose a {kind}</span></footer>
+  <div className="ops-strip-detail" role="status">{busy?'Reading recorded history…':hint??detail}</div>
+ </section>;
 }

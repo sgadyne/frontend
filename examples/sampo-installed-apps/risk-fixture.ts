@@ -1,4 +1,5 @@
 // @ts-nocheck
+import type {RiskLensDataProvider} from '../../packages/risk-lens-data/contracts';
 // Explicitly synthetic browser data. No network or live-source fallback.
 const END_DATE = '2026-10-23';
 const BASE_DATE = '2026-10-22';
@@ -75,7 +76,7 @@ function comparisonData({endpoint, horizon, end, start}) {
 }
 
 
-export const riskProvider={
+export const riskProvider:RiskLensDataProvider={
  async loadContext(){return {fixture:true,namespace:{scope:'synthetic',environment:'browser-demo'},horizons:['1D','1W','1M','3M','YTD','CUSTOM'],ranges:['1M','3M','1Y','ALL'],snapshot:{state:'ready',data:{available:true,meta:{base_date:BASE_DATE,end_date:END_DATE}},fixture:true},capabilities:['positions','trades','history','comparison']}},
  async loadComparison(horizon='1D',endpoint='Live',end,start){return envelope(comparisonData({endpoint,horizon,end,start}),'partial','Synthetic fixture: one unavailable risk input.')},
  async loadTrades(){const data=comparisonData({endpoint:'EOD',horizon:'TRADES',end:END_DATE});data.rows=positions.filter(row=>row.pod!=='REFERENCE');return envelope(data,'partial','Synthetic trades')},

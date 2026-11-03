@@ -1,8 +1,10 @@
 import {
   useDeferredValue,
   useEffect,
+  useId,
   useMemo,
   useRef,
+  type SetStateAction,
   useState,
   type ReactNode,
 } from "react";
@@ -14,6 +16,10 @@ import {
   intervalAt,
   weeklyWindows,
   makeBackfillDraft,
+  normalizeCoverageSnapshot,
+  coverageScopes,
+  historyIntervals,
+  timestampIsValid,
   type Instrument,
   type MarketGroup,
   type MarketNavigation,
@@ -26,14 +32,9 @@ import {
 } from "./universe-model";
 import "./universe-workbench.css";
 
-type View = "universe" | "live" | "history";
-export type MarketUniverseState = {
-  version: 1;
-  view: View;
-  filters: MarketFilters;
-  watchlist: string[];
-  selected: string[];
-};
+import { normalizeMarketState, type MarketUniverseState } from "./universe-state";
+export type { MarketUniverseState } from "./universe-state";
+type View = MarketUniverseState["view"];
 export type MarketUniverseProps = {
   assets: Instrument[];
   groups: MarketGroup[];
@@ -43,13 +44,17 @@ export type MarketUniverseProps = {
   coverage?: CoverageSnapshot;
   historyWindow: { start: string; end: string };
   initialState?: Partial<MarketUniverseState>;
+  state?: MarketUniverseState;
+  renderRelated?: (instrument: Instrument) => ReactNode;
   onStateChange?: (state: MarketUniverseState) => void;
   onDraft?: (draft: BackfillDraft) => void;
   renderSurface?: (instrument: Instrument) => ReactNode;
+  onInspectInstrument?: (instrument: Instrument, view: 'identity'|'coverage'|'surface', interval: CoverageInterval|null) => void;
+  onCoverageRequest?: (assetIds: string[], window: {start:string;end:string}) => void;
 };
 const n = (value: number) => value.toLocaleString();
 const date = (value: string) =>
-  new Date(value + "T12:00:00Z").toLocaleDateString("en-GB", {
+  !Number.isFinite(Date.parse(value + "T12:00:00Z")) ? "Date unavailable" : new Date(value + "T12:00:00Z").toLocaleDateString("en-GB", {
     day: "numeric",
     month: "short",
     timeZone: "UTC",
@@ -147,40 +152,56 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
     catalogueAsOf,
     historyWindow,
   } = props;
-  const [view, setView] = useState<View>(
-    ["universe", "live", "history"].includes(props.initialState?.view ?? "")
-      ? props.initialState!.view!
-      : "universe",
-  );
-  const [filters, setFilters] = useState<MarketFilters>({
-    ...emptyMarketFilters,
-    ...props.initialState?.filters,
-  });
-  const [watchlist, setWatchlist] = useState<string[]>(
-    props.initialState?.watchlist?.slice(0, 100) ?? [],
-  );
-  const [selected, setSelected] = useState<string[]>(
-    props.initialState?.selected?.slice(0, 100) ?? [],
-  );
-  const [showDemo, setShowDemo] = useState(true),
-    [page, setPage] = useState(0),
-    [sort, setSort] = useState<"featured" | "az">("featured");
-  const [source, setSource] = useState(""),
-    [focused, setFocused] = useState<string | null>(null),
-    [inspectTab, setInspectTab] = useState<"identity" | "coverage" | "surface">(
-      "identity",
-    ),
-    [interval, setInterval] = useState<CoverageInterval | null>(null);
-  const [planning, setPlanning] = useState(false),
-    [notice, setNotice] = useState(""),
-    [historyStart, setHistoryStart] = useState(historyWindow.start),
-    [historyEnd, setHistoryEnd] = useState(historyWindow.end);
-  const closeInspector = useRef<HTMLButtonElement>(null),
-    opener = useRef<HTMLElement | null>(null),
-    stateCallback = useRef(props.onStateChange);
+  const catalogue = useMemo(() => ({ assets, groups, navigation, historyWindow }),
+    [assets, groups, navigation, historyWindow]);
+  const [localState, setLocalState] = useState(() => normalizeMarketState(props.initialState, catalogue));
+  const state = useMemo(() => normalizeMarketState(props.state ?? localState, catalogue),
+    [props.state, localState, catalogue]);
+  const stateRef = useRef(state);
+  stateRef.current = state;
+  const stateCallback = useRef(props.onStateChange);
   stateCallback.current = props.onStateChange;
-  const activeCoverage =
-    coverage?.kind === "demo" && !showDemo ? undefined : coverage;
+  function update(patch: Partial<MarketUniverseState>) {
+    const next = normalizeMarketState({ ...stateRef.current, ...patch }, catalogue);
+    stateRef.current = next;
+    if (props.state === undefined) setLocalState(next);
+    else stateCallback.current?.(next);
+  }
+  function setter<K extends keyof MarketUniverseState>(key: K, resetPage = false) {
+    return (action: SetStateAction<Required<MarketUniverseState>[K]>) => {
+      const value = typeof action === "function"
+        ? (action as (old: Required<MarketUniverseState>[K]) => Required<MarketUniverseState>[K])(stateRef.current[key]) : action;
+      update({ [key]: value, ...(resetPage ? { page: 0 } : {}) });
+    };
+  }
+  const { view, filters, watchlist, selected, showDemo, sort, source,
+    focused, inspectTab, historyStart, historyEnd } = state;
+  const setView = setter("view", true), setFilters = setter("filters", true),
+    setWatchlist = setter("watchlist"), setSelected = setter("selected"),
+    setShowDemo = setter("showDemo", true), setPage = setter("page"),
+    setSort = setter("sort", true), setSource = setter("source", true),
+    setFocused = setter("focused"), setInspectTab = setter("inspectTab"),
+    setHistoryStart = setter("historyStart"), setHistoryEnd = setter("historyEnd");
+  const seededWindow = useRef(historyWindow);
+  useEffect(() => {
+    const previous = seededWindow.current;
+    seededWindow.current = historyWindow;
+    const patch: Partial<MarketUniverseState> = {};
+    if (stateRef.current.historyStart === previous.start) patch.historyStart = historyWindow.start;
+    if (stateRef.current.historyEnd === previous.end) patch.historyEnd = historyWindow.end;
+    if (Object.keys(patch).length) update(patch);
+  }, [historyWindow.start, historyWindow.end]);
+  const [interval, setInterval] = useState<CoverageInterval | null>(null);
+  const [planning, setPlanning] = useState(false), [notice, setNotice] = useState("");
+  const closeInspector = useRef<HTMLButtonElement>(null), opener = useRef<HTMLElement | null>(null);
+  const evidence = useMemo(() => normalizeCoverageSnapshot(coverage), [coverage]);
+  const activeCoverage = evidence.snapshot?.kind === "demo" && !showDemo ? undefined : evidence.snapshot;
+  const scopes = useMemo(() => coverageScopes(activeCoverage), [activeCoverage]);
+  const historySource = source || scopes[0]?.source || "";
+  const products = scopes.filter(s => s.source === historySource).map(s => s.dataset);
+  const historyDataset = state.dataset || products[0] || "";
+  const scope = { source: historySource, dataset: historyDataset };
+  const setDataset = setter("dataset", true);
   const rows = useMemo(
     () => new Map(activeCoverage?.rows.map((r) => [r.assetId, r]) ?? []),
     [activeCoverage],
@@ -205,7 +226,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
         { ...filters, query },
         rows,
         watch,
-      ).filter((a) => !source || rows.get(a.assetId)?.source === source),
+      ),
     [assets, groups, navigation, filters, query, rows, watch, source],
   );
   const featured = useMemo(
@@ -228,10 +249,18 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
       ),
     [filtered, sort, featured],
   );
+  const page = Math.min(state.page, Math.max(0, Math.ceil(ordered.length / pageSize) - 1));
   const visible = ordered.slice(page * pageSize, (page + 1) * pageSize),
     selectedSet = new Set(selected);
   const windows = weeklyWindows(historyStart, historyEnd),
     timeline = windows;
+  const visibleIds = JSON.stringify(visible.map(a => a.assetId));
+  const coverageRequest = useRef(props.onCoverageRequest);
+  coverageRequest.current = props.onCoverageRequest;
+  useEffect(() => {
+    if (view === 'history' && historyStart < historyEnd)
+      coverageRequest.current?.(JSON.parse(visibleIds), {start: historyStart, end: historyEnd});
+  }, [view, visibleIds, historyStart, historyEnd]);
   const active = focused ? byId.get(focused) : undefined,
     activeRow = focused ? rows.get(focused) : undefined;
   const coverageCounts = useMemo(() => {
@@ -248,23 +277,15 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
       counts[rows.get(a.assetId)?.surfaces ?? "not-connected"]++;
     return counts;
   }, [filtered, rows]);
-  const saved = JSON.stringify({
-    version: 1,
-    view,
-    filters,
-    watchlist,
-    selected,
-  });
+  const saved = JSON.stringify(state);
   useEffect(() => {
-    stateCallback.current?.(JSON.parse(saved));
-  }, [saved]);
-  useEffect(
-    () => setPage(0),
-    [filters, query, view, source, sort, activeCoverage],
-  );
+    if (props.state === undefined) stateCallback.current?.(JSON.parse(saved));
+  }, [saved, props.state === undefined]);
   useEffect(() => {
     if (focused) closeInspector.current?.focus({ preventScroll: true });
   }, [focused]);
+  useEffect(() => setInterval(null), [activeCoverage, historySource, historyDataset]);
+  useEffect(() => { if (state.page !== page) update({ page }); }, [state.page, page]);
   function field<K extends keyof MarketFilters>(
     key: K,
     value: MarketFilters[K],
@@ -272,15 +293,14 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
     setFilters((old) => ({ ...old, [key]: value }));
   }
   function chooseRegion(id: string) {
-    setFilters({ ...emptyMarketFilters, region: id });
-    setSource("");
-    setFocused(null);
+    update({ filters: { ...emptyMarketFilters, region: id }, source: "", dataset: "", focused: "", page: 0 });
   }
   function chooseGroup(id: string) {
     setFilters((old) => ({
       ...old,
       query: "",
       group: id,
+      region: groupById.get(id)?.category === "sector" ? old.region : "",
       coverage: "",
       watchlistOnly: false,
     }));
@@ -291,16 +311,23 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
     tab: "identity" | "coverage" | "surface" = "identity",
     cell: CoverageInterval | null = null,
   ) {
+    const instrument = byId.get(assetId);
+    if (instrument && props.onInspectInstrument) {
+      props.onInspectInstrument(instrument, tab, cell);
+      return;
+    }
     opener.current = document.activeElement as HTMLElement;
     setFocused(assetId);
     setInspectTab(tab);
     setInterval(cell);
   }
   function close() {
-    setFocused(null);
+    setFocused("");
+    setInterval(null);
     opener.current?.focus({ preventScroll: true });
   }
   function toggle(id: string) {
+    if (!selectedSet.has(id) && selected.length >= 100) setNotice("Selection limit reached: 100 instruments. Clear part of the selection to add more.");
     setSelected((old) =>
       old.includes(id)
         ? old.filter((x) => x !== id)
@@ -310,6 +337,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
     );
   }
   function favorite(id: string) {
+    if (!watch.has(id) && watchlist.length >= 100) setNotice("Watchlist limit reached: 100 instruments.");
     setWatchlist((old) =>
       old.includes(id)
         ? old.filter((x) => x !== id)
@@ -321,6 +349,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
   function selectPage() {
     const ids = visible.map((a) => a.assetId),
       all = ids.every((id) => selectedSet.has(id));
+    if (!all && new Set([...selected, ...ids]).size > 100) setNotice("Selection is limited to 100 instruments; some visible names were not added.");
     setSelected((old) =>
       all
         ? old.filter((id) => !ids.includes(id))
@@ -339,9 +368,11 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
       : (region?.title ?? "Global markets"));
   const regionalEtfs =
     region?.etfs ?? navigation.regions.flatMap((r) => r.etfs);
-  const availableSources = [
-    ...new Set(activeCoverage?.rows.map((r) => r.source) ?? []),
-  ];
+  const availableSources = [...new Set([historySource, ...scopes.map(s => s.source)].filter(Boolean))];
+  const inWindow = (i: CoverageInterval) => i.start < historyEnd && i.end > historyStart;
+  const activeIntervals = historyIntervals(activeRow, scope).filter(inWindow);
+  const matchingEvidenceCount = filtered.filter(a => historyIntervals(rows.get(a.assetId), scope).some(inWindow)).length;
+  const surface = active && inspectTab === "surface" ? props.renderSurface?.(active) : null;
   const showGroupMembership = group?.category === "fund-holdings";
   return (
     <main
@@ -372,7 +403,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
               aria-current={view === id ? "page" : undefined}
               onClick={() => {
                 setView(id);
-                setFocused(null);
+                setFocused("");
               }}
             >
               <Mark kind={icon} />
@@ -430,7 +461,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
             .map((c) => (
               <button
                 key={c.id}
-                className={filters.group === c.id ? "is-active" : ""}
+                className={"mu-collection-link " + (filters.group === c.id ? "is-active" : "")}
                 onClick={() => {
                   setFilters({
                     ...emptyMarketFilters,
@@ -462,6 +493,11 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
                 </button>
               ))}
           </details>
+          <select className="mu-compact-groups" aria-label="Market group" value={filters.group} onChange={e => e.target.value ? chooseGroup(e.target.value) : field("group", "")}>
+            <option value="">All groups</option>
+            <optgroup label="Curated baskets">{navigation.collections.map(c => <option key={c.id} value={c.id}>{c.title}</option>)}</optgroup>
+            <optgroup label="Dated holdings and classifications">{groups.filter(g => g.category !== "region").map(g => <option key={g.id} value={g.id}>{g.title}</option>)}</optgroup>
+          </select>
           <div className="mu-nav-foot">
             <Mark kind="layers" />
             <p>
@@ -503,7 +539,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
                   Demo coverage
                 </label>
               ) : (
-                <span>{coverage?.label ?? "No data source connected"}</span>
+                <span>{evidence.snapshot?.label ?? "No data source connected"}</span>
               )}
               <small>
                 {coverage?.kind === "demo"
@@ -629,7 +665,14 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
               </div>
             </div>
           ) : null}
-          {view !== "universe" ? (
+          {view === "history" ? (
+            <section className="mu-health-summary" aria-label="Historical evidence summary">
+              <div><small>CATALOGUE NAMES</small><strong>{n(filtered.length)}</strong><span>data is optional</span></div>
+              <div><small>MATCHING HISTORY</small><strong>{n(matchingEvidenceCount)}</strong><span>{historyDataset || "No product supplied"}</span></div>
+              <div><small>NO MATCHING EVIDENCE</small><strong>{n(filtered.length - matchingEvidenceCount)}</strong><span>unknown stays unknown</span></div>
+              <div><small>SUBMITTED JOBS</small><strong>0</strong><span>draft review only</span></div>
+            </section>
+          ) : view === "live" ? (
             <section
               className="mu-health-summary"
               aria-label="Coverage summary"
@@ -703,16 +746,11 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
               <option value="featured">Featured first</option>
               <option value="az">Symbol A–Z</option>
             </select>
-            {filters.query || filters.coverage || filters.type ? (
+            {Object.entries(filters).some(([key, value]) => key === "watchlistOnly" ? value === true : !!value) || source || state.dataset ? (
               <button
                 className="mu-text"
                 onClick={() =>
-                  setFilters((old) => ({
-                    ...old,
-                    query: "",
-                    coverage: "",
-                    type: "",
-                  }))
+                  update({ filters: emptyMarketFilters, source: "", dataset: "", page: 0 })
                 }
               >
                 Reset filters
@@ -741,17 +779,29 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
               </label>
               <select
                 aria-label="Coverage source"
-                value={source}
-                onChange={(e) => setSource(e.target.value)}
+                value={historySource}
+                onChange={(e) => {
+                  update({ source: e.target.value, dataset: "", page: 0 });
+                  setInterval(null);
+                }}
               >
-                <option value="">All recorded sources</option>
+                {!historySource ? <option value="">No source supplied</option> : null}
                 {availableSources.map((s) => (
                   <option key={s}>{s}</option>
                 ))}
               </select>
-              <span>Week-based evidence buckets · not a trading calendar</span>
+              <select aria-label="Coverage data product" value={historyDataset} onChange={e => { setDataset(e.target.value); setInterval(null); }}>
+                {!historyDataset ? <option value="">No product supplied</option> : null}
+                {[...new Set([historyDataset, ...products].filter(Boolean))].map(p => <option key={p}>{p}</option>)}
+              </select>
+              <span>UTC · end excluded · not a trading calendar</span>
             </div>
           ) : null}
+          {evidence.issues.length ? <details className="mu-evidence-warning">
+            <summary>{evidence.issues.length} evidence validation issues · inspect source</summary>
+            <ul>{evidence.issues.slice(0, 12).map((issue, i) => <li key={i}>{issue}</li>)}</ul>
+            {evidence.issues.length > 12 ? <p>Additional issues are present in the supplied snapshot.</p> : null}
+          </details> : null}
           <div className="mu-results-heading">
             <h3>
               {view === "universe"
@@ -764,7 +814,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
             <div>
               {selected.length ? (
                 <>
-                  <b>{selected.length} selected</b>
+                  <b role="status">{selected.length} selected · {selected.filter(id => !filtered.some(a => a.assetId === id)).length} hidden</b>
                   <button className="mu-text" onClick={() => setSelected([])}>
                     Clear
                   </button>
@@ -781,6 +831,10 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
           </div>
           {view === "history" ? (
             <>
+              <p className="mu-evidence-context" role="status">
+                {historySource || "No source"} · {historyDataset || "No data product"} · {activeCoverage?.label ?? "No evidence connected"}
+                {activeCoverage?.asOf ? " · as of " + activeCoverage.asOf : " · as-of unavailable"}
+              </p>
               <div className="mu-legend">
                 {Object.entries(intervalLabels).map(([id, label]) => (
                   <span key={id}>
@@ -788,7 +842,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
                     {label}
                   </span>
                 ))}
-                <small>Blank evidence stays unknown.</small>
+                <small>Unknown and failed evidence never establish a gap.</small>
               </div>
               {!windows.length ? (
                 <p className="mu-error" role="alert">
@@ -815,6 +869,8 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
                             !!visible.length &&
                             visible.every((a) => selectedSet.has(a.assetId))
                           }
+                          ref={node => { if (node) node.indeterminate = visible.some(a => selectedSet.has(a.assetId)) && !visible.every(a => selectedSet.has(a.assetId)); }}
+                          disabled={!visible.length}
                           onChange={selectPage}
                         />
                       </th>
@@ -829,7 +885,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
                   </thead>
                   <tbody>
                     {visible.map((a) => (
-                      <tr key={a.assetId}>
+                      <tr key={a.assetId} className={[selectedSet.has(a.assetId) ? "is-selected" : "", focused === a.assetId ? "is-focused" : ""].join(" ")}>
                         <td>
                           <input
                             type="checkbox"
@@ -855,6 +911,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
                               rows.get(a.assetId),
                               w.start,
                               w.end,
+                              scope,
                             ),
                             status = cell?.status ?? "unknown";
                           return (
@@ -862,7 +919,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
                               <button
                                 className={"mu-cell " + status}
                                 aria-label={
-                                  a.ticker +
+                                  a.ticker + " · " + historySource + " · " + historyDataset +
                                   " " +
                                   w.start +
                                   " to " +
@@ -881,8 +938,8 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
                                     cell ?? {
                                       ...w,
                                       status: "unknown",
-                                      source: "Unbound",
-                                      dataset: "volatility-surfaces",
+                                      source: historySource || "Not connected",
+                                      dataset: historyDataset || "Not supplied",
                                       detail:
                                         "No evidence supplied for this interval.",
                                     },
@@ -894,12 +951,8 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
                         })}
                         <td>
                           <span className="mu-history-count">
-                            {rows
-                              .get(a.assetId)
-                              ?.intervals.filter(
-                                (i) => i.status === "available",
-                              ).length ?? "—"}
-                            <small>recorded buckets</small>
+                            {timeline.filter(w => intervalAt(rows.get(a.assetId), w.start, w.end, scope)?.status === "available").length}
+                            <small>recorded / {timeline.length}</small>
                           </span>
                         </td>
                       </tr>
@@ -921,6 +974,8 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
                           !!visible.length &&
                           visible.every((a) => selectedSet.has(a.assetId))
                         }
+                        ref={node => { if (node) node.indeterminate = visible.some(a => selectedSet.has(a.assetId)) && !visible.every(a => selectedSet.has(a.assetId)); }}
+                        disabled={!visible.length}
                         onChange={selectPage}
                       />
                     </th>
@@ -938,7 +993,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
                     return (
                       <tr
                         key={a.assetId}
-                        className={focused === a.assetId ? "is-focused" : ""}
+                        className={[selectedSet.has(a.assetId) ? "is-selected" : "", focused === a.assetId ? "is-focused" : ""].join(" ")}
                       >
                         <td>
                           <input
@@ -993,10 +1048,10 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
                           {view === "live" ? (
                             <>
                               <span>
-                                {row ? date(row.asOf.slice(0, 10)) : "—"}
+                                {row && timestampIsValid(row.asOf) ? date(row.asOf.slice(0, 10)) : "—"}
                               </span>
                               <small>
-                                {row
+                                {row && timestampIsValid(row.asOf)
                                   ? new Date(row.asOf)
                                       .toISOString()
                                       .slice(11, 16) + " UTC"
@@ -1006,15 +1061,12 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
                           ) : (
                             <div
                               className="mu-mini-timeline"
-                              aria-label={a.ticker + " history summary"}
+                              aria-label={a.ticker + " history summary: " + historySource + " · " + historyDataset}
                             >
-                              {Array.from({ length: 13 }, (_, i) => (
+                              {windows.map(w => (
                                 <i
-                                  key={i}
-                                  className={
-                                    "mu-cell " +
-                                    (row?.intervals[i]?.status ?? "unknown")
-                                  }
+                                  key={w.start}
+                                  className={"mu-cell " + (intervalAt(row, w.start, w.end, scope)?.status ?? "unknown")}
                                 />
                               ))}
                             </div>
@@ -1047,19 +1099,18 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
             <div className="mu-empty">
               <Mark kind="search" />
               <h3>
-                {filters.watchlistOnly
+                {filters.watchlistOnly && !watchlist.length
                   ? "Nothing in this watchlist yet"
                   : "No instruments match"}
               </h3>
               <p>
-                {filters.watchlistOnly
+                {filters.watchlistOnly && !watchlist.length
                   ? "Star an instrument to keep it here."
                   : "Try another symbol or clear the filters. Catalogue membership never depends on data availability."}
               </p>
               <button
                 onClick={() => {
-                  setFilters(emptyMarketFilters);
-                  setSource("");
+                  update({ filters: emptyMarketFilters, source: "", dataset: "", page: 0 });
                 }}
               >
                 Browse all markets
@@ -1082,12 +1133,12 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
               </small>
             </span>
             <div>
-              <button disabled={!page} onClick={() => setPage((p) => p - 1)}>
+              <button disabled={!page} onClick={() => setPage(page - 1)}>
                 ← Previous
               </button>
               <button
                 disabled={(page + 1) * pageSize >= filtered.length}
-                onClick={() => setPage((p) => p + 1)}
+                onClick={() => setPage(page + 1)}
               >
                 Next →
               </button>
@@ -1168,7 +1219,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
                 </div>
                 <dl className="mu-facts">
                   <div>
-                    <dt>Region</dt>
+                    <dt>Listing region</dt>
                     <dd>{active.region ?? "Unclassified"}</dd>
                   </div>
                   <div>
@@ -1184,6 +1235,10 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
                     <dd>{active.exchange ?? "Not supplied"}</dd>
                   </div>
                 </dl>
+                {navigation.regions.some(r => r.etfs.some(e => e.assetId === active.assetId)) ? <div className="mu-detail-source">
+                  <small>EXPOSURE PATHWAYS</small><p>{navigation.regions.filter(r => r.etfs.some(e => e.assetId === active.assetId)).map(r => r.title).join(" · ")}</p>
+                  <p>Curated exposure shortcuts are distinct from listing region and dated holdings.</p>
+                </div> : null}
                 <h3>Groups & pathways</h3>
                 <div className="mu-memberships">
                   {groups
@@ -1263,7 +1318,10 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
                 <p className="mu-soft-note">
                   {activeCoverage?.kind === "demo"
                     ? "Illustrative coverage fixture. No live source is connected."
-                    : "Coverage evidence comes from the supplied snapshot."}
+                    : activeCoverage ? "Coverage evidence comes from the supplied snapshot." : "No coverage source is connected. Catalogue membership is unchanged."}
+                  {activeCoverage?.asOf ? " Snapshot as of " + activeCoverage.asOf + "." : ""}
+                  {activeRow?.source ? " Live evidence source: " + activeRow.source + "." : ""}
+                  {activeRow?.asOf ? " Instrument as of " + activeRow.asOf + "." : ""}
                 </p>
                 {interval ? (
                   <div className="mu-interval-detail">
@@ -1275,22 +1333,24 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
                     <p>
                       {interval.detail ?? "Recorded state for this interval."}
                     </p>
-                    <small>{interval.source} · end excluded</small>
+                    <small>{interval.source} · {interval.dataset} · UTC · end excluded</small>
                   </div>
                 ) : null}
+                {activeRow?.historyIssues?.length ? <p role="status" className="mu-evidence-warning">Historical evidence is malformed or conflicting. No confirmed gaps can be selected.</p> : null}
                 <h3>Recorded history</h3>
+                <p className="mu-soft-note">{historySource || "No source"} · {historyDataset || "No data product"} · end excluded</p>
                 <div className="mu-interval-list">
-                  {activeRow?.intervals.length ? (
-                    activeRow.intervals.map((i) => (
+                  {activeIntervals.length ? (
+                    activeIntervals.map((i, index) => (
                       <button
-                        key={i.start + i.source}
+                        key={i.start + i.source + i.dataset + index}
                         onClick={() => setInterval(i)}
                       >
                         <i className={"mu-cell " + i.status} />
                         <span>
                           {date(i.start)} – {date(i.end)}
                           <small>
-                            {i.source} · {intervalLabels[i.status]}
+                            {i.source} · {i.dataset} · {intervalLabels[i.status]}
                           </small>
                         </span>
                         <span>↗</span>
@@ -1315,16 +1375,15 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
               </>
             ) : null}
             {inspectTab === "surface" ? (
-              props.renderSurface ? (
-                props.renderSurface(active)
+              surface != null && surface !== false ? (
+                surface
               ) : (
                 <div className="mu-empty mu-surface-empty">
                   <Mark kind="layers" />
                   <h3>No surface bound</h3>
                   <p>
-                    The catalogue does not fabricate a price, quote or
-                    volatility surface. A deployment can provide its existing
-                    surface renderer here.
+                    No volatility surface is connected for this instrument.
+                    Its identity and coverage remain available.
                   </p>
                   <button onClick={() => setInspectTab("coverage")}>
                     Inspect coverage →
@@ -1332,6 +1391,9 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
                 </div>
               )
             ) : null}
+            {props.renderRelated ? <section className="mu-related" aria-label="Related destinations">
+              <h3>Related destinations</h3>{props.renderRelated(active)}
+            </section> : null}
           </div>
           <footer>
             <span>
@@ -1359,6 +1421,8 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
           catalogueRevision={catalogueRevision}
           start={historyStart}
           end={historyEnd}
+          source={historySource}
+          dataset={historyDataset}
           onClose={() => setPlanning(false)}
           onDraft={(draft) => {
             props.onDraft?.(draft);
@@ -1388,6 +1452,8 @@ function BackfillComposer({
   catalogueRevision,
   start: initialStart,
   end: initialEnd,
+  source: initialSource,
+  dataset: initialDataset,
   onClose,
   onDraft,
 }: {
@@ -1397,16 +1463,19 @@ function BackfillComposer({
   catalogueRevision: string;
   start: string;
   end: string;
+  source: string;
+  dataset: string;
   onClose: () => void;
   onDraft: (draft: BackfillDraft) => void;
 }) {
+  const sourceListId = useId();
   const dialog = useRef<HTMLDialogElement>(null),
     [start, setStart] = useState(initialStart),
     [end, setEnd] = useState(initialEnd),
     [source, setSource] = useState(
-      coverage?.rows[0]?.source ?? "unbound-source",
+      initialSource,
     ),
-    [dataset, setDataset] = useState("volatility-surfaces"),
+    [dataset, setDataset] = useState(initialDataset || "volatility-surfaces"),
     [policy, setPolicy] = useState<BackfillDraft["policy"]>("full-window"),
     [reason, setReason] = useState(
       "Review historical coverage for the selected instruments",
@@ -1414,6 +1483,7 @@ function BackfillComposer({
     [error, setError] = useState(""),
     [draft, setDraft] = useState<BackfillDraft | null>(null);
   const byId = new Map(assets.map((a) => [a.assetId, a]));
+  const scopes = coverageScopes(coverage);
   useEffect(() => {
     const opener = document.activeElement as HTMLElement;
     dialog.current?.showModal();
@@ -1504,20 +1574,12 @@ function BackfillComposer({
         <div className="mu-plan-fields">
           <label>
             Source
-            <select
+            <input list={sourceListId} maxLength={180} placeholder="Enter a source identifier"
               aria-label="Draft source"
               value={source}
               onChange={(e) => setSource(e.target.value)}
-            >
-              {[
-                ...new Set([
-                  source,
-                  ...(coverage?.rows.map((r) => r.source) ?? []),
-                ]),
-              ].map((s) => (
-                <option key={s}>{s}</option>
-              ))}
-            </select>
+            />
+            <datalist id={sourceListId}>{[...new Set(scopes.map(s => s.source))].map(s => <option key={s} value={s}/>)}</datalist>
           </label>
           <label>
             Data product
@@ -1526,6 +1588,7 @@ function BackfillComposer({
               value={dataset}
               onChange={(e) => setDataset(e.target.value)}
             >
+              {[...new Set([dataset, ...scopes.map(s => s.dataset)].filter(p => !["volatility-surfaces", "quotes", "ohlcv"].includes(p)))].map(p => <option key={p}>{p}</option>)}
               <option value="volatility-surfaces">Volatility surfaces</option>
               <option value="quotes">Quotes</option>
               <option value="ohlcv">Price history</option>
@@ -1627,8 +1690,8 @@ function BackfillComposer({
               </p>
             ) : null}
             <small>
-              Catalogue {catalogueRevision.slice(0, 12)} · evidence:{" "}
-              {draft.evidence}
+              Catalogue {catalogueRevision.slice(0, 12)} · evidence: {draft.evidence}<br/>
+              {draft.source} · {draft.dataset} · as of {draft.evidenceAsOf || "unavailable"}
             </small>
           </section>
         ) : null}

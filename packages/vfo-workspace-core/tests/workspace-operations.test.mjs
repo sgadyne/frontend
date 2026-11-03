@@ -38,3 +38,11 @@ test('date and multi-year coverage handling does not silently clip requests to a
  const result=await domain.readWindow(client,'SPY','2024-01-01','2026-05-01',new AbortController().signal);
  assert.equal(result.start_date,'2024-01-01');assert.equal(result.end_date,'2026-05-01');assert.equal(calls.length,3);
 });
+
+test('full-history browsing retains incomplete evidence from earlier windows',async()=>{
+ const calls=[];const client={timeline:async(asset,start,end)=>{
+  calls.push([start,end]);return {asset,start_date:start,end_date:end,data_complete:true,index:{data_complete:calls.length!==1},generations:[],next_cursor:null};
+ }};
+ const result=await domain.readWindow(client,'SYNTHETIC','2024-01-01','2026-05-01',new AbortController().signal);
+ assert.equal(calls.length,3);assert.equal(result.data_complete,false);
+});

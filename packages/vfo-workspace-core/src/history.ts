@@ -44,7 +44,7 @@ export async function fullTimeline(client:CommandApi, asset:string, start:string
     const page=await client.timeline(asset,start,end,signal,cursor);
     if(page.start_date!==start||page.end_date!==end||first&&page.asset!==first.asset)throw Error('Historical coverage identity changed');
     first??=page; generations.push(...page.generations);
-    first={...first,data_complete:first.data_complete&&page.data_complete,index:page.index};
+    first={...first,data_complete:first.data_complete&&page.data_complete&&page.index.data_complete,index:page.index};
     if(!page.next_cursor)break;
     if(seen.has(page.next_cursor))throw Error('Historical coverage cursor repeated');
     seen.add(page.next_cursor); cursor=page.next_cursor;

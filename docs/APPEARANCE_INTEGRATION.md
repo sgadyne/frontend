@@ -24,7 +24,7 @@ The root frontend package ships all sibling source directories used by its expor
 
 ## Corporate component checkout
 
-This increment keeps the published beta.2 / 0.2.0-alpha.20261102.1 SDK cohort. It does not require an Engine update or data migration.
+The local integration now uses the published beta.3 / 0.2.0-alpha.20261102.5 SDK cohort. It does not require an Engine update or data migration.
 
     git fetch origin
     git switch feature/sampo-workspace-presentation
@@ -55,3 +55,7 @@ This checkpoint was exercised in Chromium on Linux with synthetic data. Real cor
 AG Grid Enterprise is not required by these screens; current table components use their existing renderers.
 
 VFO surface view is edge-to-edge inside the ticker sheet; scene controls float above the chart instead of a bordered chart card. Re-select a Glass preset to enable Full detail, or set Settings → Effects & accessibility → Detail to Full. Efficient/reduced-transparency preferences retain an opaque fallback. npm run test:optics checks actual lens attachment/cleanup and the edge-to-edge scene.
+
+## Observed-data composition
+
+The standard workspace factory now composes the catalogue workbench with caller-supplied live observations and retained-history readers. Static navigation is an optional field on WorkspaceSite; connections remain consumer-owned. Instrument inspection uses the existing native ticker tearsheet, while visible historical rows request complete date-window evidence on demand. Registered requests alone never establish recorded coverage or confirmed gaps. The standalone installed-app examples retain their explicit synthetic providers; they are not a fallback for a real deployment.
