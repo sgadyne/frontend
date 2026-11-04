@@ -456,7 +456,7 @@ Instrument types: Warrant: 60,483; Equity: 58,027; Bond: 48,260; ETF: 27,489; CB
 
 Artwork: 450 local SVG files (874,084 bytes); 4,536 records bound to authentic issuer/instrument artwork; 205,982 generated monograms; zero missing badges. Separate roles: underlying-country: 14; underlying-product: 21; category: 3; instrument-artwork: 517; fund-artwork: 10; monogram: 205,982; issuer-artwork: 891; fund-sponsor-artwork: 3,118; country-exposure: 19; ticker-tile: 1. Country/underlying/category/ticker tiles are not counted as authentic logos. Source copyright/trademark rights remain with their owners. See artwork.json and NOTICES.md.
 
-Transport: canonical JSON 92,118,041 bytes; compact JSON 24,266,081 bytes, gzip 4,230,022 bytes. Compact rows decode to the same listing identities; images remain separate emitted assets.
+Transport: canonical JSON 92,118,041 bytes; compact JSON 24,516,487 bytes, gzip 4,244,173 bytes. Compact rows decode to the same listing identities; images remain separate emitted assets.
 
 
 ### Artwork coverage by asset class and region
