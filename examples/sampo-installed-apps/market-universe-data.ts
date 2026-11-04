@@ -27,8 +27,8 @@ const files=artwork.files as Record<string,{role:string;authentic:boolean}>;
 export const marketAssets: Instrument[] = decodeMarketCatalogue(packed as PackedMarketCatalogue).map(a=>{
   const file=(a as Instrument & {logoFile?:string}).logoFile;
   const override=(artwork.overrides as Record<string,{role:string;label:string}>)[a.assetId];
-  return {...a,logo:file?logos.get(file):undefined,logoRole:override?.role??(file?files[file]?.role:undefined),
-    logoLabel:override?.label??(file?'Issuer / instrument artwork':'Generated monogram')};
+  return {...a,logo:file?logos.get(file):undefined,logoRole:override?.role??a.logoRole??(file?files[file]?.role:undefined),
+    logoLabel:override?.label??a.logoLabel??(file&&files[file]?.role==='fund-sponsor-artwork'?'Fund sponsor logo':file?'Issuer / instrument artwork':'Generated monogram')};
 });
 export const marketGroups = configuredGroups.groups as MarketGroup[];
 export const catalogueRevision = packed.revision;

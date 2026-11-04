@@ -15,6 +15,7 @@ export type Instrument = {
   metadataRetrievedAt?: string;
   logoRole?: string;
   logoLabel?: string;
+  artworkAssociation?: string;
   ticker: string;
   name: string;
   region?: string;
