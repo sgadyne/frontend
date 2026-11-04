@@ -454,9 +454,82 @@ Counts are deduplicated catalogue records by exact source MIC, not issuer domici
 
 Instrument types: Warrant: 60,483; Equity: 58,027; Bond: 48,260; ETF: 27,489; CBBC: 5,904; Fund: 2,933; Structured Finance Products: 1,782; ETN: 1,646; ETP: 935; ETC: 717; Preferred share: 482; Unspecified: 398; Depositary receipt: 329; Unit: 315; ADR: 294; Security: 221; Right: 141; Securitised derivatives: 139; Future: 38; REIT: 17; TDR: 10; Index: 6; OTHER: 4; Asset-backed security: 4; Other equity-like financial instruments: 2.
 
-Artwork: 162 local SVG files (506,324 bytes); 529 records bound to authentic issuer/instrument artwork; 209,989 generated monograms; zero missing badges. Separate roles: underlying-country: 14; underlying-product: 21; category: 3; instrument-artwork: 519; fund-artwork: 10; monogram: 209,989; country-exposure: 19; ticker-tile: 1. Country/underlying/category/ticker tiles are not counted as authentic logos. Source copyright/trademark rights remain with their owners. See artwork.json and NOTICES.md.
+Artwork: 450 local SVG files (874,084 bytes); 4,536 records bound to authentic issuer/instrument artwork; 205,982 generated monograms; zero missing badges. Separate roles: underlying-country: 14; underlying-product: 21; category: 3; instrument-artwork: 517; fund-artwork: 10; monogram: 205,982; issuer-artwork: 891; fund-sponsor-artwork: 3,118; country-exposure: 19; ticker-tile: 1. Country/underlying/category/ticker tiles are not counted as authentic logos. Source copyright/trademark rights remain with their owners. See artwork.json and NOTICES.md.
 
-Transport: canonical JSON 91,544,881 bytes; compact JSON 24,184,222 bytes, gzip 4,202,195 bytes. Compact rows decode to the same listing identities; images remain separate emitted assets.
+Transport: canonical JSON 92,118,041 bytes; compact JSON 24,266,081 bytes, gzip 4,230,022 bytes. Compact rows decode to the same listing identities; images remain separate emitted assets.
+
+
+### Artwork coverage by asset class and region
+
+| Asset class | Region | Catalogue records | Authentic artwork bindings | Direct issuer artwork bindings | Issuer identities with direct art |
+| --- | --- | ---: | ---: | ---: | ---: |
+| ADR | All regions | 294 | 0 | — | — |
+| ADR | Americas | 294 | 0 | — | — |
+| Asset-backed security | All regions | 4 | 0 | — | — |
+| Asset-backed security | Asia | 4 | 0 | — | — |
+| Bond | All regions | 48,260 | 0 | — | — |
+| Bond | Americas | 161 | 0 | — | — |
+| Bond | Asia | 1,320 | 0 | — | — |
+| Bond | Europe | 46,779 | 0 | — | — |
+| CBBC | All regions | 5,904 | 0 | — | — |
+| CBBC | Asia | 5,904 | 0 | — | — |
+| Depositary receipt | All regions | 329 | 0 | — | — |
+| Depositary receipt | Americas | 12 | 0 | — | — |
+| Depositary receipt | Asia | 120 | 0 | — | — |
+| Depositary receipt | Europe | 197 | 0 | — | — |
+| ETC | All regions | 717 | 13 | — | — |
+| ETC | Europe | 717 | 13 | — | — |
+| ETF | All regions | 27,489 | 3,107 | — | — |
+| ETF | Americas | 5,775 | 465 | — | — |
+| ETF | Asia | 4,975 | 61 | — | — |
+| ETF | Europe | 16,739 | 2,581 | — | — |
+| ETN | All regions | 1,646 | 3 | — | — |
+| ETN | Asia | 20 | 0 | — | — |
+| ETN | Europe | 1,626 | 3 | — | — |
+| ETP | All regions | 935 | 5 | — | — |
+| ETP | Asia | 935 | 5 | — | — |
+| Equity | All regions | 58,027 | 1,406 | 891 | 645 |
+| Equity | Americas | 5,428 | 130 | 119 | 117 |
+| Equity | Asia | 27,300 | 179 | 122 | 109 |
+| Equity | Europe | 25,293 | 1,097 | 650 | 419 |
+| Fund | All regions | 2,933 | 0 | — | — |
+| Fund | Asia | 641 | 0 | — | — |
+| Fund | Europe | 2,292 | 0 | — | — |
+| Future | All regions | 38 | 0 | — | — |
+| Future | Americas | 38 | 0 | — | — |
+| Index | All regions | 6 | 2 | — | — |
+| Index | Americas | 2 | 1 | — | — |
+| Index | Asia | 1 | 1 | — | — |
+| Index | Europe | 3 | 0 | — | — |
+| OTHER | All regions | 4 | 0 | — | — |
+| OTHER | Europe | 4 | 0 | — | — |
+| Other equity-like financial instruments | All regions | 2 | 0 | — | — |
+| Other equity-like financial instruments | Europe | 2 | 0 | — | — |
+| Preferred share | All regions | 482 | 0 | — | — |
+| Preferred share | Americas | 454 | 0 | — | — |
+| Preferred share | Asia | 28 | 0 | — | — |
+| REIT | All regions | 17 | 0 | — | — |
+| REIT | Asia | 17 | 0 | — | — |
+| Right | All regions | 141 | 0 | — | — |
+| Right | Americas | 141 | 0 | — | — |
+| Securitised derivatives | All regions | 139 | 0 | — | — |
+| Securitised derivatives | Europe | 139 | 0 | — | — |
+| Security | All regions | 221 | 0 | — | — |
+| Security | Americas | 221 | 0 | — | — |
+| Structured Finance Products | All regions | 1,782 | 0 | — | — |
+| Structured Finance Products | Europe | 1,782 | 0 | — | — |
+| TDR | All regions | 10 | 0 | — | — |
+| TDR | Asia | 10 | 0 | — | — |
+| Unit | All regions | 315 | 0 | — | — |
+| Unit | Americas | 315 | 0 | — | — |
+| Unspecified | All regions | 398 | 0 | — | — |
+| Unspecified | Asia | 398 | 0 | — | — |
+| Warrant | All regions | 60,483 | 0 | — | — |
+| Warrant | Americas | 457 | 0 | — | — |
+| Warrant | Asia | 60,025 | 0 | — | — |
+| Warrant | Europe | 1 | 0 | — | — |
+
+US official Equity artwork: 129 / 5,409 total authentic listings (119 direct issuer art across 117 issuer identities; 10 instrument-art rows). US ETF artwork: 2 product marks and 463 sponsor marks / 5,775 listings.
 
 ## Remaining source queue
 
