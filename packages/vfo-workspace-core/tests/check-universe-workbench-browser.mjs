@@ -21,6 +21,7 @@ try{
  const restore=()=>page.getByRole('button',{name:'Restore instrument',exact:true}).click();
  const nav=app.getByRole('complementary',{name:'Market navigation'});
  assert.match(await app.locator('.mu-results-heading').innerText(),total);
+ await search.fill('IWM');const sponsor=app.locator('.mu-instrument').filter({has:page.getByText('IWM',{exact:true})}).first();await sponsor.waitFor();assert.match(await sponsor.locator('.mu-badge').getAttribute('title'),/sponsor/i);await sponsor.locator('img').waitFor();await page.waitForFunction(()=>[...document.querySelectorAll('.mu-instrument')].find(row=>row.querySelector('b')?.textContent==='IWM')?.querySelector('img')?.naturalWidth>0);await reset();checks.push('packed sponsor artwork remains locally served and explicitly labelled');
  await nav.getByRole('button',{name:/^Europe /}).click();assert.match(await app.locator('.mu-results-heading').innerText(),europe);
  await search.fill('ASML');await app.locator('.mu-instrument').filter({hasText:'ASML-NA'}).click();
  await app.getByRole('button',{name:'Surface',exact:true}).click();await app.getByRole('heading',{name:'No surface bound'}).waitFor();
