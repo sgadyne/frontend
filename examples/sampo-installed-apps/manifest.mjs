@@ -3,7 +3,7 @@ import {copyFile,readFile,readdir,writeFile} from 'node:fs/promises';
 import {join,relative,sep,resolve} from 'node:path';
 import {SDK_VERSION,REACT_VERSION,validateLinkedDescriptor} from '@sampo/contracts';
 import {createAppDescriptor} from './linked-descriptors.mjs';
-const name=process.argv[2];const names={risk:'risk-lens',vfo:'vfo',cluster:'cluster',replication:'replication'};if(!names[name])throw Error('Select risk, vfo, cluster or replication');const root='dist-'+name,cohort='0.2.0-alpha.20261102.5';
+const name=process.argv[2],version=process.argv[3]??'1.2.1';if(!/^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)$/.test(version))throw Error('Select an unused major.minor.patch release version');const names={risk:'risk-lens',vfo:'vfo',cluster:'cluster',replication:'replication'};if(!names[name])throw Error('Select risk, vfo, cluster or replication');const root=process.argv[4]??'dist-'+name,cohort='0.2.0-alpha.20261102.5';
 if(SDK_VERSION!==cohort)throw Error('Install the exact linked SDK cohort '+cohort);
 await readFile(join(root,'entry.mjs')); await Promise.all(['LICENSE','NOTICE'].map(name=>copyFile(name,join(root,name))));
 const contributions=JSON.parse(await readFile('contributions.json','utf8')).filter(c=>c.id==='example.'+names[name]+'.main');
@@ -28,5 +28,5 @@ for(const dependency of packages){
 await writeFile(join(root,'THIRD-PARTY-NOTICES.txt'),(notices.length?notices.join('\n\n'):'No third-party implementation packages are bundled in this app. React and the Sampo SDK are provided by the host. See MARKET-UNIVERSE-NOTICE.md where supplied for metadata and artwork provenance.')+'\n');
 async function collect(dir){const files=[];for(const e of await readdir(dir,{withFileTypes:true})){const p=join(dir,e.name);if(e.isDirectory())files.push(...await collect(p));else if(e.isFile()&&e.name!=='manifest.json')files.push(p);else if(!e.isFile())throw Error('Only regular build assets are allowed');}return files;}
 const assets=await Promise.all((await collect(root)).sort().map(async file=>{const bytes=await readFile(file);return {path:relative(root,file).split(sep).join('/'),size:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')};}));
-const manifest={schemaVersion:3,id:linked.applicationId,version:'1.2.1',publisher:'sampo.synthetic',license:'UNLICENSED',runtime:{kind:'trusted-react-esm',abi:1,sdk:cohort,react:REACT_VERSION,peers:{react:REACT_VERSION,'react-dom':REACT_VERSION,'@sampo/contracts':cohort,'@sampo/sdk-react':cohort}},entry:'entry.mjs',styles:assets.filter(a=>a.path.endsWith('.css')).map(a=>a.path),assets,contributions,capabilities:[],linked:'linked.json'};
+const manifest={schemaVersion:3,id:linked.applicationId,version,publisher:'sampo.synthetic',license:'UNLICENSED',runtime:{kind:'trusted-react-esm',abi:1,sdk:cohort,react:REACT_VERSION,peers:{react:REACT_VERSION,'react-dom':REACT_VERSION,'@sampo/contracts':cohort,'@sampo/sdk-react':cohort}},entry:'entry.mjs',styles:assets.filter(a=>a.path.endsWith('.css')).map(a=>a.path),assets,contributions,capabilities:[],linked:'linked.json'};
 await writeFile(join(root,'manifest.json'),JSON.stringify(manifest,null,2)+'\n');

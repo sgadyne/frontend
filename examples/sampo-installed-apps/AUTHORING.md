@@ -47,3 +47,5 @@ node examples/sampo-installed-apps/build.mjs
 ```
 
 `scripts/check-app-links.mjs` is the real-host journey harness. Supply `SAMPO_URL`, a private `SAMPO_STORAGE_STATE`, `SAMPO_WORKSPACE`, the explicitly selected `SAMPO_VFO_RELEASE` digest, and a canonical `SAMPO_INSTRUMENT_ID`. Optional `CHROMIUM_PATH` and `REVIEW_DIR` control local execution. `SAMPO_RESTRICTED_STORAGE_STATE` enables a second-account denial check. The harness changes only the review browser's personal draft and never Saves or submits a job. Keep auth files and screenshots/receipts in ignored review storage. Missing second-account evidence is reported as unqualified; synthetic SDK tests are not evidence of live ACL enforcement.
+
+For a new immutable release from reviewed built assets, pass an explicit unused version and a separate output directory: `node manifest.mjs vfo 1.2.2 /absolute/new/reviewed-output`. The ordinary fixture default remains 1.2.1. Verify that every asset hash matches the reviewed candidate before packing; a changed digest must not replace already published bytes under the same version. App versions and the pinned SDK cohort are independent.
