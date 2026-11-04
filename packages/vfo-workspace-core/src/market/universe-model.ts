@@ -251,6 +251,7 @@ function instrumentSearchText(asset: Instrument) {
 }
 const fundTypes = new Set(["ETF", "ETP", "ETC", "ETN", "Fund", "REIT"]);
 const equityTypes = new Set(["Equity", "ADR", "TDR", "Depositary receipt", "Preferred share"]);
+const equityEtfTypes = new Set(["Equity", "ADR", "TDR", "Depositary receipt", "REIT", "ETF"]);
 export function filterInstruments(
   assets: readonly Instrument[],
   groups: readonly MarketGroup[],
@@ -280,9 +281,11 @@ export function filterInstruments(
       (!regionIds || regionIds.has(a.assetId)) &&
       (!members || members.has(a.assetId)) &&
       (!filters.type ||
-        (filters.type === "funds"
-          ? fundTypes.has(a.instrumentType ?? "")
-          : equityTypes.has(a.instrumentType ?? ""))) &&
+        (filters.type === "equities-etfs"
+          ? equityEtfTypes.has(a.instrumentType ?? "")
+          : filters.type === "funds"
+            ? fundTypes.has(a.instrumentType ?? "")
+            : equityTypes.has(a.instrumentType ?? ""))) &&
       (!filters.watchlistOnly || watchlist.has(a.assetId)) &&
       (!filters.coverage ||
         (filters.coverage === "attention"

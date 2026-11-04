@@ -11,7 +11,7 @@ export function restoreVfoState(value:unknown,selection:unknown,ids:ReadonlySet<
   const state=checked<Partial<MarketUniverseState>&{focused?:string}>(value,vfoStateSchema);
   const route=checked<{view?:MarketUniverseState['view'];instrumentId?:string}>(selection,vfoSelectionSchema);
   if(Object.hasOwn(route,'instrumentId')&&!ids.has(route.instrumentId!))throw Error('Destination unavailable');
-  return {...state,version:1,view:state.view??route.view??'universe',filters:{...emptyMarketFilters,...state.filters},
+  return {...state,version:1,view:state.view??route.view??'universe',filters:{...emptyMarketFilters,type:"equities-etfs",...state.filters},
     watchlist:[...new Set(state.watchlist??[])].filter(id=>ids.has(id)),selected:[...new Set(state.selected??[])].filter(id=>ids.has(id)),
     ...((state.focused!==undefined||route.instrumentId)?{focused:state.focused!==undefined?(ids.has(state.focused)?state.focused:''):route.instrumentId??''}:{})};
 }

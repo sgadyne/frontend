@@ -51,7 +51,7 @@ export function normalizeMarketState(value: unknown, catalogue: Catalogue): Requ
       query: string(f.query, 160),
       region: catalogue.navigation.regions.some(r => r.id === f.region) ? string(f.region) : "",
       group: catalogue.groups.some(g => g.id === f.group) || catalogue.navigation.collections.some(c => c.id === f.group) ? string(f.group) : "",
-      type: choice(f.type, ["", "funds", "equities"], ""),
+      type: choice(f.type, ["", "funds", "equities", "equities-etfs"], ""),
       coverage: choice(f.coverage, ["", "attention", "ready", "stale", "partial", "missing", "failed", "unknown", "not-connected"], ""),
       watchlistOnly: f.watchlistOnly === true,
     },

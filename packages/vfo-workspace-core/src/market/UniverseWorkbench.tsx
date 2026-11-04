@@ -296,7 +296,7 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
     setFilters((old) => ({ ...old, [key]: value }));
   }
   function chooseRegion(id: string) {
-    update({ filters: { ...emptyMarketFilters, region: id }, source: "", dataset: "", focused: "", page: 0 });
+    update({ filters: { ...emptyMarketFilters, type: filters.type, region: id }, source: "", dataset: "", focused: "", page: 0 });
   }
   function chooseGroup(id: string) {
     setFilters((old) => ({
@@ -727,9 +727,10 @@ export function MarketUniverseWorkbench(props: MarketUniverseProps) {
               value={filters.type}
               onChange={(e) => field("type", e.target.value)}
             >
-              <option value="">All instruments</option>
-              <option value="equities">Other instruments</option>
-              <option value="funds">ETFs</option>
+              <option value="equities-etfs">Equities &amp; ETFs</option>
+              <option value="equities">Equities &amp; preferred shares</option>
+              <option value="funds">Funds &amp; exchange-traded products</option>
+              <option value="">All instruments (including debt &amp; warrants)</option>
             </select>
             <select
               aria-label="Surface coverage filter"

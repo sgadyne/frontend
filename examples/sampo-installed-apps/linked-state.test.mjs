@@ -75,3 +75,10 @@ test('Replication preserves recognized report/view, filters and snapshot, reject
  assert.throws(()=>restoreReplicationState({}, {reportId:'not-authorized'},definitions),/unavailable/);
  assert.throws(()=>restoreReplicationState({}, {reportId:'report',viewId:'nonexistent'},definitions),/unavailable/);
 });
+
+test('new VFO opens equities and ETFs while explicit saved all-instrument scope is preserved',()=>{
+ assert.equal(restoreVfoState(undefined,{},ids).filters.type,'equities-etfs');
+ assert.equal(restoreVfoState({filters:{type:''}},{},ids).filters.type,'');
+ const state=restoreVfoState(undefined,{},ids);
+ assert.equal(restoreVfoState(portableVfoState(state),{},ids).filters.type,'equities-etfs');
+});

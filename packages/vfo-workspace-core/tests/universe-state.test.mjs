@@ -35,3 +35,8 @@ test("history pagination reaches the tail of a full regional inventory", () => {
   assert.equal(state.page,11698);
   assert.equal(normalizeMarketState({view:'history',page:1e9},large).page,Math.ceil(large.assets.length/18)-1);
 });
+
+test("equity and ETF scope survives state normalization and explicit all remains all", () => {
+  assert.equal(normalizeMarketState({filters:{type:"equities-etfs"}},catalogue).filters.type,"equities-etfs");
+  assert.equal(normalizeMarketState({filters:{type:""}},catalogue).filters.type,"");
+});

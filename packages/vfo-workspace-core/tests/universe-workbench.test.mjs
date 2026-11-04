@@ -226,3 +226,11 @@ test("draft exports explicit provenance, rejects unsupported policy, and bucket 
   const windows = weeklyWindows("9998-01-01", "9999-12-31");
   assert.equal(windows.at(-1).end, "9999-12-31"); assert.ok(windows.length <= 26);
 });
+
+test("equity and ETF scope excludes debt, warrants and unknown classifications without hiding them from all",()=>{
+ const types=["Equity","ETF","ADR","TDR","Depositary receipt","REIT","Bond","Warrant","Unknown","Preferred share","ETN"];
+ const assets=types.map((instrumentType,i)=>({assetId:String(i),ticker:String(i),name:instrumentType,instrumentType}));
+ const select=type=>filterInstruments(assets,[],{regions:[],collections:[]},{...emptyMarketFilters,type},new Map(),new Set()).map(a=>a.instrumentType);
+ assert.deepEqual(select("equities-etfs"),types.slice(0,6));
+ assert.deepEqual(select(""),types);
+});
